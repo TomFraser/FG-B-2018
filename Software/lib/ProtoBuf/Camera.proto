@@ -1,0 +1,15 @@
+//Protobuf to used to hold and transfer all robot information
+
+syntax = "proto3"
+
+message CameraData {
+    int32 tsopdata = 0;
+    int32 rotationData = 0;
+    int32 compassData = 0;
+    int32 goalAttackAngle = 0;
+    int32 goalAttackSize = 0;
+    int32 goalDefendAngle = 0;
+    int32 goalDefendSize = 0;
+    int32 rawBallData = 0;
+    int32 ballStrength = 0;
+}
