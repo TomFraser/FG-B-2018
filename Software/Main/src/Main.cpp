@@ -1,4 +1,10 @@
 #include <CameraWrapper.h>
+#include <MotorDriver.h>
+#include <Config.h>
+#include <Common.h>
+#include <Orbit.h>
+#include <I2CWrapper.h>
+#include <IMU.h>
 
 void setup(){
     pinMode(13, OUTPUT);

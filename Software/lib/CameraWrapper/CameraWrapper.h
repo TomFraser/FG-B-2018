@@ -11,8 +11,8 @@ public:
     Camera();
     void initSPI();
     bool getCamData();
-    
-    int angle, rawAngle, strength, _aSize, _aAngle, _dSize, _dAngle;
+
+    int rawAngle, strength, _aSize, _aAngle, _dSize, _dAngle;
 private:
     uint16_t tempCamData[CAM_TRANSFER_NUM];
 };
