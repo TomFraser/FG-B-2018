@@ -5,6 +5,7 @@
 #include <Orbit.h>
 #include <I2CWrapper.h>
 #include <IMU.h>
+#include <PID.h>
 
 void setup(){
     pinMode(13, OUTPUT);
@@ -32,5 +33,5 @@ void loop(){
 
     // TODO:
     //
-    // Write camera data transfer library 
+    // Write camera data transfer library
 }
