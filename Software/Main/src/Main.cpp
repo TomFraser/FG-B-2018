@@ -32,5 +32,5 @@ void loop(){
 
     // TODO:
     //
-    // Write camera data transfer library
+    // Write camera data transfer library 
 }
