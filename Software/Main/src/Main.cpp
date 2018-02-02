@@ -5,7 +5,7 @@
 #include <Orbit.h>
 #include <I2CWrapper.h>
 #include <IMU.h>
-#include <PID.h>
+#include <RotationWrapper.h>
 
 void setup(){
     pinMode(13, OUTPUT);
