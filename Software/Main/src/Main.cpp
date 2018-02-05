@@ -6,6 +6,7 @@
 #include <I2CWrapper.h>
 #include <IMU.h>
 #include <RotationWrapper.h>
+#include <BallManager.h>
 
 void setup(){
     pinMode(13, OUTPUT);

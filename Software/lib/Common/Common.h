@@ -2,6 +2,7 @@
 #define Common_h
 
 #include <Arduino.h>
+#include <Config.h>
 
 
 ulong initTime;
@@ -42,5 +43,20 @@ void blink(){
         }
     }
 }
+
+bool lightGateTriggered(){
+    if(analogRead(LIGHTGATE_PIN) >= LIGHTGATE_THRESHOLD){
+        return true;
+    }
+    return false;
+}
+
+enum solenoidMode {
+    noSpeed,
+    lowSpeed,
+    highSpeed,
+    hasBall,
+    canKick,
+};
 
 #endif
