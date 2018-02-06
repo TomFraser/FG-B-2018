@@ -25,5 +25,6 @@ void BallManager::kickBall(){
         digitalWrite(KICKER_PIN, HIGH);
         delay(20);
         digitalWrite(KICKER_PIN, LOW);
+        timeSinceKick.reset();
     }
 }
