@@ -9,7 +9,7 @@ class ECUDriver {
 public:
     ECUDriver(int pin);
     void setSpeed(int speed);
-    // void setECUOption(ECUDriverOption option);
+    /* void setECUOption(ECUDriverOption option); */
 private:
     Servo motor;
 

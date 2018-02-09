@@ -9,7 +9,7 @@ ulong initTime;
 int led;
 
 bool isFrontal(int angle){
-    // Is the given angle within a small rangle
+    /* Is the given angle within a small rangle */
     if(angle <= 15 || angle >= 345){
         return true;
     }
@@ -17,7 +17,7 @@ bool isFrontal(int angle){
 }
 
 bool isFrontalLarge(int angle){
-    // Is the given angle within a large rangle
+    /* Is the given angle within a large rangle */
     if(angle <= 60 || angle >= 300){
         return true;
     }
@@ -25,12 +25,12 @@ bool isFrontalLarge(int angle){
 }
 
 double doubleMod(double value, double maxVal){
-    // Modulus for doubles
+    /* Modulus for doubles */
     return fmod((value + maxVal), maxVal);
 }
 
 void blink(){
-    // Blink the pin 13 LED
+    /* Blink the pin 13 LED */
     if(millis() > initTime + 1000 && DEBUG){
         if(led == 0){
             digitalWrite(13, HIGH);

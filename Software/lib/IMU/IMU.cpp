@@ -1,6 +1,7 @@
 #include <IMU.h>
 
 void IMU::init(){
+    /* Init and write to the buffers */
     I2C.write(IMU_ADDRESS, 29, 0x06);
     I2C.write(IMU_ADDRESS, 26, 0x06);
     I2C.write(IMU_ADDRESS, 27, GYRO_FULL_SCALE_2000_DPS);
@@ -10,6 +11,7 @@ void IMU::init(){
 }
 
 double IMU::calibrate(){
+    /* Calibrate the sensor at the begining of the program */
     read();
     delay(IMU_CALIBRATION);
     double reading = 0;
@@ -21,6 +23,7 @@ double IMU::calibrate(){
 }
 
 double IMU::read(){
+    /* Read the compass sensor */
     uint8_t buffer[2];
     I2C.read(IMU_ADDRESS, 0x47, 2, buffer);
     uint16_t gz = buffer[0] << 8 | buffer[1];
@@ -28,6 +31,7 @@ double IMU::read(){
 }
 
 void IMU::update(){
+    /* Calculate the heading */
     double reading = (double) read();
     currentTime = micros();
     heading += (4*((double)(currentTime - prevTime) / 1000000.0) * (reading - calibration));
@@ -36,5 +40,6 @@ void IMU::update(){
 }
 
 double IMU::getHeading(){
+    /* Return the current heading */
     return heading > 180 ? (heading - 360) : heading;
 }

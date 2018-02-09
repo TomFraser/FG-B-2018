@@ -1,7 +1,7 @@
 #include <RotationWrapper.h>
 
 void RotationWrapper::calculateRotation(double rotation, double goal, double goalSize){
-    // Calculate the rotation from both camera and IMU
+    /* Calculate the rotation from both camera and IMU */
     compassHeading = IMUController.update(rotation, 0.00, 0.00);
     compassHeading = compassHeading * IMU_MULTI;
 
@@ -17,6 +17,6 @@ void RotationWrapper::calculateRotation(double rotation, double goal, double goa
 }
 
 double RotationWrapper::getRotation(){
-    // Getter for rotation
+    /* Getter for rotation */
     return gyration;
 }

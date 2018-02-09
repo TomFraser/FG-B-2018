@@ -8,7 +8,7 @@
 class BallManager {
 public:
     BallManager();
-    // TODO More here
+    /* TODO More here */
     bool controlBall(double ballConfidence);
     void kickBall();
 private:

@@ -1,5 +1,5 @@
 double orbitSimple(int angle){
-    // Simple orbit from last year for testing
+    /* Simple orbit from last year for testing */
     if(angle == -1){
         return -1.00;
     }else if(isFrontalLarge(angle)){

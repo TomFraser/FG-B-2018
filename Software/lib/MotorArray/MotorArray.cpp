@@ -1,7 +1,7 @@
 #include <MotorArray.h>
 
 MotorArray::MotorArray(MotorDriver a, MotorDriver b, MotorDriver c, MotorDriver d){
-    //Motor Array Constructor
+    /* Motor Array Constructor */
     MotorDriver motorA = a;
     MotorDriver motorB = b;
     MotorDriver motorC = c;
@@ -9,7 +9,7 @@ MotorArray::MotorArray(MotorDriver a, MotorDriver b, MotorDriver c, MotorDriver 
 }
 
 MotorArray::move(double angle, double rotation, int speed, bool boost){
-    // Calculate motor pwm values to move the robot on a certain angle
+    /* Calculate motor pwm values to move the robot on a certain angle */
     for(int i = 0; i < 4; i++){
         motorSpeeds[i] = (cos(((motorAngles[i] + 90 - angle) * angToRad)));
     }

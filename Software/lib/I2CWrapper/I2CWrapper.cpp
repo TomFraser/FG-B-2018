@@ -5,7 +5,7 @@ I2CWrapper::I2CWrapper(){
 }
 
 void I2CWrapper::read(uint8_t address, uint8_t _register, uint8_t Nbytes, uint8_t* data){
-    // Read data via I2C from a certain address
+    /* Read data via I2C from a certain address */
     Wire.beginTransmission(address);
     Wire.write(_register);
     Wire.endTransmission();
@@ -19,7 +19,7 @@ void I2CWrapper::read(uint8_t address, uint8_t _register, uint8_t Nbytes, uint8_
 }
 
 void I2CWrapper::write(uint8_t address, uint8_t _register, uint8_t data){
-    // Write to a register address over I2C
+    /* Write to a register address over I2C */
     Wire.beginTransmission(address);
     Wire.write(_register);
     Wire.write(data);
