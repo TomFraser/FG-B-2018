@@ -53,4 +53,6 @@ void LIDAR::read(){
         values[3] = sensorData[2] << + sensorData[3];
         strengths[3] = sensorData[4] << + sensorData[5];
     }
+
+
 }

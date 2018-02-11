@@ -21,13 +21,13 @@ ISR(SPI_STC_vect){
     int data = -1;
     switch(command){
         case 1:
-            data = values[0];
+            data = lidar.values[0];
         case 2:
-            data = values[1];
+            data = lidar.values[1];
         case 3:
-            data = values[2];
+            data = lidar.values[2];
         case 4:
-            data = values[3];
+            data = lidar.values[3];
     }
     SPDR = data;
     while (!(SPSR & (1<<SPIF))){
