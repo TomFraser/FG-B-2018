@@ -6,7 +6,6 @@
 #include <IMU.h>
 #include <RotationWrapper.h>
 #include <BallManager.h>
-#include <CoordCalc.h>
 
 /* NOTE Constructors are called in the .cpp file for each class */
 

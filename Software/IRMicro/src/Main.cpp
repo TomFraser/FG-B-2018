@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <SPI.h>
+#include <LIDARWrapper.h>
 
 volatile byte pos;
 volatile bool process;
@@ -12,12 +13,22 @@ void setup(){
 }
 
 void loop(){
-    digitalWrite(13, HIGH);
+    lidar.read();
 }
 
 ISR(SPI_STC_vect){
-    int c = SPDR;
-    int data = 3;
+    int command = SPDR;
+    int data = -1;
+    switch(command){
+        case 1:
+            data = values[0];
+        case 2:
+            data = values[1];
+        case 3:
+            data = values[2];
+        case 4:
+            data = values[3];
+    }
     SPDR = data;
     while (!(SPSR & (1<<SPIF))){
     };
