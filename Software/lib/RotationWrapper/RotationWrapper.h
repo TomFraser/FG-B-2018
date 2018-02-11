@@ -3,7 +3,6 @@
 
 #include <Arduino.h>
 #include <Math.h>
-#include <Config.h>
 #include <Common.h>
 #include <PID.h>
 

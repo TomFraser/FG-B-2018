@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include <ECUDriver.h>
 #include <Timer.h>
+#include <Enum.h>
 
 class BallManager {
 public:

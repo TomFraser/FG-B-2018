@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include <Wire.h>
-#include <Config.h>
+#include <Common.h>
 
 
 class I2CWrapper {
@@ -14,5 +14,6 @@ public:
 private:
 
 };
+
 
 #endif

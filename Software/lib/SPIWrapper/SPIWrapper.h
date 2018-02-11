@@ -1,26 +1,23 @@
 #ifndef SPIWrapper_h
 #define SPIWrapper_h
 
+#include <Common.h>
+#include <Arduino.h>
 #include <SPI.h>
-#include <t3spi.h>
-
-enum SPIDevice {
-    CortexM4,
-    ATMega328P
-};
 
 class SPIWrapper {
 public:
-    SPIWrapper(SPIDevice device){};
+    SPIWrapper();
+    void initSPI();
+    bool getCamData();
+    bool getIRData();
 
-    void beginSlave();
-    void beginMaster();
-
-    uint8_t sendData(uint8_t data);
-    uint8_t recieveData(uint8_t data);
+    int rawAngle, strength, _aSize, _aAngle, _dSize, _dAngle;
+    double frontIR, rightIR, backIR, leftIR;
 private:
-    SPIDevice _device;
-
+    uint16_t tempCamData[CAM_TRANSFER_NUM];
+    uint16_t tempIRData[IR_TRANSFER_NUM];
 };
+
 
 #endif

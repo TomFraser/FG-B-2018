@@ -2,8 +2,6 @@
 #define IMU_h
 
 #include <Arduino.h>
-#include <Config.h>
-#include <Common.h>
 #include <I2CWrapper.h>
 
 class IMU {
@@ -17,10 +15,13 @@ public:
 private:
     long currentTime, prevTime;
     double calibration, heading;
-    double convertRawGyro(uint16_t raw);
+    double convertRawGyro(int16_t raw) {
+        return (raw * 500.0) / 32768.0;
+    }
     I2CWrapper I2C = I2CWrapper();
 
 
 };
+
 
 #endif

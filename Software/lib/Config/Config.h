@@ -1,8 +1,12 @@
 #define DEBUG false
 
 #define CAM_SS 16
+#define IR_SS 15
 #define ALT_SCK 14
 #define CAM_TRANSFER_NUM 6
+#define IR_TRANSFER_NUM 4
+
+#define FORWARD_SPEED 100
 
 #define angToRad 0.01745329251
 #define radToAng 57.2957795131

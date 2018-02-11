@@ -3,16 +3,22 @@
 
 #include <Arduino.h>
 #include <MotorDriver.h>
-#include <Config.h>
 #include <Common.h>
 
 class MotorArray {
 public:
-    MotorArray(MotorDriver a, MotorDriver b, MotorDriver c, MotorDriver d);
+    MotorArray();
     void move(double angle, double rotation, int speed, bool boost);
 private:
     int motorAngles[4] = {60, 135, 225, 300};
     double motorSpeeds[4];
+    double doubleAbs(double value);
+
+    MotorDriver motorA = MotorDriver(0,0,0,0);
+    MotorDriver motorB = MotorDriver(0,0,0,0);
+    MotorDriver motorC = MotorDriver(0,0,0,0);
+    MotorDriver motorD = MotorDriver(0,0,0,0);
 };
+
 
 #endif
