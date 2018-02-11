@@ -17,4 +17,6 @@ private:
     PID goalController = PID(0.00, 0.00, 0.00, 0.00);
 };
 
+extern RotationWrapper rotation;
+
 #endif

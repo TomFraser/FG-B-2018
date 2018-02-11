@@ -1,5 +1,7 @@
 #include <SPIWrapper.h>
 
+SPIWrapper spi = SPIWrapper();
+
 SPIWrapper::SPIWrapper(){
     /* Declarations */
 }

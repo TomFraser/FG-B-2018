@@ -15,5 +15,7 @@ private:
 
 };
 
+extern I2CWrapper i2c;
+
 
 #endif

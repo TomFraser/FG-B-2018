@@ -6,23 +6,24 @@
 #include <IMU.h>
 #include <RotationWrapper.h>
 #include <BallManager.h>
-#include <SPI.h>
+#include <CoordCalc.h>
 
-MotorArray motors = MotorArray();
-SPIWrapper spi = SPIWrapper();
-I2CWrapper i2c = I2CWrapper();
-IMU imu = IMU();
+/* NOTE Constructors are called in the .cpp file for each class */
 
 void setup(){
-    /* Setups */
+    /* Init SPI */
     spi.initSPI();
+    /* Init IMU */
     imu.init();
+    /* Calibrate IMU for drift etc. */
     imu.calibrate();
 }
 
 void loop(){
-    /* Update Data Data */
+    /* Get OpenMV7 Data */
     spi.getCamData();
+    /* Get IR Data from ATMega */
     spi.getIRData();
+    /* Update IMU */
     imu.update();
 }

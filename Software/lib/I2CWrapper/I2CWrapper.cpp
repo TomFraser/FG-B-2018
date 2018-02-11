@@ -1,5 +1,7 @@
 #include <I2CWrapper.h>
 
+I2CWrapper i2c = I2CWrapper();
+
 I2CWrapper::I2CWrapper(){
     Wire.begin();
 }

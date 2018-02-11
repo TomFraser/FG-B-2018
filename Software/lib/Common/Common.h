@@ -19,4 +19,8 @@ void blink();
 
 bool lightGateTriggered();
 
+double fromFront(double angle);
+
+double calculateBallConfidence(double strength, double angle);
+
 #endif

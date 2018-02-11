@@ -28,3 +28,9 @@
 #define KICKER_PIN 0
 #define MIN_BALL_CONFIDENCE 0
 #define BALL_CONFIDENCE 2
+
+/* Coord Calc */
+#define ATTACK_GOAL_Y 0
+#define ATTACK_GOAL_X 0
+#define DEFENSE_GOAL_Y 0
+#define DEFENSE_GOAL_X 0

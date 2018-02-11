@@ -1,5 +1,7 @@
 #include <MotorArray.h>
 
+MotorArray motors = MotorArray();
+
 MotorArray::MotorArray(){
     /* Motor Array Constructor */
 }

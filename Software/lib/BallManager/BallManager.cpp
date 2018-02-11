@@ -18,7 +18,7 @@ bool BallManager::controlBall(double ballConfidence){
             mode = solenoidMode::canKick;
         }
     }
-    return true //Remove
+    return true; //Remove
 }
 
 void BallManager::kickBall(){

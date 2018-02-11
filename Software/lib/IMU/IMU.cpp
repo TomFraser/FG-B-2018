@@ -1,5 +1,7 @@
 #include <IMU.h>
 
+IMU imu = IMU();
+
 void IMU::init(){
     /* Init and write to the buffers */
     I2C.write(IMU_ADDRESS, 29, 0x06);

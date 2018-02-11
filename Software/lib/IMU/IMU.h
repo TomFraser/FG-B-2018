@@ -19,9 +19,10 @@ private:
         return (raw * 500.0) / 32768.0;
     }
     I2CWrapper I2C = I2CWrapper();
-
-
 };
+
+extern IMU imu;
+
 
 
 #endif

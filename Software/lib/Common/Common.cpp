@@ -39,8 +39,20 @@ void blink(){
 }
 
 bool lightGateTriggered(){
+    /* Check if the lightgate is triggered */
     if(analogRead(LIGHTGATE_PIN) >= LIGHTGATE_THRESHOLD){
         return true;
     }
     return false;
+}
+
+double fromFront(double angle){
+    /* Calulate and angle from the front of the robot based on a 0-360 angle */
+    angle = angle == 0 ? 1 : angle;
+    return angle < 180.0 ? (angle) : (360.0 - angle);
+}
+
+double calculateBallConfidence(double strength, double angle){
+    /* Calculate ball confidence */
+    double confidence = strength * 1/fromFront(angle); // REVIEW
 }

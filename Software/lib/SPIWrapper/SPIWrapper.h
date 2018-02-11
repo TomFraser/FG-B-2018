@@ -19,5 +19,6 @@ private:
     uint16_t tempIRData[IR_TRANSFER_NUM];
 };
 
+extern SPIWrapper spi;
 
 #endif

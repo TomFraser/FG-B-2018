@@ -20,5 +20,6 @@ private:
     MotorDriver motorD = MotorDriver(0,0,0,0);
 };
 
+extern MotorArray motors;
 
 #endif
