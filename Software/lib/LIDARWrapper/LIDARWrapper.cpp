@@ -10,10 +10,9 @@ LIDAR::LIDAR(){
 }
 
 void LIDAR::read(){
-    bytesReady = Serial.available();
-    if(bytesReady == 9){
+    if(Serial.available() == 9){
         byteCounter = 0;
-        while(bytesReady > 0){
+        while(byteCounter <= 9){
             sensorData[byteCounter] = Serial.read();
             byteCounter++;
         }
@@ -21,10 +20,9 @@ void LIDAR::read(){
         strengths[0] = sensorData[4] << + sensorData[5];
     }
 
-    bytesReady = Serial1.available();
-    if(bytesReady == 9){
+    if(Serial1.available() == 9){
         byteCounter = 0;
-        while(bytesReady > 0){
+        while(byteCounter <= 9){
             sensorData[byteCounter] = Serial1.read();
             byteCounter++;
         }
@@ -32,10 +30,9 @@ void LIDAR::read(){
         strengths[1] = sensorData[4] << + sensorData[5];
     }
 
-    bytesReady = Serial2.available();
-    if(bytesReady == 9){
+    if(Serial2.available() == 9){
         byteCounter = 0;
-        while(bytesReady > 0){
+        while(byteCounter <= 9){
             sensorData[byteCounter] = Serial2.read();
             byteCounter++;
         }
@@ -43,16 +40,13 @@ void LIDAR::read(){
         strengths[2] = sensorData[4] << + sensorData[5];
     }
 
-    bytesReady = Serial3.available();
-    if(bytesReady == 9){
+    if(Serial3.available() == 9){
         byteCounter = 0;
-        while(bytesReady > 0){
+        while(byteCounter <= 9){
             sensorData[byteCounter] = Serial3.read();
             byteCounter++;
         }
         values[3] = sensorData[2] << + sensorData[3];
         strengths[3] = sensorData[4] << + sensorData[5];
     }
-
-
 }
