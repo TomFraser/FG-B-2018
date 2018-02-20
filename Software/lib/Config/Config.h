@@ -34,3 +34,9 @@
 #define ATTACK_GOAL_X 0
 #define DEFENSE_GOAL_Y 0
 #define DEFENSE_GOAL_X 0
+
+
+/* Orbit */
+#define BIG_DISTANCE 0.00
+#define MED_DISTANCE 0.00
+#define SHORT_DISTANCE 0.00

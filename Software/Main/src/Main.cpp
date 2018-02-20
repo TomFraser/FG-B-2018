@@ -26,4 +26,6 @@ void loop(){
     spi.getIRData();
     /* Update IMU */
     imu.update();
+    /* Testing Orbit Function */
+    orbit(0,0);
 }
