@@ -6,6 +6,7 @@
 #include <IMU.h>
 #include <RotationWrapper.h>
 #include <BallManager.h>
+#include <CameraWrapper.h>
 
 /* NOTE Constructors are called in the .cpp file for each class */
 
@@ -20,7 +21,7 @@ void setup(){
 
 void loop(){
     /* Get OpenMV7 Data */
-    spi.getCamData();
+    cam.getCamData();
     /* Get IR Data from ATMega */
     spi.getIRData();
     /* Update IMU */

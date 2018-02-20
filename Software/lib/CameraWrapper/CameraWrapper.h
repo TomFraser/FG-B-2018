@@ -1,6 +1,9 @@
 #ifndef CameraWrapper_h
 #define CameraWrapper_h
 
+#include <Arduino.h>
+#include <Common.h>
+
 #define cameraSerial Serial1
 
 class Camera {
@@ -16,5 +19,7 @@ private:
     uint8_t tempCamData[CAM_TRANSFER_NUM];
 
 };
+
+extern Camera cam;
 
 #endif

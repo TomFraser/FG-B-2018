@@ -15,25 +15,6 @@ void SPIWrapper::initSPI(){
     SPI.setClockDivider(SPI_CLOCK_DIV8);
 }
 
-bool SPIWrapper::getCamData(){
-    /* Reset data in tempCamData array to -1 */
-    memset(tempCamData, -1, sizeof(tempCamData));
-    /* Request data from Camera */
-    for(int i = 0; i < CAM_TRANSFER_NUM; i++){
-        digitalWrite(CAM_SS, LOW);
-        tempCamData[i] = SPI.transfer16(i);
-        digitalWrite(CAM_SS, HIGH);
-    }
-    /* Set the data collected to variables that will be used publically */
-    rawAngle = tempCamData[0];
-    strength = tempCamData[1];
-    _aSize = tempCamData[2];
-    _aAngle = tempCamData[3];
-    _dSize = tempCamData[4];
-    _dAngle = tempCamData[5];
-    return true;
-}
-
 bool SPIWrapper::getIRData(){
     /* Reset data in tempIRData array to -1 */
     memset(tempIRData, -1, sizeof(tempIRData));
