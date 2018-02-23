@@ -5,7 +5,7 @@ BallManager::BallManager(){
 }
 
 bool BallManager::controlBall(double ballConfidence){
-    if(ballConfidence >= MIN_BALL_CONFIDENCE && ballConfidence <= BALL_CONFIDENCE){
+    if(ballConfidence >= MIN_BALL_CONFIDENCE && ballConfidence < BALL_CONFIDENCE){
         mode = solenoidMode::lowSpeed;
     }else if(ballConfidence >= BALL_CONFIDENCE){
         mode = solenoidMode::highSpeed;

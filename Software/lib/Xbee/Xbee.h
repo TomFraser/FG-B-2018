@@ -3,19 +3,32 @@
 
 #include <Arduino.h>
 #include <Common.h>
+#include <Timer.h>
+#define XSerial Serial1
 
 class Xbees {
 public:
     Xbees();
-    void init();
-    bool updateCoordinateData(int ballX, int ballY, int robotX, int robotY, int canSeeBall, int knowsOwnCoords);
+    bool isConnected();
+    void tryConnect();
+    void updateData(int bX, int bY, int rX, int rY, int seeing, int pos);
 
-    int otherBallX, otherBallY, otherX, otherY;
-    int otherCanSeeBall, otherKnowsOwnCoord
 private:
-    bool dataRead();
-    bool dataSend();
+    void sendData();
+    void readData();
+    void resetAllData();
 
+    /* Send Data */
+    int ballX, ballY, robotX, robotY, seeingBall, knowsPosition;
+    /* Recieve Data */
+    int OballX, OballY, OrobotX, OrobotY, OseeingBall, OknowsPosition;
+
+    /* Timer for disconnected timeout */
+    Timer timeSince = Timer(0);
+    /* Timer for xbee send time */
+    Timer sendTime = Timer(0);
+
+    uint8_t dataBuf[XBEE_PACKAGE - 2];
 };
 
 #endif

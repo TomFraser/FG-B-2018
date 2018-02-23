@@ -2,58 +2,81 @@
 
 Xbees::Xbees(){
     /* Constructor */
+    XSerial.begin(115200);
+    resetAllData();
 }
 
-Xbees::init(){
-    XBEESERIAL.begin(9600);
-    robot = GOALIE;
-    resetData();
-}
-
-Xbees::updateCoordinateData(int ballX, int ballY, int robotX, int robotY, int canSeeBall, int knowsOwnCoords){
-    _ballX = ballX + XBEE_ADDED_CONST;
-    _ballY = ballY + XBEE_ADDED_CONST;
-    _robotX = robotX + XBEE_ADDED_CONST;
-    _robotY = robotY + XBEE_ADDED_CONST;
-    _canSeeBall = canSeeBall;
-    _knowsOwnCoords = knowsOwnCoords;
-    if(millis() > lastSendTime + 20){
-        dataSend();
+bool Xbees::isConnected(){
+    if(XSerial.available()){
+        timeSince.reset();
+        return true;
     }
-    return dataRead();
+    return false;
 }
 
-void Xbees::dataSend(){
-    XBEESERIAL.write(XBEE_START_BYTE);
-    XBEESERIAL.write(XBEE_START_BYTE);
-    XBEESERIAL.write(_ballX);
-    XBEESERIAL.write(_ballY);
-    XBEESERIAL.write(_robotX);
-    XBEESERIAL.write(_robotY);
-    XBEESERIAL.write(_canSeeBall);
-    XBEESERIAL.write(_knowsOwnCoords);
+void Xbees::tryConnect(){
+    if(!isConnected() && timeSince.hasBeenMS(2000)){
+        /* Xbee isnt connected */
+        isConnected();
+    }else{
+        /* We assume the Xbee is connected */
+        updateData();
+    }
 }
 
-void Xbees::dataRead(){
-    if(XBEESERIAL.available() == XBEE_PACKAGE_SIZE){
-        uint8_t firstByte = XBEESERIAL.read();
-        uint8_t secondByte = XBEESERIAL.peak();
+void Xbees::updateData(int bX, int bY, int rX, int rY, int seeing, int pos){
+    ballX = bX + XBEE_CONST;
+    ballY = bY + XBEE_CONST;
+    robotX = rX + XBEE_CONST;
+    robotY = rY + XBEE_CONST;
+
+    seeingBall = seeing;
+    knowsPosition = pos;
+
+    if(sendTime.hasBeenMS(20)){
+        sendData();
+        sendTime.reset();
+        readData();
+    }
+}
+
+void Xbees::sendData(){
+    XSerial.write(XBEE_START_BYTE);
+    XSerial.write(XBEE_START_BYTE);
+    XSerial.write(ballX);
+    XSerial.write(ballY);
+    XSerial.write(robotX);
+    XSerial.write(robotY);
+    XSerial.write(seeingBall);
+    XSerial.write(knowsPosition);
+}
+
+void Xbees::readData(){
+    while(XSerial.available() == XBEE_PACKAGE){
+        uint16_t firstByte = XSerial.read();
+        uint16_t secondByte = XSerial.peak();
 
         if(firstByte == 255 && firstByte == secondByte){
-            XBEESERIAL.read();
+            timeSince.reset();
+            XSerial.read();
 
-            for (int i = 0; i < XBEE_PACKAGE_SIZE - 4; i++) {
-                dataBuffer[i] = XBEESERIAL.read() - XBEE_ADDED_CONST;
+            for(int i = 0; i < XBEE_PACKAGE - 2){
+                dataBuf[i] = XSerial.read() - XBEE_CONST;
             }
-            dataBuffer[4] = XBEESERIAL.read();
-            dataBuffer[5] = XBEESERIAL.read();
+            dataBuf[4] = XSerial.read();
+            dataBuf[5] = XSerial.read();
 
-            otherBallX = dataBuffer[0];
-            otherBallY = dataBuffer[1];
-            otherX = dataBuffer[2];
-            otherY = dataBuffer[3];
-            otherCanSeeBall = dataBuffer[4];
-            otherKnowsOwnCoords = dataBuffer[5];
+            OballX = dataBuffer[0];
+            OballY = dataBuffer[1];
+            OrobtoX = dataBuffer[2];
+            OrobotY = dataBuffer[3];
+            OseeingBall = dataBuffer[4];
+            OknowsPosition = dataBuffer[5];
         }
     }
+}
+
+void Xbees::resetAllData(){
+    ballX, ballY, robotX, robotY, OballX, OballY, OrobotX, OrobotY = 65506;
+    seeingBall, knowsPosition, OseeingBall, OknowsPosition = 0;
 }
