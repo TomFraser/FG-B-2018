@@ -30,5 +30,9 @@ bool SPIWrapper::getIRData(){
     rightIR = tempIRData[1];
     backIR = tempIRData[2];
     leftIR = tempIRData[3];
+    /* Change to return false if all data is the same (-1) */
+    if(sumArr(tempIRData) == -4){
+        return false;
+    }
     return true;
 }

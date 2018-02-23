@@ -23,4 +23,6 @@ double fromFront(double angle);
 
 double calculateBallConfidence(double strength, double angle);
 
+uint16_t sumArr(uint16_t *arr);
+
 #endif
