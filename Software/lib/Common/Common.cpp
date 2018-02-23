@@ -58,9 +58,9 @@ double calculateBallConfidence(double strength, double angle){
     /* NOTE Strength must be a value that increases towards the robot (inv distance) */
 }
 
-uint16_t sumArr(uint16_t *arr){
+uint16_t sumArr(uint16_t arr[], int size){
     int sum = 0;
-    for(int i = 0; i < sizeof(arr)/sizeof(arr[0]); i++){
+    for(int i = 0; i < size; i++){
         sum += arr[i];
     }
     return (int)sum;
