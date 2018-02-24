@@ -2,7 +2,6 @@
 #include <MotorArray.h>
 #include <Common.h>
 #include <Orbit.h>
-#include <I2CWrapper.h>
 #include <IMU.h>
 #include <RotationWrapper.h>
 #include <BallManager.h>

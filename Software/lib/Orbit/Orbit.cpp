@@ -2,6 +2,9 @@
 
 double orbitSimple(int angle, double ratio){
     /* Simple orbit from last year for testing */
+    if(ratio < 0.00 || ratio > 1.00){
+        ratio = 1.00;
+    }
     if(angle == -1){
         return -1.00;
     }else if(isFrontalLarge(angle)){
