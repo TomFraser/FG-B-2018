@@ -10,43 +10,55 @@ LIDAR::LIDAR(){
 }
 
 void LIDAR::read(){
-    if(Serial.available() == 9){
-        byteCounter = 0;
-        while(byteCounter <= 9){
-            sensorData[byteCounter] = Serial.read();
-            byteCounter++;
+    while(Serial.available() > 8){
+        int sync0 = Serial.read();
+        int sync1 = Serial.peek();
+        if (sync0 == 89 && sync1 == 89){
+          Serial.read();
+          for (int i = 0; i < 4; i++){
+            sensorData[i] = Serial.read();
+          }
+          values[0] = sensorData[1] <<8 | sensorData[0];
+          strengths[0] = sensorData[3] <<8 | sensorData[2];
         }
-        values[0] = sensorData[2] << + sensorData[3];
-        strengths[0] = sensorData[4] << + sensorData[5];
     }
 
-    if(Serial1.available() == 9){
-        byteCounter = 0;
-        while(byteCounter <= 9){
-            sensorData[byteCounter] = Serial1.read();
-            byteCounter++;
+    while(Serial1.available() > 8){
+        int sync0 = Serial1.read();
+        int sync1 = Serial1.peek();
+        if (sync0 == 89 && sync1 == 89){
+          Serial1.read();
+          for (int i = 0; i < 4; i++){
+            sensorData[i] = Serial1.read();
+          }
+          values[0] = sensorData[1] <<8 | sensorData[0];
+          strengths[0] = sensorData[3] <<8 | sensorData[2];
         }
-        values[1] = sensorData[2] << + sensorData[3];
-        strengths[1] = sensorData[4] << + sensorData[5];
     }
 
-    if(Serial2.available() == 9){
-        byteCounter = 0;
-        while(byteCounter <= 9){
-            sensorData[byteCounter] = Serial2.read();
-            byteCounter++;
+    while(Serial2.available() > 8){
+        int sync0 = Serial2.read();
+        int sync1 = Serial2.peek();
+        if (sync0 == 89 && sync1 == 89){
+          Serial2.read();
+          for (int i = 0; i < 4; i++){
+            sensorData[i] = Serial2.read();
+          }
+          values[0] = sensorData[1] <<8 | sensorData[0];
+          strengths[0] = sensorData[3] <<8 | sensorData[2];
         }
-        values[2] = sensorData[2] << + sensorData[3];
-        strengths[2] = sensorData[4] << + sensorData[5];
     }
 
-    if(Serial3.available() == 9){
-        byteCounter = 0;
-        while(byteCounter <= 9){
-            sensorData[byteCounter] = Serial3.read();
-            byteCounter++;
+    while(Serial3.available() > 8){
+        int sync0 = Serial3.read();
+        int sync1 = Serial3.peek();
+        if (sync0 == 89 && sync1 == 89){
+          Serial3.read();
+          for (int i = 0; i < 4; i++){
+            sensorData[i] = Serial3.read();
+          }
+          values[0] = sensorData[1] <<8 | sensorData[0];
+          strengths[0] = sensorData[3] <<8 | sensorData[2];
         }
-        values[3] = sensorData[2] << + sensorData[3];
-        strengths[3] = sensorData[4] << + sensorData[5];
     }
 }
