@@ -9,4 +9,10 @@ enum solenoidMode {
     canKick,
 };
 
+enum mode {
+    attacker,
+    defender,
+    unknown,
+};
+
 #endif

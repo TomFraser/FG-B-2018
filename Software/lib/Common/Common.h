@@ -25,4 +25,14 @@ double calculateBallConfidence(double strength, double angle);
 
 uint16_t sumArr(uint16_t arr[], int size);
 
+bool angleIsInside(double angleBoundCounterClockwise, double angleBoundClockwise, double angleCheck);
+
+double angleBetween(double angleCounterClockwise, double angleClockwise);
+
+double smallestAngleBetween(double angle1, double angle2);
+
+double midAngleBetween(double angleCounterClockwise, double angleClockwise);
+
+int mod(int x, int m);
+
 #endif
