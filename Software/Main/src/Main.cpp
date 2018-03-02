@@ -11,6 +11,8 @@
 #include <ModeWrapper.h>
 #include <Xbee.h>
 
+#define dc directionController
+
 DirectionController directionController = DirectionController();
 Light light;
 int lightData;
@@ -60,11 +62,15 @@ void loop(){
     /* Move based on mode and other data */
     if(robotMode.getMode() == mode::defender){
         directionController.calculateGoalie();
-        motors.move(directionController.getDirection(), imu.getHeading(), directionController.getSpeed(), false);
+        motors.move(dc.getDirection(), imu.getHeading(), dc.getSpeed(), false);
     }else{
         directionController.calculateAttack();
-        motors.move(directionController.getDirection(), imu.getHeading(), directionController.getSpeed(), directionController.getFollowingBall());
+        motors.move(dc.getDirection(), imu.getHeading(), dc.getSpeed(), dc.getFollowingBall());
     }
 
-    /* Do Xbee and Solenoid stuffs here */
+    /* Send and recieve Xbee Data */
+    xbee.updateData(dc.getBallX(), dc.getBallY(), dc.getX(), dc.getY(), dc.getFollowingBall(), dc.getBallX() != 65506 ? 1 : 0);
+
+    /* Update other robots data to direction Controller */
+    directionController.updateOtherData(xbee.OballX, xbee.OballY, xbee.OrobotX, xbee.OrobotY, xbee.OseeingBall == 1 ? true : false, xbee.OknowsPosition == 1 ? true : false);
 }

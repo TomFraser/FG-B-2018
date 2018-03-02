@@ -13,6 +13,9 @@ public:
     void tryConnect();
     void updateData(int bX, int bY, int rX, int rY, int seeing, int pos);
 
+    /* Recieve Data */
+    int OballX, OballY, OrobotX, OrobotY, OseeingBall, OknowsPosition;
+    
 private:
     void sendData();
     void readData();
@@ -20,8 +23,6 @@ private:
 
     /* Send Data */
     int ballX, ballY, robotX, robotY, seeingBall, knowsPosition;
-    /* Recieve Data */
-    int OballX, OballY, OrobotX, OrobotY, OseeingBall, OknowsPosition;
 
     /* Timer for disconnected timeout */
     Timer timeSince = Timer(0);
