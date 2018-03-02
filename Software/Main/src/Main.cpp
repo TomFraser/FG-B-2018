@@ -8,7 +8,7 @@
 #include <CameraWrapper.h>
 #include <DirectionController.h>
 #include <Light.h>
-#include <modeWrapper.h>
+#include <ModeWrapper.h>
 #include <Xbee.h>
 
 DirectionController directionController = DirectionController();
