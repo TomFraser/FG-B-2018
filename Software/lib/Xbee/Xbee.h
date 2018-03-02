@@ -31,4 +31,6 @@ private:
     uint8_t dataBuf[XBEE_PACKAGE - 2];
 };
 
+extern Xbees xbee;
+
 #endif

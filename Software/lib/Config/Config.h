@@ -31,6 +31,12 @@
 #define MIN_BALL_CONFIDENCE 0
 #define BALL_CONFIDENCE 2
 
+/* Xbee */
+#define XBEE_PACKAGE 8
+#define XBEE_CONST 128
+#define XBEE_START_BYTE 255
+
+
 /* Coord Calc */
 #define ATTACK_GOAL_Y 0
 #define ATTACK_GOAL_X 0

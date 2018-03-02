@@ -1,5 +1,7 @@
 #include <Xbee.h>
 
+Xbees xbee = Xbees();
+
 Xbees::Xbees(){
     /* Constructor */
     XSerial.begin(115200);
@@ -20,7 +22,7 @@ void Xbees::tryConnect(){
         isConnected();
     }else{
         /* We assume the Xbee is connected */
-        updateData();
+        updateData(0,0,0,0,0,0);
     }
 }
 
@@ -54,24 +56,24 @@ void Xbees::sendData(){
 void Xbees::readData(){
     while(XSerial.available() == XBEE_PACKAGE){
         uint16_t firstByte = XSerial.read();
-        uint16_t secondByte = XSerial.peak();
+        uint16_t secondByte = XSerial.peek();
 
         if(firstByte == 255 && firstByte == secondByte){
             timeSince.reset();
             XSerial.read();
 
-            for(int i = 0; i < XBEE_PACKAGE - 2){
+            for(int i = 0; i < XBEE_PACKAGE - 2; i++){
                 dataBuf[i] = XSerial.read() - XBEE_CONST;
             }
             dataBuf[4] = XSerial.read();
             dataBuf[5] = XSerial.read();
 
-            OballX = dataBuffer[0];
-            OballY = dataBuffer[1];
-            OrobtoX = dataBuffer[2];
-            OrobotY = dataBuffer[3];
-            OseeingBall = dataBuffer[4];
-            OknowsPosition = dataBuffer[5];
+            OballX = dataBuf[0];
+            OballY = dataBuf[1];
+            OrobotX = dataBuf[2];
+            OrobotY = dataBuf[3];
+            OseeingBall = dataBuf[4];
+            OknowsPosition = dataBuf[5];
         }
     }
 }

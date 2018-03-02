@@ -9,6 +9,7 @@
 #include <DirectionController.h>
 #include <Light.h>
 #include <modeWrapper.h>
+#include <Xbee.h>
 
 DirectionController directionController = DirectionController();
 Light light;
