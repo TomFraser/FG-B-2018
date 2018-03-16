@@ -4,9 +4,9 @@
 
 #### Library Purpose
 
-The purpose of the *Ball Manager* library is to control all physical components of the robot that act upon the game ball. It contains 1 x <*.h, .cpp*> files.
+The purpose of the **Ball Manager** library is to control all physical components of the robot that act upon the game ball. It contains 1 x <*.h, .cpp*> files.
 
-  
+
 
 #### Library Information
 
@@ -19,7 +19,7 @@ The constructor for the class is called in the *main.cpp* file.
 * Timer.h
 * Enum.h
 
-  
+
 
 #### Class Structure
 
@@ -39,7 +39,7 @@ private:
 };
 ```
 
-  
+
 
 #### Functions
 
@@ -47,11 +47,15 @@ private:
 bool controlBall(double ballConfidence)
 ```
 
+**Parameters**
+
 The controlBall function takes an argument of type **double** which is the robots calculated chance of collecting the ball.
 
 The controlBall function returns a **boolean** stating whether the robot has the ball.
 
 
+
+**Duty**
 
 The controlBall function determines the speed that the dribbler will run at as well as determining if we currently have possession of the ball. It also notifies the rest of the program whether the solenoid is ready to kick the ball.
 
@@ -59,8 +63,12 @@ The controlBall function determines the speed that the dribbler will run at as w
 void kickBall();
 ```
 
+**Parameters**
+
 The kickBall function takes in no arguments and returns no value.
 
 
+
+**Duty**
 
 The kickBall function first slows the dribbler then activates the solenoid on the robot kicking the ball.

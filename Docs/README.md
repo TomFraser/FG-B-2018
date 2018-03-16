@@ -30,9 +30,9 @@ The following file structure is used for all documentation in the repo.
 
 ​		|\<Library 2 Docs.md>
 
-|\<Main.cpp>
+|\<Main.md>
 
-|\<IRMicro.cpp>
+|\<IRMicro.md>
 
-|\<OpenMV.py>
+|\<OpenMV.md>
 
