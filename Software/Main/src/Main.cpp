@@ -29,6 +29,8 @@ void setup(){
     imu.calibrate();
     /* Init Lightsensors */
     light.init();
+    /* Init Serial */
+    cam.initSerial();
     /* Set robot mode based on default mode */
     if(ROBOT){
         robotMode.setMode(defender);
