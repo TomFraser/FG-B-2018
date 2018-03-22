@@ -1,16 +1,19 @@
 #include <Arduino.h>
 #include <SPI.h>
-#include <LIDARWrapper.h>
+// #include <LIDARWrapper.h>
+#include <Common.h>
 
 void setup(){
     Serial.begin(9600);
     pinMode(MISO, OUTPUT);
+    SPI.setDataMode(SPI_MODE0);
+    SPI.setBitOrder(LSBFIRST);
     SPCR |= _BV(SPE);
     SPI.attachInterrupt();
 }
 
 void loop(){
-    lidar.read();
+    // lidar.read();
 }
 
 ISR(SPI_STC_vect){
@@ -18,13 +21,13 @@ ISR(SPI_STC_vect){
     int data = -1;
     switch(command){
         case 1:
-            data = lidar.values[0];
+            data = 1;
         case 2:
-            data = lidar.values[1];
+            data = 2;
         case 3:
-            data = lidar.values[2];
+            data = 3;
         case 4:
-            data = lidar.values[3];
+            data = 4;
     }
     SPDR = data;
     while (!(SPSR & (1<<SPIF))){

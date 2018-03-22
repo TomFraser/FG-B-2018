@@ -1,4 +1,4 @@
-#define DEBUG false
+#define DEBUG true
 
 #define ROBOT 1
 

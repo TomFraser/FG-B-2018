@@ -23,15 +23,15 @@ double doubleMod(double value, double maxVal){
 
 void blink(){
     int led;
-    ulong initTime;
+    long initTime;
     /* Blink the pin 13 LED */
     if(millis() > initTime + 1000 && DEBUG){
         if(led == 0){
-            digitalWrite(13, HIGH);
+            digitalWrite(LED_BUILTIN, HIGH);
             led = 1;
             initTime = millis();
         }else{
-            digitalWrite(13, LOW);
+            digitalWrite(LED_BUILTIN, LOW);
             led = 0;
             initTime = millis();
         }
