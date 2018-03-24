@@ -12,7 +12,9 @@ void SPIWrapper::initSPI(){
     SPI.begin();
     digitalWrite(CAM_SS, HIGH);
     SPI.setSCK(ALT_SCK);
-    SPI.setClockDivider(SPI_CLOCK_DIV8);
+    SPI.setClockDivider(SPI_CLOCK_DIV16);
+    SPI.setDataMode(SPI_MODE0);
+    SPI.setBitOrder(LSBFIRST);
 }
 
 bool SPIWrapper::getIRData(){
@@ -22,6 +24,7 @@ bool SPIWrapper::getIRData(){
     for(int i = 0; i < IR_TRANSFER_NUM; i++){
         digitalWrite(IR_SS, LOW);
         tempIRData[i] = SPI.transfer16(i);
+        Serial.println(tempIRData[i]);
         digitalWrite(IR_SS, HIGH);
     }
     /* Set the data collected to variable that will be used publically */
