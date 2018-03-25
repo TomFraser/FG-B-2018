@@ -45,9 +45,7 @@ void loop(){
     // cam.getCamData();
 
     /* Get IR Data from ATMega */
-    if(spi.getIRData()){
-        // Serial.println(spi.frontIR);
-    };
+    spi.getIRData();
 
 
     /* Update IMU */
