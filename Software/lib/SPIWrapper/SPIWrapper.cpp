@@ -11,6 +11,7 @@ void SPIWrapper::initSPI(){
     SPI.setClockDivider(SPI_CLOCK_DIV32);
     SPI.setSCK(ALT_SCK);
     SPI.setDataMode(SPI_MODE0);
+    SPI.setBitOrder(LSBFIRST);
     pinMode(10, OUTPUT);
     SPI.begin();
     digitalWrite(10, HIGH);

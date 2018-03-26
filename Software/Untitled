@@ -1,0 +1,23 @@
+int variable = 1;
+
+void function(*int var){
+    if(var == 1){
+        //True
+        variable = 2;
+        if(var == 2){
+            //True
+        }
+    }
+}
+
+void function(int var){
+    if(var == 1){
+        //True
+        variable = 2;
+        if(var == 2){
+            //False
+        }
+    }
+}
+
+function(variable);

@@ -6,16 +6,16 @@
 // bool state = false;
 
 void func(){
-    // SPDR = 1;
-    // while (!(SPSR & (1<<SPIF)));
+    SPDR = 1;
+    while (!(SPSR & (1<<SPIF)));
 }
 
 void setup(){
     // Serial.begin(9600);
     pinMode(MISO, OUTPUT);
-    SPCR |= bit (SPE);
+    /* Set up SPI settings and enable Interrupts */
+    SPCR=(1<<SPE)|(1<SPIE)|(0<<CPOL)|(0<<CPHA)|(1<<DORD);
     attachInterrupt(digitalPinToInterrupt(13), func, FALLING);
-    interrupts();
 }
 
 void loop(){
