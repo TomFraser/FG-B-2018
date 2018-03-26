@@ -21,10 +21,10 @@ class Sender():
         # data buffer that will get populated with bytes to send (just has sync char at the start)
         sendBuff = [42]
 
-        # set up data buffer in LITTLE ENDIAN format
+        # set up data buffer in BIG ENDIAN format
         for d in data:
-            sendBuff.append(d & 0x00ff) #lsb
             sendBuff.append(d >> 8) #msb
+            sendBuff.append(d & 0x00ff) #lsb
 
         # make sure nothing pretends to be the sync char
         for i in range(1, len(sendBuff)):

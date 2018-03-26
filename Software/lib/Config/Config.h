@@ -1,11 +1,12 @@
 #define DEBUG true
 
 #define ROBOT 1
+#define ATTACK_YELLOW true
 
 #define CAM_SS 16
 #define IR_SS 15
 #define ALT_SCK 14
-#define CAM_TRANSFER_NUM 6
+#define CAM_TRANSFER_NUM 12
 #define IR_TRANSFER_NUM 4
 
 #define FORWARD_SPEED 100

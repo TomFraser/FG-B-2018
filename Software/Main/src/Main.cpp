@@ -61,7 +61,11 @@ void loop(){
     // directionController.updateGameData(cam.rawAngle, cam.rawAngle, cam.strength, light.getAngle(), light.getNumSensors(), imu.getHeading(), robotMode.getMode());
 
     /* Update Goal Data */
-    // directionController.updateGoalData(cam._aSize, cam._aAngle, cam._dSize, cam._dAngle);
+    // #if ATTACK_YELLOW
+    //     directionController.updateGoalData(cam._ySize, cam._yAngle, cam._bSize, cam._bAngle);
+    // #else
+    //     directionController.updateGoalData(cam._bSize, cam._bAngle, cam._ySize, cam._yAngle);
+    // #endif
 
     /* Move based on mode and other data */
     // if(robotMode.getMode() == mode::defender){

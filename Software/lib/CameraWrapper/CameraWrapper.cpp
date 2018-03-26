@@ -15,25 +15,32 @@ void Camera::initSerial(){
 void Camera::getCamData(){
     /* Reset data in tempCamData array to -1 */
     memset(tempCamData, -1, sizeof(tempCamData));
+
     /* Gets camera data and set its to a number of variables */
-    if(millis() - lastCall >= 20){
+    if(millis() - lastCall >= 20 && cameraSerial.available() == CAM_TRANSFER_NUM){
         if(cameraSerial.read() == 42){
             for(int i = 0; i < CAM_TRANSFER_NUM; i++){
                 while(!cameraSerial.available());
                 tempCamData[i] = cameraSerial.read();
             }
-            cameraSerial.read();
 
-            rawAngle = tempCamData[0];
-            strength = tempCamData[1];
-            _aSize = tempCamData[2];
-            _aAngle = tempCamData[3];
-            _dSize = tempCamData[4];
-            _dAngle = tempCamData[5];
+            for(int i = 0; i < CAM_TRANSFER_NUM/2; i++){
+                bitCombinedData[i] = (tempCamData[2*i] >> 8) + tempCamData[2*i+1];
+            }
+
+
+            rawAngle = bitCombinedData[0];
+            strength = bitCombinedData[1];
+            _ySize = bitCombinedData[2];
+            _yAngle = bitCombinedData[3];
+            _bSize = bitCombinedData[4];
+            _bAngle = bitCombinedData[5];
 
             lastCall = millis();
         }else{
             /* Cam Serial Not Ready, Just loop instead of waiting */
         }
+    }else{
+      /* Wait for time or for the serial buffer to fill up completly */
     }
 }

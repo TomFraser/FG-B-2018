@@ -12,11 +12,12 @@ public:
     void initSerial();
     void getCamData();
 
-    int rawAngle, strength, _aSize, _aAngle, _dSize, _dAngle;
+    int rawAngle, strength, _ySize, _yAngle, _bSize, _bAngle;
 
 private:
     long lastCall;
     uint8_t tempCamData[CAM_TRANSFER_NUM];
+    uint16_t bitCombinedData[CAM_TRANSFER_NUM/2];
 
 };
 
