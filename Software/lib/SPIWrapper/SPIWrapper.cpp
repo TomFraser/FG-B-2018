@@ -8,13 +8,13 @@ SPIWrapper::SPIWrapper(){
 
 void SPIWrapper::initSPI(){
     /* Init and setup SPI */
-    SPI.setClockDivider(SPI_CLOCK_DIV32);
-    SPI.setSCK(ALT_SCK);
-    SPI.setDataMode(SPI_MODE0);
-    SPI.setBitOrder(LSBFIRST);
     pinMode(10, OUTPUT);
     SPI.begin();
     digitalWrite(10, HIGH);
+    SPI.setSCK(ALT_SCK);
+    // SPI.setBitOrder(LSBFIRST);
+    SPI.setClockDivider(SPI_CLOCK_DIV32);
+    delay(100);
 }
 
 bool SPIWrapper::getIRData(){
@@ -24,8 +24,8 @@ bool SPIWrapper::getIRData(){
     // for(int i = 0; i < IR_TRANSFER_NUM; i++){
         // tempIRData[i] = SPI.transfer16(i);
         digitalWrite(10, LOW);
-        Serial.println(SPI.transfer(0));
-        delay(1);
+        Serial.println(SPI.transfer16(1));
+        delay(100);
         digitalWrite(10, HIGH);
         delay(100);
     // }

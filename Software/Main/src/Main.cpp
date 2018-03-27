@@ -23,6 +23,7 @@ int lightNumData;
 
 void setup(){
     /* Init SPI */
+    Serial.begin(9600);
     spi.initSPI();
     /* Init IMU */
     // imu.init();
@@ -34,9 +35,9 @@ void setup(){
     // cam.initSerial();
     /* Set robot mode based on default mode */
     // if(ROBOT){
-        // robotMode.setMode(defender);
+        // robotMode.setDefault(defender);
     // }else{
-        // robotMode.setMode(attacker);
+        // robotMode.setDefault(attacker);
     // }
 }
 
@@ -46,8 +47,7 @@ void loop(){
 
     /* Get IR Data from ATMega */
     spi.getIRData();
-
-
+    
     /* Update IMU */
     // imu.update();
 
