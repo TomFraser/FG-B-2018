@@ -9,7 +9,7 @@ class SPIWrapper {
 public:
     SPIWrapper();
     void initSPI();
-    bool getIRData();
+    void getIRData();
 
     double frontIR, rightIR, backIR, leftIR;
 private:

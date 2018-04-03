@@ -13,14 +13,14 @@ For enquiries relating to this repo please contact: tr.fraser@bigpond.com
 
 ## 2018 Roadmap
 #### Before Internationals
-- [ ] Power on PCB  
-- [ ] Make Motors Move  
-- [ ] Communicate to Camera and Follow Ball  
-- [ ] Line Avoidance & Goal Tracking  
-* Other Abilities  
-    - [ ] Kicking and Dribbling
-    - [ ] Laser Range Finders
-    - [ ] Ball Hiding   
+- [x] **Power on PCB** - 03/04/18
+- [ ] **Make Motors Move**
+- [ ] **Communicate to Camera and Follow Ball**
+- [ ] **Line Avoidance & Goal Tracking**
+* Other Abilities
+    - [ ] **Kicking and Dribbling**
+    - [ ] **Laser Range Finders**
+    - [ ] **Ball Hiding**
 
 #### At Internationals
 - [ ] Win

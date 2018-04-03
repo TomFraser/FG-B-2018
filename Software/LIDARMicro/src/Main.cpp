@@ -15,22 +15,24 @@ void loop(){
 
     uint8_t data = SPDR;
     switch(data){
+        case default:
+            SPDR = 255; break;
         case 1:
-            SPDR = lidar.values[0] & 0x00ff;
+            SPDR = (lidar.values[0] & 0x00ff); break;
         case 2:
-            SPDR = (lidar.values[0] >> 8);
+            SPDR = (lidar.values[0] >> 8); break;
         case 3:
-            SPDR = lidar.values[1] & 0x00ff;
+            SPDR = (lidar.values[1] & 0x00ff); break;
         case 4:
-            SPDR = (lidar.values[1] >> 8);
+            SPDR = (lidar.values[1] >> 8); break;
         case 5:
-            SPDR = lidar.values[2] & 0x00ff;
+            SPDR = (lidar.values[2] & 0x00ff); break;
         case 6:
-            SPDR = (lidar.values[2] >> 8);
+            SPDR = (lidar.values[2] >> 8); break;
         case 7:
-            SPDR = lidar.values[3] & 0x00ff;
+            SPDR = (lidar.values[3] & 0x00ff); break;
         case 8:
-            SPDR = (lidar.values[3] >> 8);
+            SPDR = (lidar.values[3] >> 8); break;
     }
     while (!(SPSR & (1<<SPIF)));
 }

@@ -12,14 +12,14 @@
 // #include <Xbee.h>
 
 
-// #define dc directionController
+/* #define dc directionController */
+
+/* NOTE Constructors are called in the .cpp file for each class */
 
 // DirectionController directionController = DirectionController();
 // Light light;
 int lightData;
 int lightNumData;
-
-/* NOTE Constructors are called in the .cpp file for each class */
 
 void setup(){
     /* Init SPI */
