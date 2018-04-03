@@ -8,7 +8,6 @@ SPIWrapper::SPIWrapper(){
 
 void SPIWrapper::initSPI(){
     /* Init and setup SPI */
-    Serial.begin(9600);
     SPI.setSCK(ALT_SCK);
     SPI.setDataMode(SPI_MODE0);
     SPI.setBitOrder(MSBFIRST);

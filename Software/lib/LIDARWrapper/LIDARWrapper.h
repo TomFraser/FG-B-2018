@@ -2,7 +2,6 @@
 #define LIDARWrapepr_h
 
 #include <Arduino.h>
-// #include <Serial.h>
 
 class LIDAR {
 public:
