@@ -7,10 +7,10 @@ ledController = LEDController()
 # red led on for init
 ledController.on(ledController.LED_RED)
 
-clock = time.clock()
-
 sender = Sender()
-sender.init()
+sender.init(initSend=[65506, 65506, 65506, 65506, 65506, 655065])
+
+clock = time.clock()
 
 finder = Finder()
 finder.init(finder.ROBOT_O)
@@ -19,11 +19,11 @@ finder.init(finder.ROBOT_O)
 ledController.allOff()
 
 while True:
-    clock.tick()
+    #clock.tick()
     #ledController.blink()
     finder.takeSnapshot(False) # (draw center cross)
     data = finder.findObjects(False, False) # (mark ball, mark goals)
-    #sender.sendData(data)
+    sender.sendData(data)
 
     #fps checking
     #print(clock.fps())
