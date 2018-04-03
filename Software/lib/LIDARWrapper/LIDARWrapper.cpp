@@ -31,8 +31,8 @@ void LIDAR::read(){
           for (int i = 0; i < 4; i++){
             sensorData[i] = Serial1.read();
           }
-          values[0] = sensorData[1] <<8 | sensorData[0];
-          strengths[0] = sensorData[3] <<8 | sensorData[2];
+          values[1] = sensorData[1] <<8 | sensorData[0];
+          strengths[1] = sensorData[3] <<8 | sensorData[2];
         }
     }
 
@@ -44,8 +44,8 @@ void LIDAR::read(){
           for (int i = 0; i < 4; i++){
             sensorData[i] = Serial2.read();
           }
-          values[0] = sensorData[1] <<8 | sensorData[0];
-          strengths[0] = sensorData[3] <<8 | sensorData[2];
+          values[2] = sensorData[1] <<8 | sensorData[0];
+          strengths[2] = sensorData[3] <<8 | sensorData[2];
         }
     }
 
@@ -57,8 +57,8 @@ void LIDAR::read(){
           for (int i = 0; i < 4; i++){
             sensorData[i] = Serial3.read();
           }
-          values[0] = sensorData[1] <<8 | sensorData[0];
-          strengths[0] = sensorData[3] <<8 | sensorData[2];
+          values[3] = sensorData[1] <<8 | sensorData[0];
+          strengths[3] = sensorData[3] <<8 | sensorData[2];
         }
     }
 }

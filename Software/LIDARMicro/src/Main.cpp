@@ -1,7 +1,7 @@
 #include <Arduino.h>
 // #include <SPI.h>
-// #include <LIDARWrapper.h>
-// #include <Common.h>
+#include <LIDARWrapper.h>
+#include <Common.h>
 
 void setup(){
     pinMode(MISO, OUTPUT);
@@ -11,13 +11,26 @@ void setup(){
 }
 
 void loop(){
-    int data = SPDR;
-    if(data == 1){
-      digitalWrite(13, HIGH);
-    }else if(data == 2){
-      digitalWrite(13, LOW);
+    lidar.read();
+
+    uint8_t data = SPDR;
+    switch(data){
+        case 1:
+            SPDR = lidar.values[0] & 0x00ff;
+        case 2:
+            SPDR = (lidar.values[0] >> 8);
+        case 3:
+            SPDR = lidar.values[1] & 0x00ff;
+        case 4:
+            SPDR = (lidar.values[1] >> 8);
+        case 5:
+            SPDR = lidar.values[2] & 0x00ff;
+        case 6:
+            SPDR = (lidar.values[2] >> 8);
+        case 7:
+            SPDR = lidar.values[3] & 0x00ff;
+        case 8:
+            SPDR = (lidar.values[3] >> 8);
     }
-     SPDR = 69;
-     while (!(SPSR & (1<<SPIF)));
-    // lidar.read();
+    while (!(SPSR & (1<<SPIF)));
 }

@@ -47,7 +47,7 @@ void loop(){
 
     /* Get IR Data from ATMega */
     spi.getIRData();
-    
+    Serial.println(spi.frontIR);
     /* Update IMU */
     // imu.update();
 
