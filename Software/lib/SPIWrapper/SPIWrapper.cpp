@@ -8,13 +8,12 @@ SPIWrapper::SPIWrapper(){
 
 void SPIWrapper::initSPI(){
     /* Init and setup SPI */
-    pinMode(10, OUTPUT);
-    SPI.begin();
-    digitalWrite(10, HIGH);
+    Serial.begin(9600);
     SPI.setSCK(ALT_SCK);
-    // SPI.setBitOrder(LSBFIRST);
+    SPI.setDataMode(SPI_MODE0);
+    SPI.setBitOrder(MSBFIRST);
     SPI.setClockDivider(SPI_CLOCK_DIV32);
-    delay(100);
+    SPI.begin();
 }
 
 bool SPIWrapper::getIRData(){
@@ -23,11 +22,10 @@ bool SPIWrapper::getIRData(){
     /* Request data from IRMicro */
     // for(int i = 0; i < IR_TRANSFER_NUM; i++){
         // tempIRData[i] = SPI.transfer16(i);
-        digitalWrite(10, LOW);
         Serial.println(SPI.transfer16(1));
-        delay(100);
-        digitalWrite(10, HIGH);
-        delay(100);
+        delay(1000);
+        Serial.println(SPI.transfer16(2));
+        delay(1000);
     // }
     /* Set the data collected to variable that will be used publically */
     /* These values are clockwise */
