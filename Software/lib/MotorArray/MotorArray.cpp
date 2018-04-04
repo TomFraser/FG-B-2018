@@ -1,5 +1,7 @@
 #include <MotorArray.h>
 
+#include <Pirates.h>
+
 MotorArray motors = MotorArray();
 
 MotorArray::MotorArray(){
@@ -36,14 +38,15 @@ void MotorArray::move(double angle, double rotation, int speed, bool boost){
     motorD.set(motorSpeeds[3]);
 }
 void MotorArray::sound(long in){
-    analogWriteFrequency(2, in);
-    analogWriteFrequency(3, in);
-    analogWriteFrequency(4, in);
-    analogWriteFrequency(5, in);
-    motorA.set(5);
-    motorB.set(5);
-    motorC.set(5);
-    motorD.set(5);
+    // analogWriteFrequency(2, in);
+    // analogWriteFrequency(3, in);
+    // analogWriteFrequency(4, in);
+    // analogWriteFrequency(5, in);
+    motorA.set(70);
+    motorB.set(70);
+    motorC.set(70);
+    motorD.set(70);
+    xp();
 }
 
 int MotorArray::sign(double value) {

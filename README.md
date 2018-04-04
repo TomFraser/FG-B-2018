@@ -21,6 +21,8 @@ For enquiries relating to this repo please contact: tr.fraser@bigpond.com
     - [ ] **Kicking and Dribbling**
     - [ ] **Laser Range Finders**
     - [ ] **Ball Hiding**
+    - [x] **Play single track music by manipulating PWM frequencies**
+    - [ ] **Play multi track music by manipulating PWM frequencies (1 track per motor)**
 
 #### At Internationals
 - [ ] Win
