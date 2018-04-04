@@ -18,8 +18,11 @@ void MotorArray::move(double angle, double rotation, int speed, bool boost){
         }
         scale = 255/doubleAbs(fmax(fmax(fmax(doubleAbs(motorSpeeds[0]), doubleAbs(motorSpeeds[1])), doubleAbs(motorSpeeds[2])), doubleAbs(motorSpeeds[3])));
         for(int i = 0; i < 4; i++){
-            // motorSpeeds[i] = (motorSpeeds[i] * scale)/100 * isFrontal(angle) && boost ? FORWARD_SPEED : speed;
-            motorSpeeds[i] = (motorSpeeds[i] * scale)/100 * speed;
+            if(isFrontal(angle) == true && boost == true){
+                motorSpeeds[i] = (motorSpeeds[i] * scale)/100 * FORWARD_SPEED;
+            }else{
+                motorSpeeds[i] = (motorSpeeds[i] * scale)/100 * speed;
+            }
         }
     }else{
         for(int i = 0; i < 4; i ++){
@@ -31,6 +34,16 @@ void MotorArray::move(double angle, double rotation, int speed, bool boost){
     motorB.set(motorSpeeds[1]);
     motorC.set(motorSpeeds[2]);
     motorD.set(motorSpeeds[3]);
+}
+void MotorArray::sound(long in){
+    analogWriteFrequency(2, in);
+    analogWriteFrequency(3, in);
+    analogWriteFrequency(4, in);
+    analogWriteFrequency(5, in);
+    motorA.set(5);
+    motorB.set(5);
+    motorC.set(5);
+    motorD.set(5);
 }
 
 int MotorArray::sign(double value) {
