@@ -22,7 +22,7 @@ private:
     MotorDriver motorB = MotorDriver(3,8,25,1);
     MotorDriver motorC = MotorDriver(4,9,26,0);
     MotorDriver motorD = MotorDriver(5,10,27,0);
-
+};
 extern MotorArray motors;
 
 #endif

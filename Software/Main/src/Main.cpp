@@ -2,10 +2,7 @@
 #include <Structs.h>
 #include <SPIWrapper.h>
 #include <MotorArray.h>
-<<<<<<< HEAD
 #include <Common.h>
-=======
->>>>>>> 406a15aa6813d4fcb735df9cb42f27d0fc3c9078
 #include <Orbit.h>
 #include <IMU.h>
 #include <RotationWrapper.h>
@@ -84,7 +81,6 @@ void loop(){
 
     /* Update other robots data to direction Controller */
     // directionController.updateOtherData(xbee.OballX, xbee.OballY, xbee.OrobotX, xbee.OrobotY, xbee.OseeingBall == 1 ? true : false, xbee.OknowsPosition == 1 ? true : false);
-<<<<<<< HEAD
 
     // rotation.calculateRotation(-imu.getHeading(), 0, 0);
     // motors.move(orbitSimple(cam.rawAngle, 1), rotation.getRotation(), 50, false);
@@ -93,8 +89,4 @@ void loop(){
         motors.sound(1);
         delay(100);
     // }
-=======
-    // rotation.calculateRotation(-imu.getHeading(), 0, 0);
-    // motors.move(orbitSimple(cam.rawAngle, 1), rotation.getRotation(), 50, false);
->>>>>>> 406a15aa6813d4fcb735df9cb42f27d0fc3c9078
 }

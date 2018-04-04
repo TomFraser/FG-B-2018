@@ -2,7 +2,7 @@
 #define RotationWrapper_h
 
 #include <Arduino.h>
-#include <Math.h>
+#include <math.h>
 #include <Common.h>
 #include <PID.h>
 
