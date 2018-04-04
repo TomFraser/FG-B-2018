@@ -12,17 +12,18 @@
 // #include <Xbee.h>
 
 
-// #define dc directionController
+/* #define dc directionController */
+
+/* NOTE Constructors are called in the .cpp file for each class */
 
 // DirectionController directionController = DirectionController();
 // Light light;
 int lightData;
 int lightNumData;
 
-/* NOTE Constructors are called in the .cpp file for each class */
-
 void setup(){
     /* Init SPI */
+    Serial.begin(9600);
     spi.initSPI();
     /* Init IMU */
     // imu.init();
@@ -34,9 +35,9 @@ void setup(){
     // cam.initSerial();
     /* Set robot mode based on default mode */
     // if(ROBOT){
-        // robotMode.setMode(defender);
+        // robotMode.setDefault(defender);
     // }else{
-        // robotMode.setMode(attacker);
+        // robotMode.setDefault(attacker);
     // }
 }
 
@@ -46,8 +47,7 @@ void loop(){
 
     /* Get IR Data from ATMega */
     spi.getIRData();
-
-
+    Serial.println(spi.frontIR);
     /* Update IMU */
     // imu.update();
 
