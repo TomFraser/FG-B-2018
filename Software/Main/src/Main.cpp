@@ -3,7 +3,7 @@
 // #include <Common.h>
 #include <Orbit.h>
 #include <IMU.h>
-// #include <RotationWrapper.h>
+#include <RotationWrapper.h>
 // #include <BallManager.h>
 #include <CameraWrapper.h>
 // #include <DirectionController.h>
@@ -81,6 +81,6 @@ void loop(){
 
     /* Update other robots data to direction Controller */
     // directionController.updateOtherData(xbee.OballX, xbee.OballY, xbee.OrobotX, xbee.OrobotY, xbee.OseeingBall == 1 ? true : false, xbee.OknowsPosition == 1 ? true : false);
-    // Serial.println(orbitSimple(cam.rawAngle, 1));
-    motors.move(orbitSimple(cam.rawAngle, 1), -imu.getHeading(), 50, false);
+    rotation.calculateRotation(-imu.getHeading(), 0, 0);
+    motors.move(270, rotation.getRotation(), 50, false);
 }

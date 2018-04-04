@@ -14,7 +14,7 @@ void MotorArray::move(double angle, double rotation, int speed, bool boost){
         }
         scale = 255/doubleAbs(fmax(fmax(fmax(doubleAbs(motorSpeeds[0]), doubleAbs(motorSpeeds[1])), doubleAbs(motorSpeeds[2])), doubleAbs(motorSpeeds[3])));
         for(int i = 0; i < 4; i++){
-            motorSpeeds[i] = (motorSpeeds[i] * scale) + rotation*2.5;
+            motorSpeeds[i] = (motorSpeeds[i] * scale) + rotation;
         }
         scale = 255/doubleAbs(fmax(fmax(fmax(doubleAbs(motorSpeeds[0]), doubleAbs(motorSpeeds[1])), doubleAbs(motorSpeeds[2])), doubleAbs(motorSpeeds[3])));
         for(int i = 0; i < 4; i++){
