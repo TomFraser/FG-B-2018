@@ -14,7 +14,7 @@ For enquiries relating to this repo please contact: tr.fraser@bigpond.com
 ## 2018 Roadmap
 #### Before Internationals
 - [x] **Power on PCB** - 03/04/18
-- [ ] **Make Motors Move**
+- [x] **Make Motors Move**
 - [ ] **Communicate to Camera and Follow Ball**
 - [ ] **Line Avoidance & Goal Tracking**
 * Other Abilities

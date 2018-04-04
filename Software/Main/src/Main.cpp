@@ -1,8 +1,8 @@
 #include <SPIWrapper.h>
-// #include <MotorArray.h>
+#include <MotorArray.h>
 // #include <Common.h>
 // #include <Orbit.h>
-// #include <IMU.h>
+#include <IMU.h>
 // #include <RotationWrapper.h>
 // #include <BallManager.h>
 // #include <CameraWrapper.h>
@@ -26,9 +26,9 @@ void setup(){
     Serial.begin(9600);
     spi.initSPI();
     /* Init IMU */
-    // imu.init();
+    imu.init();
     /* Calibrate IMU for drift etc. */
-    // imu.calibrate();
+    imu.calibrate();
     /* Init Lightsensors */
     // light.init();
     /* Init Serial */
@@ -42,14 +42,14 @@ void setup(){
 }
 
 void loop(){
+
     /* Get OpenMV7 Data */
     // cam.getCamData();
 
     /* Get IR Data from ATMega */
-    spi.getIRData();
-    Serial.println(spi.frontIR);
+    // spi.getIRData();
     /* Update IMU */
-    // imu.update();
+    imu.update();
 
     /* Testing Orbit Function */
     // orbit(0,0);
@@ -81,4 +81,5 @@ void loop(){
 
     /* Update other robots data to direction Controller */
     // directionController.updateOtherData(xbee.OballX, xbee.OballY, xbee.OrobotX, xbee.OrobotY, xbee.OseeingBall == 1 ? true : false, xbee.OknowsPosition == 1 ? true : false);
+    motors.move(270, -imu.getHeading(), 50, false);
 }

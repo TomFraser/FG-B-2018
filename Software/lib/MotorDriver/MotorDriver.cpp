@@ -7,8 +7,9 @@ MotorDriver::MotorDriver(int pwm, int dir, int brk, int rev){
     pinMode(brk, OUTPUT);
     reversed = rev;
     r_pwm = pwm;
+    r_dir = dir;
     r_brk = brk;
-    analogWrite(pwm, 19000);
+    analogWriteFrequency(pwm, 19000);
 }
 
 void MotorDriver::set(int pwm){
