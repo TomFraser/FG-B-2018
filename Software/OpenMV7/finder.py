@@ -41,7 +41,7 @@ class Finder:
             return (65506, 65506)
         x = -(object.cx() - (self.img.width() / 2))
         y =  object.cy() - (self.img.height() / 2)
-        angle = (atan2(y,x) * (180 / pi) - 90)%360
+        angle = (atan2(-y,x) * (180 / pi) - 90)%360
         dist = (sqrt(x**2 + y**2))
         return (angle, dist)
 
