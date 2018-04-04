@@ -1,6 +1,10 @@
 #include <SPIWrapper.h>
 #include <MotorArray.h>
+<<<<<<< HEAD
 #include <Common.h>
+=======
+// #include <Common.h>
+>>>>>>> f2b2f2b29304cf12d1d28c5e7105affe275cd526
 #include <Orbit.h>
 #include <IMU.h>
 #include <RotationWrapper.h>
