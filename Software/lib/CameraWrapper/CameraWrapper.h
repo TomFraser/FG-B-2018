@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include <Common.h>
+#include <Structs.h>
 
 #define cameraSerial Serial1
 
@@ -12,7 +13,8 @@ public:
     void initSerial();
     void getCamData();
 
-    int rawAngle, strength, _ySize, _yAngle, _bSize, _bAngle;
+    // int rawAngle, strength, _ySize, _yAngle, _bSize, _bAngle;
+    cameraData data;
 
 private:
     long lastCall;
