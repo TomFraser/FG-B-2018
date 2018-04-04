@@ -1,11 +1,11 @@
 #include <SPIWrapper.h>
 #include <MotorArray.h>
-// #include <Common.h>
-// #include <Orbit.h>
+#include <Common.h>
+#include <Orbit.h>
 #include <IMU.h>
 #include <RotationWrapper.h>
 // #include <BallManager.h>
-// #include <CameraWrapper.h>
+#include <CameraWrapper.h>
 // #include <DirectionController.h>
 // #include <Light.h>
 // #include <ModeWrapper.h>
@@ -32,7 +32,7 @@ void setup(){
     /* Init Lightsensors */
     // light.init();
     /* Init Serial */
-    // cam.initSerial();
+    cam.initSerial();
     /* Set robot mode based on default mode */
     // if(ROBOT){
         // robotMode.setDefault(defender);
@@ -44,7 +44,7 @@ void setup(){
 void loop(){
 
     /* Get OpenMV7 Data */
-    // cam.getCamData();
+    cam.getCamData();
 
     /* Get IR Data from ATMega */
     // spi.getIRData();
@@ -82,5 +82,5 @@ void loop(){
     /* Update other robots data to direction Controller */
     // directionController.updateOtherData(xbee.OballX, xbee.OballY, xbee.OrobotX, xbee.OrobotY, xbee.OseeingBall == 1 ? true : false, xbee.OknowsPosition == 1 ? true : false);
     rotation.calculateRotation(-imu.getHeading(), 0, 0);
-    motors.move(270, rotation.getRotation(), 50, false);
+    motors.move(orbitSimple(cam.rawAngle, 1), rotation.getRotation(), 50, false);
 }

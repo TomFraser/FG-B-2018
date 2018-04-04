@@ -16,8 +16,8 @@ double orbitSimple(int angle, double ratio){
 
 double orbit(int angle, int distance){
     /* Ensure that we actually have a distance */
-    if(angle == -1){
-        return -1.00;
+    if(angle == -1 || angle == 65506){
+        return 65506;
     }
     if(distance != NULL){
         if(distance >= BIG_DISTANCE){
