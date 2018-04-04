@@ -89,8 +89,8 @@ void loop(){
     /* Update other robots data to direction Controller */
     // directionController.updateOtherData(xbee.OballX, xbee.OballY, xbee.OrobotX, xbee.OrobotY, xbee.OseeingBall == 1 ? true : false, xbee.OknowsPosition == 1 ? true : false);
 
-    // rotation.calculateRotation(-imu.getHeading(), 0, 0);
-    // motors.move(orbitSimple(cam.rawAngle, 1), rotation.getRotation(), 50, false);
+    rotation.calculateRotation(-imu.getHeading(), 0, 0);
+    motors.move(orbitSimple(cam.data.ballAngle, 1), rotation.getRotation(), 50, false);
     // for(int i = 0; i < 20; i++){
         // motors.sound(i*100 + 500);
     // }
