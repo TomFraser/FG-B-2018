@@ -2,9 +2,10 @@ from pyb import UART
 
 class Sender():
 
-    def init(self, bus=3, baud=9600, tout_c=10):
+    def init(self, bus=3, baud=9600, tout_c=10, initSend=None):
         self.uart = UART(bus, baud, timeout_char=tout_c)
-        self.data = []
+        if(initSend):
+            self.sendData(initSend)
 
     def sendData(self, data):
         # data is a list in the format:

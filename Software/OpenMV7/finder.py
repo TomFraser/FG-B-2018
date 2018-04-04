@@ -10,7 +10,8 @@ class Finder:
     def init(self, robot_):
         self.robot = robot_
         if self.robot == self.ROBOT_O: #O_bot
-            self.thresholds = [(35, 45, 40, 60, 40, 60), #Ball
+            # self.thresholds = [(35, 45, 40, 60, 40, 60), #Ball
+            self.thresholds = [(44, 100, 28, 127, 34, 67), #Ball
             (42, 76, -30, 40, 25, 72), #(71, 99, -9, 12, 12, 59), #Yellow Goal
             (22, 34, -24, 21, -29, -5)] # Blue Goal
         elif self.robot == self.ROBOT_P2: #P2_bot
@@ -23,11 +24,12 @@ class Finder:
         sensor.reset()
         sensor.set_pixformat(sensor.RGB565)
         sensor.set_framesize(sensor.QVGA) #Resolution, QVGA = 42FPS,QQVGA = 85FPS
-        sensor.set_auto_gain(True) #Must remain false for blob tracking
+        sensor.set_auto_gain(False, value=100) #Must remain false for blob tracking
         sensor.set_auto_whitebal(False) #Must remain false for blob tracking
+        sensor.set_auto_exposure(False, value=400)
         sensor.set_brightness(0)
-        sensor.set_contrast(0)
-        sensor.skip_frames(time = 1000) #Start Delay
+        sensor.set_contrast(3)
+        sensor.skip_frames(60) #Start Delay
 
 
     def takeSnapshot(self, center=False):
