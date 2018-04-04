@@ -1,5 +1,7 @@
 #include <Light.h>
 
+Light light = Light();
+
 Light::Light(){
     //init
     pinMode(LIGHT_1, INPUT);
@@ -114,11 +116,7 @@ void Light::readLight(){
         seeingWhite[i] = false;
       }
     }
-    numSensors = tempCount;
-}
-
-int Light::getNumSensors(){
-  return numSensors;
+    data.numSensors = tempCount;
 }
 
 //[0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0]
@@ -178,7 +176,7 @@ void Light::findClusters(cluster *foundClusters){
   // Serial.println();
 }
 
-double Light::getAngle(){
+void Light::updateAngle(){
     // get all the current clusters
     cluster foundClusters[maxNumClusters];
     findClusters(foundClusters);
@@ -278,5 +276,5 @@ double Light::getAngle(){
 
     countback[0] = countbackVal;
 
-    return directionAngle;
+    data.angle = directionAngle;
 }

@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include <Common.h>
+#include <Structs.h>
 
 struct cluster{
   bool exist;
@@ -27,14 +28,13 @@ public:
     //Read the light sensors
     void readLight();
 
-    //Get current angle to avoid line
-    double getAngle();
-
     // get if theres an error (if a sensor has bricked)
     bool getError();
 
-    // get number of sensors currently seeing the Line
-    int getNumSensors();
+    // update the light angle
+    void updateAngle();
+
+    lightData data;
 
 private:
     // Function Definitions
@@ -68,9 +68,6 @@ private:
 
     bool error = false;
 
-    //for reading light
-    int numSensors;
-
     // bool seeingWhite[LIGHTSENSOR_NUM] = {true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
     bool seeingWhite[LIGHTSENSOR_NUM];
 
@@ -101,5 +98,7 @@ private:
     //For angle countback and filtering
     double countback[NUM_COUNTBACK];
 };
+
+extern Light light;
 
 #endif
