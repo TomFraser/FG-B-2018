@@ -1,7 +1,5 @@
 #include <MotorArray.h>
 
-#include <Pirates.h>
-
 MotorArray motors = MotorArray();
 
 MotorArray::MotorArray(){

@@ -1,5 +1,5 @@
-#ifndef Pirates_h
-#define Pirates_h
+#ifndef Songs_h
+#define Songs_h
 #include <Arduino.h>
 
 void writeFreq(double freq, double delays){
