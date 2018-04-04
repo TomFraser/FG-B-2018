@@ -1,10 +1,10 @@
 #ifndef Structs_h
 #define Structs_h
 
-struct controlData {
+struct moveControl {
     double direction;
     int speed;
-    bool followingBall;
+    bool doBoost;
 };
 
 struct coordinate {
@@ -31,6 +31,13 @@ struct lidarData {
 struct lightData {
     double angle;
     int numSensors;
+};
+
+struct xbeeData {
+    coordinate ballCoords;
+    coordinate robotCoords;
+    bool seesBall;
+    bool knowsPosition;
 };
 
 #endif
