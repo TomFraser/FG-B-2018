@@ -38,13 +38,13 @@ void setup(){
     // }else{
         // robotMode.setDefault(attacker);
     // }
-    delay(500);
-    motors.sound(1);
-    delay(500);
-    analogWriteFrequency(2, 19000);
-    analogWriteFrequency(3, 19000);
-    analogWriteFrequency(4, 19000);
-    analogWriteFrequency(5, 19000);
+    // delay(500);
+    // motors.sound(1);
+    // delay(500);
+    // analogWriteFrequency(2, 19000);
+    // analogWriteFrequency(3, 19000);
+    // analogWriteFrequency(4, 19000);
+    // analogWriteFrequency(5, 19000);
 }
 
 void loop(){
@@ -91,7 +91,4 @@ void loop(){
 
     rotation.calculateRotation(-imu.getHeading(), 0, 0);
     motors.move(orbitSimple(cam.data.ballAngle, 1), rotation.getRotation(), 50, false);
-    // for(int i = 0; i < 20; i++){
-        // motors.sound(i*100 + 500);
-    // }
 }

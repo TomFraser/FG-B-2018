@@ -40,11 +40,11 @@ void MotorArray::sound(long in){
     // analogWriteFrequency(3, in);
     // analogWriteFrequency(4, in);
     // analogWriteFrequency(5, in);
-    motorA.set(70);
-    motorB.set(70);
-    motorC.set(70);
-    motorD.set(70);
-    xp();
+    motorA.set(100);
+    motorB.set(100);
+    motorC.set(100);
+    motorD.set(100);
+    frog();
 }
 
 int MotorArray::sign(double value) {
