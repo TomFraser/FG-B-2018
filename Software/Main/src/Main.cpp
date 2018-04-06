@@ -29,7 +29,7 @@ void setup(){
     imu.init();
     /* Calibrate IMU for drift etc. */
     imu.calibrate();
-    /* Init Lightsensors */
+    /* Init Lightsensors */ 
     light.init();
     /* Init Serial */
     cam.initSerial();
