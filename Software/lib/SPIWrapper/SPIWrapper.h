@@ -11,7 +11,7 @@ public:
     void initSPI();
     void getIRData();
 
-    double frontIR, rightIR, backIR, leftIR;
+    lidarData lidars;
 private:
     uint16_t tempIRData[IR_TRANSFER_NUM];
 };

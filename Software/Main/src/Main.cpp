@@ -21,8 +21,9 @@
 // DirectionController directionController = DirectionController();
 
 void setup(){
-    /* Init SPI */
+    /* Begin Serial */
     Serial.begin(9600);
+    /* Init SPI */
     spi.initSPI();
     /* Init IMU */
     imu.init();
@@ -33,32 +34,21 @@ void setup(){
     /* Init Serial */
     cam.initSerial();
     /* Set robot mode based on default mode */
-    // if(ROBOT){
-        // robotMode.setDefault(defender);
-    // }else{
-        // robotMode.setDefault(attacker);
-    // }
-    // delay(500);
-    // motors.sound(1);
-    // delay(500);
-    // analogWriteFrequency(2, 19000);
-    // analogWriteFrequency(3, 19000);
-    // analogWriteFrequency(4, 19000);
-    // analogWriteFrequency(5, 19000);
+    if(ROBOT){
+        robotMode.setDefault(defender);
+    }else{
+        robotMode.setDefault(attacker);
+    }
 }
 
 void loop(){
 
     /* Get OpenMV7 Data */
     cam.getCamData();
-
     /* Get IR Data from ATMega */
-    // spi.getIRData();
+    spi.getIRData();
     /* Update IMU */
     imu.update();
-
-    /* Testing Orbit Function */
-    // orbit(0,0);
 
     /* Update Light */
     light.readLight();
