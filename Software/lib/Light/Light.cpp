@@ -267,7 +267,7 @@ void Light::updateAngle(){
     // for(int i=0; i<NUM_COUNTBACK; i++){
     //   Serial.print(i); Serial.print(" "); Serial.println(countback[i]);
     //   Serial.println();
-    // }
+    // }    
 
 
     for(int i=0; i<NUM_COUNTBACK-1; i++){

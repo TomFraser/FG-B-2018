@@ -29,11 +29,11 @@ void Camera::getCamData(){
 
 
             data.ballAngle = bitCombinedData[0];
-            data.ballDist = bitCombinedData[1];
+            data.ballStrength = bitCombinedData[1];
             data.yGoalAngle = bitCombinedData[2];
-            data.yGoalDist = bitCombinedData[3];
+            data.yGoalStrength = bitCombinedData[3];
             data.bGoalAngle = bitCombinedData[4];
-            data.bGoalDist = bitCombinedData[5];
+            data.bGoalStrength = bitCombinedData[5];
 
             lastCall = millis();
         }else{
