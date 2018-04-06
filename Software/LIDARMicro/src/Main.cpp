@@ -1,6 +1,9 @@
 #include <Arduino.h>
-#include <LIDARWrapper.h>
+// #include <LIDARWrapper.h>
 #include <Common.h>
+
+uint8_t sensorData[9];
+int lidarData[3];
 
 void setup(){
     pinMode(MISO, OUTPUT);
@@ -11,17 +14,17 @@ void setup(){
 
 void loop(){
     /* Read Lidar Sensors */
-    lidar.read();
+    // lidar.read();
     /* Get Request Data From Master */
-    uint8_t data = SPDR;
 
-    /* Respond Based on Request Data */
+    uint8_t data = SPDR;
+    // /* Respond Based on Request Data */
     switch(data){
         case 1:
-            SPDR = (uint8_t)(50000 & 0xFF); break;
+            SPDR = 16; break;
             // SPDR = 0; break;
         case 2:
-            SPDR = (uint8_t)((50000 >> 8)); break;
+            // SPDR = (uint8_t)(50000 >> 8); break;
             // SPDR = 20; break;
         case 3:
             // SPDR = (lidar.values[1] & 0xFF); break;
@@ -42,6 +45,6 @@ void loop(){
             // SPDR = (lidar.values[3] >> 8); break;
             SPDR = 140; break;
     }
-    /* Wait for the data to successfully transfer before continuing */
+    // /* Wait for the data to successfully transfer before continuing */
     while (!(SPSR & (1<<SPIF)));
 }
