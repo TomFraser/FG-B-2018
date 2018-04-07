@@ -5,6 +5,7 @@
 
 #define ALT_SCK 14
 #define CAM_TRANSFER_NUM 12
+#define LIDAR_SS 49
 #define IR_TRANSFER_NUM 4
 
 #define FORWARD_SPEED 100
@@ -25,8 +26,8 @@
 #define BACKSPIN_PIN 6
 
 #define LIGHTGATE_PIN 49
+#define KICKER_PIN 28
 #define LIGHTGATE_THRESHOLD 0
-#define LIDAR_SS 28
 #define MIN_BALL_CONFIDENCE 0
 #define BALL_CONFIDENCE 2
 

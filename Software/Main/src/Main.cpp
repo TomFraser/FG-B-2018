@@ -34,11 +34,13 @@ void setup(){
     /* Init Serial */
     cam.initSerial();
     /* Set robot mode based on default mode */
+    /*
     if(ROBOT){
         robotMode.setDefault(defender);
     }else{
         robotMode.setDefault(attacker);
-    }
+    }*/
+    pinMode(KICKER_PIN, OUTPUT);
 }
 
 void loop(){
@@ -80,5 +82,10 @@ void loop(){
     // directionController.updateOtherData(xbee.OballX, xbee.OballY, xbee.OrobotX, xbee.OrobotY, xbee.OseeingBall == 1 ? true : false, xbee.OknowsPosition == 1 ? true : false);
 
     rotation.calculateRotation(-imu.getHeading(), 0, 0);
-    motors.move(orbitSimple(cam.data.ballAngle, 1), rotation.getRotation(), 50, false);
+    // motors.move(orbitSimple(cam.data.ballAngle, 1), rotation.getRotation(), 50, false);
+    // motors.sound(0);
+    digitalWrite(KICKER_PIN, HIGH);
+    delay(20);
+    digitalWrite(KICKER_PIN, LOW);
+    delay(2000);
 }
