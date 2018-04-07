@@ -19,6 +19,7 @@ struct cameraData {
     int yGoalStrength;
     int bGoalAngle;
     int bGoalStrength;
+    bool attackingYellow;
 };
 
 struct lidarData {

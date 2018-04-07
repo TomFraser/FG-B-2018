@@ -11,7 +11,7 @@ class Camera {
 public:
     Camera();
     void initSerial();
-    void getCamData();
+    void getCamData(bool attackingYellow);
 
     // int rawAngle, strength, _ySize, _yAngle, _bSize, _bAngle;
     cameraData data;

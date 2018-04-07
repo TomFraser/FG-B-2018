@@ -12,7 +12,7 @@ void Camera::initSerial(){
     lastCall = millis();
 }
 
-void Camera::getCamData(){
+void Camera::getCamData(bool attackingYellow){
     /* Reset data in tempCamData array to -1 */
     memset(tempCamData, -1, sizeof(tempCamData));
     /* Gets camera data and set its to a number of variables */
@@ -34,6 +34,7 @@ void Camera::getCamData(){
             data.yGoalStrength = bitCombinedData[3];
             data.bGoalAngle = bitCombinedData[4];
             data.bGoalStrength = bitCombinedData[5];
+            data.attackingYellow = attackingYellow;
 
             lastCall = millis();
         }else{

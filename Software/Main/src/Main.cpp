@@ -10,7 +10,7 @@
 #include <CameraWrapper.h>
 #include <DirectionController.h>
 #include <Light.h>
-// #include <ModeWrapper.h>
+#include <ModeWrapper.h>
 // #include <Xbee.h>
 
 
@@ -29,17 +29,17 @@ void setup(){
     /* Init Serial */
     cam.initSerial();
     /* Set robot mode based on default mode */
-    // if(ROBOT){
-        // robotMode.setDefault(defender);
-    // }else{
-        // robotMode.setDefault(attacker);
-    // }
+    if(ROBOT){
+        robotMode.setDefault(defender);
+    }else{
+        robotMode.setDefault(attacker);
+    }
 }
 
 void loop(){
 
     /* Get OpenMV7 Data */
-    cam.getCamData();
+    cam.getCamData(ATTACK_YELLOW);
 
     /* Get IR Data from ATMega */
     // spi.getIRData();

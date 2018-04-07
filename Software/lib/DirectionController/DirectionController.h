@@ -7,10 +7,6 @@
 #include <LightTracker.h>
 #include <CoordCalc.h>
 
-/* Structs */
-
-
-
 class DirectionController{
 
 public:
@@ -32,6 +28,7 @@ private:
 
     /* Objects */
     LightTracker lightTracker = LightTracker();
+    CoordCalc coordCalc = CoordCalc();
 
     /* Variables */
 

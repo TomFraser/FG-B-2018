@@ -4,10 +4,6 @@ DirectionController dc = DirectionController();
 
 /* Public Functions */
 
-void DirectionController::attackingYellow(bool attackYellow_){
-    attackYellow = attackYellow_;
-}
-
 // takes in all structs and data
 void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightData light_, xbeeData xbee_, double compass_){
     cam = cam_;
@@ -17,12 +13,10 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
     compass = compass_;
     moveAngle = getOrbit(cam.ballAngle);
 
-    // TODO
     /* Calculate Coordinates of Ball and Robot */
-    // coordCalc.updateData(cam, lidar, compass);
-    // ballCoord = coordCalc.ball;
-    // robotCoord = coordCalc.robot;
-
+    coordCalc.updateData(cam, lidar, compass);
+    myBallCoord = coordCalc.ball;
+    myRobotCoord = coordCalc.robot;
 
 }
 
@@ -41,7 +35,6 @@ xbeeData getXbeeData(){
 /* Private Functions */
 
 // utility functions
-
 double DirectionController::relToAbs(double relativeDirection){
   return relativeDirection != 65506 ? doubleMod(relativeDirection - compass, 360.0) : 65506;
 }
@@ -57,22 +50,28 @@ double DirectionController::getOrbit(double direction){
 
 // play modes
 moveControl DirectionController::calculateAttack(){
-    if(cam.ballAngle != 65506){
-        lightTracker.update(relToAbs(light.angle), relToAbs(moveAngle), SPEED_VAL, relToAbs(cam.ballAngle), light.numSensors);
-
-        // set up the return data struct
-        moveControl moveReturn;
-        moveReturn.direction = absToRel(lightTracker.getDirection());
-        moveReturn.speed = lightTracker.getSpeed();
-        moveReturn.doBoost = lightTracker.getNormalGameplay();
-
-        return moveReturn;
+    moveControl tempControl;
+    if(moveAngle != 65506){
+        // if we know where the ball is -> go to it
+        tempControl.direction = relToAbs(moveAngle);
+        tempControl.speed = SPEED_VAL;
+        tempControl.doBoost = true;
 
         // BACKSPIN LOGIC CAN GO HERE TOO
     } else {
         // cant see ball -> go to other ball coords or predefined ones
         // (or do a spiral for superteam)
     }
+
+    // make sure we dont go over the line
+    lightTracker.update(relToAbs(light.angle), tempControl.direction, tempControl.speed, relToAbs(cam.ballAngle), light.numSensors);
+
+    // set up the return data struct
+    moveControl moveReturn = {absToRel(lightTracker.getDirection()),
+                              lightTracker.getSpeed(),
+                              tempControl.doBoost && lightTracker.getNormalGameplay()};
+
+    return moveReturn;
 }
 
 moveControl DirectionController::calculateGoalie(){
