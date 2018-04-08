@@ -15,11 +15,12 @@ For enquiries relating to this repo please contact: tr.fraser@bigpond.com
 #### Before Internationals
 - [x] **Power on PCB** - 03/04/18
 - [x] **Make Motors Move**
-- [ ] **Communicate to Camera and Follow Ball**
+- [x] **Communicate to Camera and Follow Ball**
 - [ ] **Line Avoidance & Goal Tracking**
 * Other Abilities
-    - [ ] **Kicking and Dribbling**
-    - [ ] **Laser Range Finders**
+    - [x] **Kicking**
+    - [ ] **Dribbling**
+    - [x] **Laser Range Finders**
     - [ ] **Ball Hiding**
     - [x] **Play single track music by manipulating PWM frequencies**
     - [ ] **Play multi track music by manipulating PWM frequencies (1 track per motor)**
