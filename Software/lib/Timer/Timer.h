@@ -8,7 +8,6 @@ public:
     Timer(int mode);
 
     void reset();
-    void stop();
     long getTime();
     bool hasBeenMS(long microseconds);
 

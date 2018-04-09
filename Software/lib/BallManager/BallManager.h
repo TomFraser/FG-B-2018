@@ -19,4 +19,6 @@ private:
     solenoidMode mode;
 };
 
+extern BallManager kicker;
+
 #endif

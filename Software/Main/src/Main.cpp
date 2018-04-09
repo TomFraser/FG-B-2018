@@ -6,7 +6,7 @@
 #include <Orbit.h>
 #include <IMU.h>
 #include <RotationWrapper.h>
-// #include <BallManager.h>
+#include <BallManager.h>
 #include <CameraWrapper.h>
 // #include <DirectionController.h>
 #include <Light.h>
@@ -40,7 +40,6 @@ void setup(){
     }else{
         robotMode.setDefault(attacker);
     }*/
-    pinMode(KICKER_PIN, OUTPUT);
 }
 
 void loop(){
@@ -84,8 +83,6 @@ void loop(){
     rotation.calculateRotation(-imu.getHeading(), 0, 0);
     // motors.move(orbitSimple(cam.data.ballAngle, 1), rotation.getRotation(), 50, false);
     // motors.sound(0);
-    digitalWrite(KICKER_PIN, HIGH);
-    delay(20);
-    digitalWrite(KICKER_PIN, LOW);
-    delay(2000);
+    kicker.controlBall(1);
+    kicker.kickBall();
 }
