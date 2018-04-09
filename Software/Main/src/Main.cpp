@@ -57,6 +57,8 @@ void loop(){
     light.readLight();
     light.updateAngle();
 
+    Serial.println(light.data.angle);
+
     /* Update Game Data */
     // directionController.updateGameData(cam.rawAngle, cam.rawAngle, cam.strength, light.getAngle(), light.getNumSensors(), imu.getHeading(), robotMode.getMode());
 
