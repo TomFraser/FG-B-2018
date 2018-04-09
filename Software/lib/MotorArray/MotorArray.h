@@ -4,6 +4,7 @@
 #include <Arduino.h>
 #include <MotorDriver.h>
 #include <Common.h>
+#include <Songs.h>
 
 class MotorArray {
 public:

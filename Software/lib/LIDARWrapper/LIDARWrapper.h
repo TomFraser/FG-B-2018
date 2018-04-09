@@ -6,9 +6,9 @@
 class LIDAR {
 public:
     LIDAR();
+    void init();
     void read();
-    uint16_t values[4];
-    uint16_t strengths[4];
+    uint16_t lidarVal[4];
 private:
     uint8_t sensorData[9];
     int bytesReady = 0;

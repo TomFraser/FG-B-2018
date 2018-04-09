@@ -21,8 +21,9 @@
 // DirectionController directionController = DirectionController();
 
 void setup(){
-    /* Init SPI */
+    /* Begin Serial */
     Serial.begin(9600);
+    /* Init SPI */
     spi.initSPI();
     /* Init IMU */
     imu.init();
@@ -33,25 +34,23 @@ void setup(){
     /* Init Serial */
     cam.initSerial();
     /* Set robot mode based on default mode */
-    // if(ROBOT){
-        // robotMode.setDefault(defender);
-    // }else{
-        // robotMode.setDefault(attacker);
-    // }
+    /*
+    if(ROBOT){
+        robotMode.setDefault(defender);
+    }else{
+        robotMode.setDefault(attacker);
+    }*/
+    pinMode(KICKER_PIN, OUTPUT);
 }
 
 void loop(){
 
     /* Get OpenMV7 Data */
     cam.getCamData();
-
     /* Get IR Data from ATMega */
-    // spi.getIRData();
+    spi.getIRData();
     /* Update IMU */
     imu.update();
-
-    /* Testing Orbit Function */
-    // orbit(0,0);
 
     /* Update Light */
     light.readLight();
@@ -85,10 +84,10 @@ void loop(){
     // directionController.updateOtherData(xbee.OballX, xbee.OballY, xbee.OrobotX, xbee.OrobotY, xbee.OseeingBall == 1 ? true : false, xbee.OknowsPosition == 1 ? true : false);
 
     rotation.calculateRotation(-imu.getHeading(), 0, 0);
-    motors.move(orbitSimple(cam.data.ballAngle, 1), rotation.getRotation(), 50, false);
-    // for(int i = 0; i < 20; i++){
-        // motors.sound(i*100 + 500);
-        motors.sound(1);
-        delay(100);
-    // }
+    // motors.move(orbitSimple(cam.data.ballAngle, 1), rotation.getRotation(), 50, false);
+    // motors.sound(0);
+    digitalWrite(KICKER_PIN, HIGH);
+    delay(20);
+    digitalWrite(KICKER_PIN, LOW);
+    delay(2000);
 }
