@@ -19,18 +19,11 @@ finder.init(finder.ROBOT_O)
 ledController.allOff()
 
 while True:
+    #clock.tick()
+    # ledController.blink()
+    finder.takeSnapshot(False) # (draw center cross)
+    data = finder.findObjects(False, False, False) # (mark ball, mark goals)
+    sender.sendData(data)
 
-    try:
-        #clock.tick()
-        #ledController.blink()
-        finder.takeSnapshot(False) # (draw center cross)
-        data = finder.findObjects(False, False, False) # (mark ball, mark goals)
-        sender.sendData(data)
-
-        #print(data)
-
-        #fps checking
-        #print(clock.fps())
-    except:
-        ledController.on(ledController.LED_BLUE)
-
+    #fps checking
+    #print(clock.fps())
