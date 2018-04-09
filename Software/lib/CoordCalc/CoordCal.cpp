@@ -1,16 +1,86 @@
-// UNLESS YOU ARE AL DO NOT TOUCH OR I WILL END YOU SLOWLY AND
-// PAINFULLY BY MAKING YOU DO THE MERGE
-
-// TODO: need to write a thing to deal with it spazzing out at the sides
-
 #include <CoordCalc.h>
 
 CoordCalc::CoordCalc(){
   // init
 }
 
-int CoordCalc::calcDistance(int goalArea, int goalAngle, bool attack){
-  #if ROBOT
+/* Public Functions */
+void CoordCalc::updateData(cameraData cam, lidarData lidar, double compass_){
+    compass = compass_;
+
+    /* Adujust all values for compass reading */
+    // camera data
+    absCamData absCam;
+    absCam.ballAngle = relToAbs(cam.ballAngle);
+    absCam.ballDist = calcBallDistCam(cam.ballStrength);
+    if(cam.attackingYellow){
+        // yellow
+        absCam.attackAngle = relToAbs(cam.yGoalAngle);
+        absCam.attackDist = calcGoalDistCam(cam.yGoalStrength, true);
+
+        // blue
+        absCam.defenceAngle = relToAbs(cam.bGoalAngle);
+        absCam.defenceDist = calcGoalDistCam(cam.bGoalStrength, false);
+
+    } else {
+        // blue
+        absCam.attackAngle = relToAbs(cam.bGoalAngle);
+        absCam.attackDist = calcGoalDistCam(cam.bGoalStrength, true);
+
+        // yellow
+        absCam.defenceAngle = relToAbs(cam.yGoalAngle);
+        absCam.defenceDist = calcGoalDistCam(cam.yGoalStrength, false);
+    }
+
+    // lidar data
+    lidarData absLidar = {relToAbsLidar(lidar.frontDist),
+                          relToAbsLidar(lidar.backDist),
+                          relToAbsLidar(lidar.leftDist),
+                          relToAbsLidar(lidar.rightDist)};
+
+
+    /* Calculate robot position */
+    // calulate a quadrant we're in
+        // 1. use angle to find left / right
+        // 2. use which goal is the bigger one figure out which quadrant we're in
+    // check that lidarData makes sense for that quadrant
+        // the checks:
+        // 1. add them up and see if they fit within a range (cause they should add to a fairly consistent number)
+        // 2. check if the correct one is the greater one (based on quadrant)
+            // -> if all goods (or some is ok) - use lidar data to calulate position
+            // -> otherwise use the cameras
+
+    /* Calculate ball position */
+    // just use cam data and robots position
+}
+
+
+/* Private Functions */
+int CoordCalc::relToAbs(int relativeDirection){
+  return relativeDirection != 65506 ? doubleMod(relativeDirection - compass, 360.0) : 65506;
+}
+
+int CoordCalc::absToRel(int absoluteDirection){
+  return absoluteDirection != 65506 ? doubleMod(absoluteDirection + compass, 360.0) : 65506;
+}
+
+uint16_t CoordCalc::relToAbsLidar(uint16_t value){
+    return value * cos(abs(compass)*angToRad);
+}
+
+int CoordCalc::calcBallDistCam(int ballStrength){
+    // DANK
+    // gotta figure out an algorithm for this
+    if(ballStrength > 15 && ballStrength < 122){
+        return -sqrt(9550-pow(ballStrength-15, 2))+98;
+    } else {
+        return -1;
+    }
+}
+
+int CoordCalc::calcGoalDistCam(int goalArea, bool attack){
+    // DANK
+    #if ROBOT
     // o_bot
     if(goalArea > 105 && goalArea <= 206){
       return -sqrt(9100-0.87*pow(goalArea-105, 2))+101;
@@ -18,7 +88,7 @@ int CoordCalc::calcDistance(int goalArea, int goalAngle, bool attack){
     else{
       return -1;
     }
-  #else
+    #else
     // p2_bot
     if(attack){
       // front thing
@@ -39,116 +109,5 @@ int CoordCalc::calcDistance(int goalArea, int goalAngle, bool attack){
       }
 
     }
-  #endif
-}
-
-bool CoordCalc::update(int areaA, int angleA, int areaD, int angleD, double compassAngle){
-  // returns the success of the coord calc
-  // if true then can use the get coords functions
-  // if false then have to do something else
-
-
-  //-30 is the 'no goal' angle
-  bool attackGoal = (angleA != 65506);
-  bool defenseGoal = (angleD != 65506);
-
-  // attack calulations
-  if(attackGoal){
-
-    angleA = doubleMod(angleA - compassAngle, 360); // CHECK THIS
-
-    int distance = calcDistance(areaA, angleA, true);
-
-    // Serial.println(distance);
-
-    if(distance < 150 && distance > 0)
-    {
-      int xGoal = distance*sin(angToRad*angleA);
-      int yGoal = distance*cos(angToRad*angleA);
-
-      xAttack = ATTACK_GOAL_X-xGoal;
-      yAttack = ATTACK_GOAL_Y-yGoal;
-
-      // Serial.println(xAttack);
-      // Serial.println(yAttack);
-      // Serial.println();
-    }
-    else{
-      attackGoal = false;
-    }
-
-  }
-
-  // defense calulations
-  if(defenseGoal){
-    angleD = doubleMod(angleD - compassAngle, 360); // CHECK THIS
-
-    int distance = calcDistance(areaD, angleD, false);
-
-    // Serial.println(distance);
-
-    if(distance < 150 && distance > 0)
-    {
-      int xGoal = distance*sin(angToRad*angleD);
-      int yGoal = distance*cos(angToRad*angleD);
-
-      xDefense = DEFENSE_GOAL_X-xGoal;
-      yDefense = DEFENSE_GOAL_Y-yGoal;
-
-      // Serial.println(xDefense);
-      // Serial.println(yDefense);
-      // Serial.println();
-    }
-    else{
-      defenseGoal = false;
-    }
-  }
-
-  if(attackGoal && defenseGoal){
-    // we can see both goals
-    // so yeah, idk what were gonna do here maybe average
-    // what happens when one memes tho? we cant really tell which
-    // one is correct and the other is a meme
-
-    // take the smaller goal (smaller distance = closer)
-    if(areaA < areaD){
-      xCoord = xAttack;
-      yCoord = yAttack;
-    }
-    else{
-      xCoord = xDefense;
-      yCoord = yDefense;
-    }
-
-  }
-  else if(attackGoal){
-    // only attack goal can be seen
-    xCoord = xAttack;
-    yCoord = yAttack;
-  }
-  else if(defenseGoal){
-    // only defenseGoal can be seen
-    xCoord = xDefense;
-    yCoord = yDefense;
-  }
-  else{
-    // no goals
-    return false;
-  }
-
-  // Serial.println(xCoord);
-  // Serial.println(yCoord);
-  // Serial.println();
-  //
-  // make sure our coords are within the field - ceebs doing this, i dont think its good
-  // return (FRONT_LEFT_X < xCoord && xCoord < FRONT_RIGHT_X) && (FRONT_LEFT_Y < yCoord && yCoord < BACK_LEFT_Y);
-  return true;
-}
-
-int CoordCalc::getX(){
-  return xCoord;
-}
-
-int CoordCalc::getY(){
-  return yCoord;
+    #endif
 }

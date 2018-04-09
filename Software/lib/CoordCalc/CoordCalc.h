@@ -1,43 +1,44 @@
-// UNLESS YOU ARE AL DO NOT TOUCH OR I WILL END YOU SLOWLY AND
-// PAINFULLY BY MAKING YOU DO THE MERGE
-
 #ifndef CoordCalc_h
 #define CoordCalc_h
 
 #include <Arduino.h>
 #include <Common.h>
+#include <Structs.h>
 
 class CoordCalc{
 
 public:
     CoordCalc();
 
+    /* Functions */
+    void updateData(cameraData cam, lidarData lidar, double compass);
 
-    bool update(int areaA, int angleA, int areaD, int angleD, double compassAngle);
-
-    int calcDistance(int goalArea, int goalAngle, bool attack);
-
-    int getX();
-    int getY();
+    /* Variables */
+    coordinate ball;
+    coordinate robot;
 
 private:
 
-  //value to store our current x
-  int xCoord;
+    /* Functions */
+    int calcGoalDistCam(int goalArea, bool attack);
+    int calcBallDistCam(int ballStrength);
 
-  //value to store our current y
-  int yCoord;
+    int relToAbs(int relativeDirection);
+    int absToRel(int absoluteDirection);
 
-  //value to store current attack x
-  int xAttack;
+    uint16_t relToAbsLidar(uint16_t value);
 
-  //value to store current attack y
-  int yAttack;
+    /* Variables */
+    double compass;
 
-  //value to store current defense x
-  int xDefense;
-
-  //value to store current defense y
-  int yDefense;
+    /* Structs */
+    struct absCamData {
+        int ballAngle;
+        int ballDist;
+        int attackAngle;
+        int attackDist;
+        int defenceAngle;
+        int defenceDist;
+    };
 };
 #endif

@@ -8,7 +8,10 @@
 #define LIDAR_SS 49
 #define IR_TRANSFER_NUM 4
 
+/* Speeds */
+#define SPEED_VAL 80
 #define FORWARD_SPEED 100
+
 
 #define angToRad 0.01745329251
 #define radToAng 57.2957795131
@@ -36,6 +39,10 @@
 #define XBEE_CONST 128
 #define XBEE_START_BYTE 255
 
+/* Orbit */
+#define BIG_DISTANCE 0.00
+#define MED_DISTANCE 0.00
+#define SHORT_DISTANCE 0.00
 
 /* Coord Calc */
 #define ATTACK_GOAL_Y 0
@@ -43,25 +50,27 @@
 #define DEFENSE_GOAL_Y 0
 #define DEFENSE_GOAL_X 0
 
+#define LIDAR_MAX_SUM_HOR 100
+#define LIDAR_MIN_SUM_HOR 80
+#define LIDAR_MAX_SUM_VER 100
+#define LIDAR_MIN_SUM_VER 80
 
-/* Orbit */
-#define BIG_DISTANCE 0.00
-#define MED_DISTANCE 0.00
-#define SHORT_DISTANCE 0.00
 
-/* Direction Controller */
-#define SLIDE_ANGLE 80
-#define ANGLE_CUTOFF 75
+
+/* Light Tracker */
 #define SPEED_ON_LINE 0
-#define STOP_BOUND 150
 #define SPEED_SLIDE 60
 #define SPEED_OVER_LINE 60
+#define SLIDE_ANGLE 80
+#define ANGLE_CUTOFF 75
+#define STOP_BOUND 150
+
+/* Direction Controller */
 #define DISTANCE_CUTOFF_GOALIE 0
 #define DISTANCE_CUTOFF_ATTACK 10
 #define DISTANCE_CUTOFF 0
 #define CUTOFF_SPEED_SCALE 1
 #define COORD_SPEED_SCALE 2.5
-#define SPEED_VAL 80
 #define SPIRAL_RATE 1
 #define SPIRAL_DIRECION_RATE 0.2
 #define SPIRAL_SPEED 60
