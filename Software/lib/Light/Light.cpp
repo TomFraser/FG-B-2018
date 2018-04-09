@@ -78,7 +78,7 @@ double Light::getClusterAngle(int clusterBegin, int clusterEnd){
 //=============================Other Functions=====================
 void Light::init(){
     #if AUTO_LIGHT
-      // set calubrations based on init values
+      // set calibrations based on init values
       delay(500);
       for(int i=0; i < LIGHTSENSOR_NUM; i++){
         thresholds[i] = 0;
@@ -102,7 +102,8 @@ void Light::init(){
 void Light::readLight(){
     int tempCount = 0;
     for(int i = 0; i < LIGHTSENSOR_NUM; i++){
-      if(thresholds[i] != -1){
+
+      if(thresholds[i] != -1 && !broken[i]){
         int val = analogRead(lightSensors[i]);
         if(val >= thresholds[i]){
             seeingWhite[i] = true;
@@ -267,7 +268,7 @@ void Light::updateAngle(){
     // for(int i=0; i<NUM_COUNTBACK; i++){
     //   Serial.print(i); Serial.print(" "); Serial.println(countback[i]);
     //   Serial.println();
-    // }    
+    // }
 
 
     for(int i=0; i<NUM_COUNTBACK-1; i++){

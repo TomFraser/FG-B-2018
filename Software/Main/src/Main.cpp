@@ -57,8 +57,6 @@ void loop(){
     lidarData ldata = {0, 0, 0, 0};
     xbeeData xdata = {{0, 0}, {0, 0}, false, false};
 
-
-
     /* Update Game Data */
     dc.updateData(cam.data, ldata, light.data, xdata, imu.getHeading());
 

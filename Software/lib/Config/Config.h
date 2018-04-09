@@ -12,7 +12,6 @@
 #define SPEED_VAL 80
 #define FORWARD_SPEED 100
 
-
 #define angToRad 0.01745329251
 #define radToAng 57.2957795131
 
@@ -84,6 +83,10 @@
 #define TARGET_Y 0
 
 /* Light */
+#define AUTO_LIGHT true
+#define LIGHT_CALB_LOOPS 1000
+#define THRESHOLD_OFFSET 10
+
 #define LIGHTSENSOR_NUM 20
 #define maxNumClusters 20
 #define LIGHT_1 A1
