@@ -1,17 +1,6 @@
 #include <Common.h>
 #include <Structs.h>
-#include <SPIWrapper.h>
-#include <MotorArray.h>
-#include <Common.h>
-#include <Orbit.h>
-#include <IMU.h>
-#include <RotationWrapper.h>
-// #include <BallManager.h>
 #include <CameraWrapper.h>
-// #include <DirectionController.h>
-#include <Light.h>
-// #include <ModeWrapper.h>
-// #include <Xbee.h>
 
 
 /* #define dc directionController */
@@ -23,24 +12,7 @@
 void setup(){
     /* Begin Serial */
     Serial.begin(9600);
-    /* Init SPI */
-    spi.initSPI();
-    /* Init IMU */
-    imu.init();
-    /* Calibrate IMU for drift etc. */
-    imu.calibrate();
-    /* Init Lightsensors */
-    light.init();
-    /* Init Serial */
     cam.initSerial();
-    /* Set robot mode based on default mode */
-    /*
-    if(ROBOT){
-        robotMode.setDefault(defender);
-    }else{
-        robotMode.setDefault(attacker);
-    }*/
-    pinMode(KICKER_PIN, OUTPUT);
 }
 
 void loop(){

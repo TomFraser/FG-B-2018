@@ -95,6 +95,6 @@
 #define LIGHT_16 A18
 #define LIGHT_17 A19
 #define LIGHT_18 A20
-#define LIGHT_19 A21
-#define LIGHT_20 A22
+#define LIGHT_19 39
+#define LIGHT_20 38
 #define NUM_COUNTBACK 2
