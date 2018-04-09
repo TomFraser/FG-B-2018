@@ -1,6 +1,9 @@
 #include <Orbit.h>
 
 double orbitSimple(int angle, double ratio){
+    if(angle == -1 || angle == 65506){
+        return 65506;
+    }
     /* Simple orbit from last year for testing */
     if(ratio < 0.00 || ratio > 1.00){
         ratio = 1.00;

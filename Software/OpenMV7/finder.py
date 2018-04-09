@@ -11,9 +11,15 @@ class Finder:
         self.robot = robot_
         if self.robot == self.ROBOT_O: #O_bot
             # self.thresholds = [(35, 45, 40, 60, 40, 60), #Ball
+<<<<<<< HEAD
             self.thresholds = [(38, 58, 18, 52, 1, 32), #Ball
             (42, 76, -30, 40, 25, 72), #(71, 99, -9, 12, 12, 59), #Yellow Goal
             (22, 34, -24, 21, -29, -5)] # Blue Goal
+=======
+            self.thresholds = [(44, 100, 28, 127, 34, 67), #Ball
+            (57, 100, -15, 127, 42, 127), #Yellow Goal
+            (60, 110, -10, 127, 50, 127)] # Blue Goal
+>>>>>>> 87b070b8ef1481e3433ce3a2e59a9ff876747ac0
         elif self.robot == self.ROBOT_P2: #P2_bot
             self.thresholds = [(0, 100, 16, 127, 3, 83), #Ball
             (39, 71, -41, 53, 48, 127), #Yellow Goal
@@ -46,7 +52,7 @@ class Finder:
         return (angle, dist)
 
 
-    def findObjects(self, markBall=False, markGoals=False):
+    def findObjects(self, markBall=False, markYellow=False, markBlue=False):
         balls = self.img.find_blobs([self.thresholds[0]], x_stride=2, y_stride=2, area_threshold=1, pixel_threshold=1, merge=False)
 
         # yGoals = self.img.find_blobs([self.thresholds[1]], x_stride=10, y_stride=10, area_threshold=1, pixel_threshold=1, merge=False)
@@ -63,9 +69,9 @@ class Finder:
         yGoals = []
         bGoals = []
         for blob in goalBlobs:
-            if blob.code() == 2:
+            if blob.code() == 1:
                 yGoals.append(blob)
-            elif blob.code() == 4:
+            elif blob.code() == 2:
                 bGoals.append(blob)
 
 
@@ -91,13 +97,12 @@ class Finder:
         if(markBall and ball):
             self.img.draw_cross(ball.cx(), ball.cy())
 
-        if(markGoals):
-            if(yGoal):
-                self.img.draw_rectangle(yGoal.rect())
-                self.img.draw_rectangle(bGoal.rect())
-            if(bGoal):
-                self.img.draw_cross(yGoal.cx(), yGoal.cy())
-                self.img.draw_cross(bGoal.cx(), bGoal.cy())
+        if(yGoal and markYellow):
+            self.img.draw_rectangle(yGoal.rect())
+            self.img.draw_cross(yGoal.cx(), yGoal.cy())
+        if(bGoal and markBlue):
+            self.img.draw_cross(bGoal.cx(), bGoal.cy())
+            self.img.draw_rectangle(bGoal.rect())
 
         # output must be a list in order:
         # 0. ball angle

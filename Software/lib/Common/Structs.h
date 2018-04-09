@@ -14,11 +14,12 @@ struct coordinate {
 
 struct cameraData {
     int ballAngle;
-    int ballDist;
+    int ballStrength;
     int yGoalAngle;
-    int yGoalDist;
+    int yGoalStrength;
     int bGoalAngle;
-    int bGoalDist;
+    int bGoalStrength;
+    bool attackingYellow;
 };
 
 struct lidarData {

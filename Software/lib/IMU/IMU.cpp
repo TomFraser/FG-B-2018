@@ -43,5 +43,5 @@ void IMU::update(){
 
 double IMU::getHeading(){
     /* Return the current heading */
-    return heading > 180 ? (heading - 360) : heading;
+    return -(heading > 180 ? (heading - 360) : heading);
 }

@@ -8,17 +8,13 @@
 #include <RotationWrapper.h>
 #include <BallManager.h>
 #include <CameraWrapper.h>
-// #include <DirectionController.h>
+#include <DirectionController.h>
 #include <Light.h>
-// #include <ModeWrapper.h>
+#include <ModeWrapper.h>
 // #include <Xbee.h>
 
 
-/* #define dc directionController */
-
 /* NOTE Constructors are called in the .cpp file for each class */
-
-// DirectionController directionController = DirectionController();
 
 void setup(){
     /* Begin Serial */
@@ -45,9 +41,10 @@ void setup(){
 void loop(){
 
     /* Get OpenMV7 Data */
-    cam.getCamData();
+    cam.getCamData(ATTACK_YELLOW);
+
     /* Get IR Data from ATMega */
-    spi.getIRData();
+    // spi.getIRData();
     /* Update IMU */
     imu.update();
 
@@ -55,8 +52,14 @@ void loop(){
     light.readLight();
     light.updateAngle();
 
+    // PLACEHOLDER DATA THAT NEEDS TO BE DONE
+    lidarData ldata = {0, 0, 0, 0};
+    xbeeData xdata = {{0, 0}, {0, 0}, false, false};
+
+
+
     /* Update Game Data */
-    // directionController.updateGameData(cam.rawAngle, cam.rawAngle, cam.strength, light.getAngle(), light.getNumSensors(), imu.getHeading(), robotMode.getMode());
+    dc.updateData(cam.data, ldata, light.data, xdata, imu.getHeading());
 
     /* Update Goal Data */
     // #if ATTACK_YELLOW
@@ -80,9 +83,7 @@ void loop(){
     /* Update other robots data to direction Controller */
     // directionController.updateOtherData(xbee.OballX, xbee.OballY, xbee.OrobotX, xbee.OrobotY, xbee.OseeingBall == 1 ? true : false, xbee.OknowsPosition == 1 ? true : false);
 
-    rotation.calculateRotation(-imu.getHeading(), 0, 0);
-    // motors.move(orbitSimple(cam.data.ballAngle, 1), rotation.getRotation(), 50, false);
-    // motors.sound(0);
-    kicker.controlBall(1);
-    kicker.kickBall();
+    rotation.calculateRotation(imu.getHeading(), 0, 0);
+    motors.move(orbitSimple(cam.data.ballAngle, 1), rotation.getRotation(), 50, false);
+
 }
