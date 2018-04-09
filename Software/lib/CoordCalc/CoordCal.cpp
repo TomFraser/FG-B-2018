@@ -33,8 +33,10 @@ void CoordCalc::updateData(cameraData cam, lidarData lidar, double compass_){
     }
 
     // lidar data
-    // UPTO HERE
-
+    lidarData absLidar = {relToAbsLidar(lidar.frontDist),
+                          relToAbsLidar(lidar.backDist),
+                          relToAbsLidar(lidar.leftDist),
+                          relToAbsLidar(lidar.rightDist)};
 
 
     /* Calculate robot position */
@@ -60,6 +62,10 @@ int CoordCalc::relToAbs(int relativeDirection){
 
 int CoordCalc::absToRel(int absoluteDirection){
   return absoluteDirection != 65506 ? doubleMod(absoluteDirection + compass, 360.0) : 65506;
+}
+
+uint16_t CoordCalc::relToAbsLidar(uint16_t value){
+    return value * cos(abs(compass)*angToRad);
 }
 
 int CoordCalc::calcBallDistCam(int ballStrength){

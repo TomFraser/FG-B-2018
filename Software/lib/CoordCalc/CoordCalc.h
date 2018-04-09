@@ -26,6 +26,8 @@ private:
     int relToAbs(int relativeDirection);
     int absToRel(int absoluteDirection);
 
+    uint16_t relToAbsLidar(uint16_t value);
+
     /* Variables */
     double compass;
 
