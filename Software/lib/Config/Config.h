@@ -27,12 +27,7 @@
 
 #define BACKSPIN_PIN 6
 
-<<<<<<< HEAD
 #define MAX_STRENGTH 80 /* REVIEW */
-=======
-#define MAX_STRENGTH 80
-
->>>>>>> 9c00788734307c60f73a2aa4f5b0fe88387b96f2
 #define LIGHTGATE_PIN 49
 #define KICKER_PIN 28
 #define LIGHTGATE_THRESHOLD 0
@@ -65,8 +60,6 @@
 #define LIDAR_MAX_SUM_VER 100
 #define LIDAR_MIN_SUM_VER 80
 
-<<<<<<< HEAD
-=======
 // lidar corrections
 #define LIDAR_CORRECT_LEFT 5
 #define LIDAR_CORRECT_RIGHT 5
@@ -75,10 +68,6 @@
 
 
 #define LIDAR_CAM_RANGE 10
-
-
-
->>>>>>> 9c00788734307c60f73a2aa4f5b0fe88387b96f2
 /* Light Tracker */
 #define SPEED_ON_LINE 0
 #define SPEED_SLIDE 60
