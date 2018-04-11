@@ -6,7 +6,7 @@
 #include <Orbit.h>
 #include <IMU.h>
 #include <RotationWrapper.h>
-// #include <BallManager.h>
+#include <BallManager.h>
 #include <CameraWrapper.h>
 #include <DirectionController.h>
 #include <Light.h>
@@ -36,7 +36,6 @@ void setup(){
     }else{
         robotMode.setDefault(attacker);
     }*/
-    pinMode(KICKER_PIN, OUTPUT);
 }
 
 void loop(){
@@ -75,7 +74,11 @@ void loop(){
     /* Update other robots data to direction Controller */
     // directionController.updateOtherData(xbee.OballX, xbee.OballY, xbee.OrobotX, xbee.OrobotY, xbee.OseeingBall == 1 ? true : false, xbee.OknowsPosition == 1 ? true : false);
 
-    rotation.calculateRotation(imu.getHeading(), 0, 0);
-    motors.move(orbitSimple(cam.data.ballAngle, 1), rotation.getRotation(), 50, false);
+    // rotation.calculateRotation(imu.getHeading(), cam.data.yGoalAngle, 0);
+    // motors.move(orbitSimple(cam.data.ballAngle, 1), rotation.getRotation(), 50, false);
 
+    for(int i = 0; i < 10; i++){
+        kicker.controlBall(i * 3);
+        delay(500);
+    }
 }

@@ -11,9 +11,15 @@ class Finder:
         self.robot = robot_
         if self.robot == self.ROBOT_O: #O_bot
             # self.thresholds = [(35, 45, 40, 60, 40, 60), #Ball
+<<<<<<< HEAD
+            self.thresholds = [(38, 58, 18, 52, 1, 32), #Ball
+            (42, 76, -30, 40, 25, 72), #(71, 99, -9, 12, 12, 59), #Yellow Goal
+            (22, 34, -24, 21, -29, -5)] # Blue Goal
+=======
             self.thresholds = [(44, 100, 28, 127, 34, 67), #Ball
             (57, 100, -15, 127, 42, 127), #Yellow Goal
             (60, 110, -10, 127, 50, 127)] # Blue Goal
+>>>>>>> 87b070b8ef1481e3433ce3a2e59a9ff876747ac0
         elif self.robot == self.ROBOT_P2: #P2_bot
             self.thresholds = [(0, 100, 16, 127, 3, 83), #Ball
             (39, 71, -41, 53, 48, 127), #Yellow Goal

@@ -10,6 +10,7 @@ class ECUDriver {
 public:
     ECUDriver(int pin);
     void setSpeed(solenoidMode mode);
+    void setSpeed(int speed);
     /* void setECUOption(ECUDriverOption option); */
 private:
     Servo motor;

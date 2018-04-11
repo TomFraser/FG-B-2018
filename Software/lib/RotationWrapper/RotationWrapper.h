@@ -14,7 +14,7 @@ public:
 private:
     double compassHeading, goalHeading, gyration;
     PID IMUController = PID(-5, -0.1, -0.2, 0.00);
-    PID goalController = PID(0.00, 0.00, 0.00, 0.00);
+    // PID goalController = PID(-5, -0.1, -0.2, 0.00);
 };
 
 extern RotationWrapper rotation;

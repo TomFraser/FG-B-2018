@@ -62,7 +62,7 @@ double fromFront(double angle){
 
 double calculateBallConfidence(double strength, double angle){
     /* Calculate ball confidence */
-    double confidence = strength * 15/fromFront(angle); /* REVIEW */
+    double confidence = strength/MAX_STRENGTH * 15/fromFront(angle); /* REVIEW */
     /* NOTE Strength must be a value that increases towards the robot (inv distance) */
 }
 

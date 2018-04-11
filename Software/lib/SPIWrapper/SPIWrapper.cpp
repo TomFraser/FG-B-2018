@@ -23,7 +23,7 @@ void SPIWrapper::getIRData(){
     /* Request data from LIDAR Teensy */
     for(int i = 0; i < IR_TRANSFER_NUM; i++){
         digitalWrite(LIDAR_SS, LOW);
-        tempIRData[i] = SPI.transfer(i);
+        tempIRData[i] = SPI.transfer16(i);
         delay(1);
         digitalWrite(LIDAR_SS, HIGH);
     }
