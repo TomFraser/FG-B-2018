@@ -1,7 +1,14 @@
 #include <ECUDriver.h>
 
 ECUDriver::ECUDriver(int pin){
+    delay(1000);
     motor.attach(pin);
+    motor.write(179);
+    delay(1000);
+    motor.write(-179);
+    delay(1000);
+    motor.write(0);
+    delay(1000);
 }
 
 void ECUDriver::setSpeed(solenoidMode mode){
@@ -17,9 +24,9 @@ void ECUDriver::setSpeed(solenoidMode mode){
         case canKick:
             speed = 100;
     }
-    motor.writeMicroseconds(map(speed, 0, 100, 700, 2000));
+    motor.write(map(speed, 0, 100, -179, 179));
 }
 
-/* void ECUDriver::setECUOption(ECUDriverOption option){
-     // IDK how to do
- } */
+void ECUDriver::setSpeed(int speed){
+    motor.write(speed);
+}

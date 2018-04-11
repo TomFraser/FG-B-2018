@@ -23,7 +23,8 @@ bool BallManager::controlBall(double ballConfidence){
     //     }
     // }
     // backspin.setSpeed(mode);
-    mode = solenoidMode::canKick;
+    // mode = solenoidMode::canKick;
+    backspin.setSpeed(ballConfidence);
 }
 
 void BallManager::kickBall(){

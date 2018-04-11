@@ -8,8 +8,7 @@ void RotationWrapper::calculateRotation(double rotation, double goal, double goa
 
     // if(goal != 65506){
     //     goalHeading = doubleMod(goal + 180, 360.0) - 180;
-    //     goalHeading = goalController.update(goalHeading, 0.00, 0.00);
-    //     goalHeading = goalHeading;
+    //     goalHeading = goalHeading * IMU_MULTI;
     // }else{
     //     goalHeading = 65506;
     // }
