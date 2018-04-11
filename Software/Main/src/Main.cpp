@@ -60,13 +60,6 @@ void loop(){
     /* Update Game Data */
     dc.updateData(cam.data, ldata, light.data, xdata, imu.getHeading());
 
-    /* Update Goal Data */
-    // #if ATTACK_YELLOW
-    //     directionController.updateGoalData(cam._ySize, cam._yAngle, cam._bSize, cam._bAngle);
-    // #else
-    //     directionController.updateGoalData(cam._bSize, cam._bAngle, cam._ySize, cam._yAngle);
-    // #endif
-
     /* Move based on mode and other data */
     // if(robotMode.getMode() == mode::defender){
         // directionController.calculateGoalie();

@@ -44,15 +44,29 @@
 #define SHORT_DISTANCE 0.00
 
 /* Coord Calc */
-#define ATTACK_GOAL_Y 0
+#define ATTACK_GOAL_Y 90
 #define ATTACK_GOAL_X 0
-#define DEFENSE_GOAL_Y 0
+#define DEFENSE_GOAL_Y -90
 #define DEFENSE_GOAL_X 0
+
+#define TABLE_LEFT_X 91
+#define TABLE_RIGHT_X -91
+#define TABLE_FRONT_Y 121
+#define TABLE_BACK_Y -121
 
 #define LIDAR_MAX_SUM_HOR 100
 #define LIDAR_MIN_SUM_HOR 80
 #define LIDAR_MAX_SUM_VER 100
 #define LIDAR_MIN_SUM_VER 80
+
+// lidar corrections
+#define LIDAR_CORRECT_LEFT 5
+#define LIDAR_CORRECT_RIGHT 5
+#define LIDAR_CORRECT_FRONT 5
+#define LIDAR_CORRECT_BACK 6
+
+
+#define LIDAR_CAM_RANGE 10
 
 
 

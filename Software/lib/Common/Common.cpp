@@ -1,5 +1,13 @@
 #include <Common.h>
 
+bool inBaseRange(double value, double base, double range){
+    return value < (base + range) && value > (base - range);
+}
+
+bool inRange(double value, double min, double max){
+    return value < max && value > min;
+}
+
 bool isFrontal(int angle){
     /* Is the given angle within a small rangle */
     if(angle <= 15 || angle >= 345){

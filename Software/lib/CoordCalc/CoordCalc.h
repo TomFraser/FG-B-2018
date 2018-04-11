@@ -5,6 +5,16 @@
 #include <Common.h>
 #include <Structs.h>
 
+/* Structs */
+struct absCamData {
+    int ballAngle;
+    int ballDist;
+    int attackAngle;
+    int attackDist;
+    int defenceAngle;
+    int defenceDist;
+};
+
 class CoordCalc{
 
 public:
@@ -26,19 +36,11 @@ private:
     int relToAbs(int relativeDirection);
     int absToRel(int absoluteDirection);
 
+    coordinate calculateCamCoords(absCamData cam);
+
     uint16_t relToAbsLidar(uint16_t value);
 
     /* Variables */
     double compass;
-
-    /* Structs */
-    struct absCamData {
-        int ballAngle;
-        int ballDist;
-        int attackAngle;
-        int attackDist;
-        int defenceAngle;
-        int defenceDist;
-    };
 };
 #endif
