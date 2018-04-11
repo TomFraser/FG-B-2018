@@ -28,6 +28,7 @@
 
 #define BACKSPIN_PIN 6
 
+#define MAX_STRENGTH 80 /* REVIEW */
 #define LIGHTGATE_PIN 49
 #define KICKER_PIN 28
 #define LIGHTGATE_THRESHOLD 0
@@ -54,8 +55,6 @@
 #define LIDAR_MIN_SUM_HOR 80
 #define LIDAR_MAX_SUM_VER 100
 #define LIDAR_MIN_SUM_VER 80
-
-
 
 /* Light Tracker */
 #define SPEED_ON_LINE 0
