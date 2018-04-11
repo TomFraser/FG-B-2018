@@ -2,10 +2,8 @@
 #include <Structs.h>
 #include <CameraWrapper.h>
 #include <MotorArray.h>
-#include <IMU.h>
-#include <RotationWrapper.h>
 #include <Orbit.h>
-#include <Light.h>
+
 
 
 
@@ -15,13 +13,13 @@ void setup(){
     /* Begin Serial */
     Serial.begin(9600);
     /* Init IMU */
-    imu.init();
+    // imu.init();
     /* Calibrate IMU for drift etc. */
-    imu.calibrate();
+    // imu.calibrate();
     /* Init Serial */
     cam.initSerial();
     /* Init Lightsensors */
-    light.init();
+    // light.init();
 
 }
 
@@ -31,13 +29,13 @@ void loop(){
     cam.getCamData(ATTACK_YELLOW);
 
     /* Update IMU */
-    imu.update();
+    // imu.update();
 
     /* Update Light */
-    light.readLight();
-    light.updateAngle();
+    // light.readLight();
+    // light.updateAngle();
 
-
-    rotation.calculateRotation(imu.getHeading(), 0, 0);
-    motors.move(orbitSimple(cam.data.ballAngle, 1), rotation.getRotation(), 20, false);
+    // Serial.println(cam.data.ballAngle);
+    // rotation.calculateRotation(imu.getHeading(), 0, 0);
+    motors.move(orbitSimple(cam.data.ballAngle, 1), 0, 20, false);
 }
