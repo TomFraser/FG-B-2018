@@ -61,6 +61,8 @@
 #define LIDAR_MAX_SUM_VER 100
 #define LIDAR_MIN_SUM_VER 80
 
+#define LIDAR_CORRECT_ANGLE 15 // angle from horizontal
+
 // lidar corrections
 #define LIDAR_CORRECT_LEFT 5
 #define LIDAR_CORRECT_RIGHT 5

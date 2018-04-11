@@ -33,11 +33,7 @@ void CoordCalc::updateData(cameraData cam, lidarData lidar, double compass_){
     }
 
     // lidar data
-    lidarData absLidar = {LIDAR_CORRECT_FRONT + relToAbsLidar(lidar.frontDist),
-                          LIDAR_CORRECT_BACK + relToAbsLidar(lidar.backDist),
-                          LIDAR_CORRECT_LEFT + relToAbsLidar(lidar.leftDist),
-                          LIDAR_CORRECT_RIGHT + relToAbsLidar(lidar.rightDist)};
-
+    lidarData absLidar = adujustLidar(lidar);
 
     /* Calculate robot position */
     // caculate an estimate of our position with the camera
@@ -168,6 +164,36 @@ int CoordCalc::calcGoalDistCam(int goalArea, bool attack){
     }
     #endif
 }
+
+lidarData CoordCalc::adujustLidar(lidarData lidar){
+    lidarData returnData;
+
+    if(abs(compass) <= 90-LIDAR_CORRECT_ANGLE){
+        returnData.frontDist = LIDAR_CORRECT_FRONT + relToAbsLidar(lidar.frontDist);
+        returnData.backDist = LIDAR_CORRECT_BACK + relToAbsLidar(lidar.backDist);
+        returnData.leftDist = LIDAR_CORRECT_LEFT + relToAbsLidar(lidar.leftDist);
+        returnData.rightDist = LIDAR_CORRECT_RIGHT + relToAbsLidar(lidar.rightDist);
+    } else if(abs(compass) >= 90+LIDAR_CORRECT_ANGLE) {
+        returnData.frontDist = LIDAR_CORRECT_FRONT + relToAbsLidar(lidar.backDist);
+        returnData.backDist = LIDAR_CORRECT_BACK + relToAbsLidar(lidar.leftDist);
+        returnData.leftDist = LIDAR_CORRECT_LEFT + relToAbsLidar(lidar.rightDist);
+        returnData.rightDist = LIDAR_CORRECT_RIGHT + relToAbsLidar(lidar.leftDist);
+    } else if(smallestAngleBetween(compass, 90) < LIDAR_CORRECT_ANGLE){
+        returnData.frontDist = LIDAR_CORRECT_FRONT + relToAbsLidar(lidar.rightDist);
+        returnData.backDist = LIDAR_CORRECT_BACK + relToAbsLidar(lidar.leftDist);
+        returnData.leftDist = LIDAR_CORRECT_LEFT + relToAbsLidar(lidar.frontDist);
+        returnData.rightDist = LIDAR_CORRECT_RIGHT + relToAbsLidar(lidar.backDist);
+    } else if(smallestAngleBetween(compass, -90) < LIDAR_CORRECT_ANGLE){
+        returnData.frontDist = LIDAR_CORRECT_FRONT + relToAbsLidar(lidar.leftDist);
+        returnData.backDist = LIDAR_CORRECT_BACK + relToAbsLidar(lidar.rightDist);
+        returnData.leftDist = LIDAR_CORRECT_LEFT + relToAbsLidar(lidar.backDist);
+        returnData.rightDist = LIDAR_CORRECT_RIGHT + relToAbsLidar(lidar.frontDist);
+    }
+
+    return returnData;
+}
+
+
 
 coordinate CoordCalc::calculateCamCoords(absCamData cam){
 
