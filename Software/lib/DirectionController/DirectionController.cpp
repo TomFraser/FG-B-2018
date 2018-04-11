@@ -28,8 +28,12 @@ moveControl DirectionController::calculate(bool attack){
     }
 }
 
-xbeeData getXbeeData(){
-
+xbeeData DirectionController::getXbeeData(){
+    xbeeData returnData = {myBallCoord,
+                           myRobotCoord,
+                           myBallCoord.x != 65506 && myBallCoord.y != 65506,
+                           myRobotCoord.x != 65506 && myRobotCoord.y != 65506};
+    return returnData;
 }
 
 /* Private Functions */

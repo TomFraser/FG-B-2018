@@ -51,7 +51,19 @@ private:
 
     // Other Stuff
 
-    //init stuff
+    // BROKEN
+    #if ROBOT
+      //o_bot
+      //                              1      2      3      4      5      6      7      8      9      10     11     12     13     14     15     16     17     18     19     20
+      bool broken[LIGHTSENSOR_NUM] = {false, true, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false};
+    #else
+      //p2_bot
+      //                              1      2      3      4      5      6      7      8      9      10     11     12     13     14     15     16     17     18     19     20
+      bool broken[LIGHTSENSOR_NUM] = {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
+    #endif
+
+
+    //THRESHOLDS
     #if AUTO_LIGHT
       int thresholds[LIGHTSENSOR_NUM];
     #else

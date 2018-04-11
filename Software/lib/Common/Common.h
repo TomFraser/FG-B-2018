@@ -9,6 +9,9 @@
 
 // ulong initTime;
 // int led;
+bool inRange(double value, double base, double range);
+
+bool inBaseRange(double value, double min, double max);
 
 bool isFrontal(int angle);
 

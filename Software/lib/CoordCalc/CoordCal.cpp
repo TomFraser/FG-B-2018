@@ -33,25 +33,82 @@ void CoordCalc::updateData(cameraData cam, lidarData lidar, double compass_){
     }
 
     // lidar data
-    lidarData absLidar = {relToAbsLidar(lidar.frontDist),
-                          relToAbsLidar(lidar.backDist),
-                          relToAbsLidar(lidar.leftDist),
-                          relToAbsLidar(lidar.rightDist)};
+    lidarData absLidar = {LIDAR_CORRECT_FRONT + relToAbsLidar(lidar.frontDist),
+                          LIDAR_CORRECT_BACK + relToAbsLidar(lidar.backDist),
+                          LIDAR_CORRECT_LEFT + relToAbsLidar(lidar.leftDist),
+                          LIDAR_CORRECT_RIGHT + relToAbsLidar(lidar.rightDist)};
 
 
     /* Calculate robot position */
-    // calulate a quadrant we're in
-        // 1. use angle to find left / right
-        // 2. use which goal is the bigger one figure out which quadrant we're in
-    // check that lidarData makes sense for that quadrant
-        // the checks:
-        // 1. add them up and see if they fit within a range (cause they should add to a fairly consistent number)
-        // 2. check if the correct one is the greater one (based on quadrant)
-            // -> if all goods (or some is ok) - use lidar data to calulate position
-            // -> otherwise use the cameras
+    // caculate an estimate of our position with the camera
+    coordinate camCoords = calculateCamCoords(absCam);
+
+    // calculate coordinates based on lidar data
+    int leftX = TABLE_LEFT_X - absLidar.leftDist;
+    int rightX = TABLE_RIGHT_X + absLidar.rightDist;
+
+    int frontY = TABLE_FRONT_Y - absLidar.frontDist;
+    int backY = TABLE_BACK_Y + absLidar.backDist;
+
+    bool leftXverify;
+    bool rightXverify;
+    bool frontYverify;
+    bool backYverify;
+
+    // verify lidar with camera (if we cant see the goal with cam - just assume lidar is correct)
+    if(camCoords.x != 65506 && camCoords.y != 65506){
+        bool leftXverify = inBaseRange(leftX, camCoords.x, LIDAR_CAM_RANGE);
+        bool rightXverify = inBaseRange(rightX, camCoords.x, LIDAR_CAM_RANGE);
+
+        bool frontYverify = inBaseRange(frontY, camCoords.y, LIDAR_CAM_RANGE);
+        bool backYverify = inBaseRange(backY, camCoords.y, LIDAR_CAM_RANGE);
+    } else {
+        leftXverify = true;
+        rightXverify = true;
+        frontYverify = true;
+        backYverify = true;
+    }
+
+    // calulate final x
+    if(leftXverify && rightXverify){
+        // take the smaller lidar distance (cause its likely to be more accurate)
+        if (absLidar.leftDist < absLidar.rightDist){
+            robot.x = leftX;
+        } else {
+            robot.x = rightX;
+        }
+    } else if (leftXverify) {
+        robot.x = leftX;
+    } else if (rightXverify) {
+        robot.x = rightX;
+    } else {
+        robot.x = camCoords.x;
+    }
+
+    // calulate final y
+    if(frontYverify && backYverify){
+        // take the smaller lidar distance (cause its likely to be more accurate)
+        if (absLidar.frontDist < absLidar.backDist){
+            robot.y = frontY;
+        } else {
+            robot.y = backY;
+        }
+    } else if (frontYverify) {
+        robot.y = frontY;
+    } else if (backYverify) {
+        robot.y = backY;
+    } else {
+        robot.y = camCoords.y;
+    }
 
     /* Calculate ball position */
-    // just use cam data and robots position
+    if(absCam.ballAngle != 65506){
+        ball.x = robot.x + absCam.ballDist*sin(angToRad*absCam.ballDist);
+        ball.y = robot.y + absCam.ballDist*cos(angToRad*absCam.ballDist);
+    } else {
+        ball.x = 65506;
+        ball.y = 65506;
+    }
 }
 
 
@@ -110,4 +167,82 @@ int CoordCalc::calcGoalDistCam(int goalArea, bool attack){
 
     }
     #endif
+}
+
+coordinate CoordCalc::calculateCamCoords(absCamData cam){
+
+    coordinate returnCoord;
+
+    int xAttack;
+    int yAttack;
+    int xDefense;
+    int yDefense;
+
+    //65506 is the 'no goal' angle
+    bool attackGoal = (cam.attackAngle != 65506);
+    bool defenseGoal = (cam.defenceAngle != 65506);
+
+    // attack calulations
+    if(attackGoal){
+
+      if(cam.attackDist < 150 && cam.attackDist > 0)
+      {
+        int xGoal = cam.attackDist*sin(angToRad*cam.attackAngle);
+        int yGoal = cam.attackDist*cos(angToRad*cam.attackAngle);
+
+        xAttack = ATTACK_GOAL_X-xGoal;
+        yAttack = ATTACK_GOAL_Y-yGoal;
+
+      }
+      else{
+        attackGoal = false;
+      }
+
+    }
+
+    // defense calulations
+    if(defenseGoal){
+      if(cam.defenceDist < 150 && cam.defenceDist > 0)
+      {
+        int xGoal = cam.defenceDist*sin(angToRad*cam.defenceAngle);
+        int yGoal = cam.defenceDist*cos(angToRad*cam.defenceAngle);
+
+        xDefense = DEFENSE_GOAL_X-xGoal;
+        yDefense = DEFENSE_GOAL_Y-yGoal;
+      }
+      else{
+        defenseGoal = false;
+      }
+    }
+
+    if(attackGoal && defenseGoal){
+      // we can see both goals - take the closer goal
+      if(cam.attackDist < cam.defenceDist){
+        returnCoord.x = xAttack;
+        returnCoord.y = yAttack;
+      }
+      else{
+        returnCoord.x = xDefense;
+        returnCoord.y = yDefense;
+      }
+
+    }
+    else if(attackGoal){
+      // only attack goal can be seen
+      returnCoord.x = xAttack;
+      returnCoord.y = yAttack;
+    }
+    else if(defenseGoal){
+      // only defenseGoal can be seen
+      returnCoord.x = xDefense;
+      returnCoord.y = yDefense;
+    }
+    else{
+      // no goals
+      returnCoord.x = 65506;
+      returnCoord.y = 65506;
+    }
+
+    return returnCoord;
+
 }

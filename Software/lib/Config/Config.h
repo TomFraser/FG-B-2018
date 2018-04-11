@@ -12,7 +12,6 @@
 #define SPEED_VAL 80
 #define FORWARD_SPEED 100
 
-
 #define angToRad 0.01745329251
 #define radToAng 57.2957795131
 
@@ -28,7 +27,12 @@
 
 #define BACKSPIN_PIN 6
 
+<<<<<<< HEAD
 #define MAX_STRENGTH 80 /* REVIEW */
+=======
+#define MAX_STRENGTH 80
+
+>>>>>>> 9c00788734307c60f73a2aa4f5b0fe88387b96f2
 #define LIGHTGATE_PIN 49
 #define KICKER_PIN 28
 #define LIGHTGATE_THRESHOLD 0
@@ -46,16 +50,35 @@
 #define SHORT_DISTANCE 0.00
 
 /* Coord Calc */
-#define ATTACK_GOAL_Y 0
+#define ATTACK_GOAL_Y 90
 #define ATTACK_GOAL_X 0
-#define DEFENSE_GOAL_Y 0
+#define DEFENSE_GOAL_Y -90
 #define DEFENSE_GOAL_X 0
+
+#define TABLE_LEFT_X 91
+#define TABLE_RIGHT_X -91
+#define TABLE_FRONT_Y 121
+#define TABLE_BACK_Y -121
 
 #define LIDAR_MAX_SUM_HOR 100
 #define LIDAR_MIN_SUM_HOR 80
 #define LIDAR_MAX_SUM_VER 100
 #define LIDAR_MIN_SUM_VER 80
 
+<<<<<<< HEAD
+=======
+// lidar corrections
+#define LIDAR_CORRECT_LEFT 5
+#define LIDAR_CORRECT_RIGHT 5
+#define LIDAR_CORRECT_FRONT 5
+#define LIDAR_CORRECT_BACK 6
+
+
+#define LIDAR_CAM_RANGE 10
+
+
+
+>>>>>>> 9c00788734307c60f73a2aa4f5b0fe88387b96f2
 /* Light Tracker */
 #define SPEED_ON_LINE 0
 #define SPEED_SLIDE 60
@@ -83,6 +106,10 @@
 #define TARGET_Y 0
 
 /* Light */
+#define AUTO_LIGHT true
+#define LIGHT_CALB_LOOPS 1000
+#define THRESHOLD_OFFSET 10
+
 #define LIGHTSENSOR_NUM 20
 #define maxNumClusters 20
 #define LIGHT_1 A1
