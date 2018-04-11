@@ -27,6 +27,8 @@
 
 #define BACKSPIN_PIN 6
 
+#define MAX_STRENGTH 80
+
 #define LIGHTGATE_PIN 49
 #define KICKER_PIN 28
 #define LIGHTGATE_THRESHOLD 0
