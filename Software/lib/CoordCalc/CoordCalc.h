@@ -36,6 +36,8 @@ private:
     int relToAbs(int relativeDirection);
     int absToRel(int absoluteDirection);
 
+    lidarData adjustLidar(lidarData lidar);
+
     coordinate calculateCamCoords(absCamData cam);
 
     uint16_t relToAbsLidar(uint16_t value);

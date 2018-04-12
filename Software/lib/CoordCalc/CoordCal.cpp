@@ -33,7 +33,7 @@ void CoordCalc::updateData(cameraData cam, lidarData lidar, double compass_){
     }
 
     // lidar data
-    lidarData absLidar = adujustLidar(lidar);
+    lidarData absLidar = adjustLidar(lidar);
 
     /* Calculate robot position */
     // caculate an estimate of our position with the camera
@@ -165,29 +165,33 @@ int CoordCalc::calcGoalDistCam(int goalArea, bool attack){
     #endif
 }
 
-lidarData CoordCalc::adujustLidar(lidarData lidar){
+lidarData CoordCalc::adjustLidar(lidarData lidar){
     lidarData returnData;
+    uint16_t relFront = LIDAR_CORRECT_FRONT + relToAbsLidar(lidar.frontDist);
+    uint16_t relBack = LIDAR_CORRECT_BACK + relToAbsLidar(lidar.backDist);
+    uint16_t relLeft = LIDAR_CORRECT_LEFT + relToAbsLidar(lidar.leftDist);
+    uint16_t relRight = LIDAR_CORRECT_RIGHT + relToAbsLidar(lidar.rightDist);
 
     if(abs(compass) <= 90-LIDAR_CORRECT_ANGLE){
-        returnData.frontDist = LIDAR_CORRECT_FRONT + relToAbsLidar(lidar.frontDist);
-        returnData.backDist = LIDAR_CORRECT_BACK + relToAbsLidar(lidar.backDist);
-        returnData.leftDist = LIDAR_CORRECT_LEFT + relToAbsLidar(lidar.leftDist);
-        returnData.rightDist = LIDAR_CORRECT_RIGHT + relToAbsLidar(lidar.rightDist);
+        returnData.frontDist = relFront;
+        returnData.backDist = relBack;
+        returnData.leftDist = relLeft;
+        returnData.rightDist = relRight;
     } else if(abs(compass) >= 90+LIDAR_CORRECT_ANGLE) {
-        returnData.frontDist = LIDAR_CORRECT_FRONT + relToAbsLidar(lidar.backDist);
-        returnData.backDist = LIDAR_CORRECT_BACK + relToAbsLidar(lidar.leftDist);
-        returnData.leftDist = LIDAR_CORRECT_LEFT + relToAbsLidar(lidar.rightDist);
-        returnData.rightDist = LIDAR_CORRECT_RIGHT + relToAbsLidar(lidar.leftDist);
+        returnData.frontDist = relBack;
+        returnData.backDist = relLeft;
+        returnData.leftDist = relRight;
+        returnData.rightDist = relLeft;
     } else if(smallestAngleBetween(compass, 90) < LIDAR_CORRECT_ANGLE){
-        returnData.frontDist = LIDAR_CORRECT_FRONT + relToAbsLidar(lidar.rightDist);
-        returnData.backDist = LIDAR_CORRECT_BACK + relToAbsLidar(lidar.leftDist);
-        returnData.leftDist = LIDAR_CORRECT_LEFT + relToAbsLidar(lidar.frontDist);
-        returnData.rightDist = LIDAR_CORRECT_RIGHT + relToAbsLidar(lidar.backDist);
+        returnData.frontDist = relRight;
+        returnData.backDist = relLeft;
+        returnData.leftDist = relFront;
+        returnData.rightDist = relRight;
     } else if(smallestAngleBetween(compass, -90) < LIDAR_CORRECT_ANGLE){
-        returnData.frontDist = LIDAR_CORRECT_FRONT + relToAbsLidar(lidar.leftDist);
-        returnData.backDist = LIDAR_CORRECT_BACK + relToAbsLidar(lidar.rightDist);
-        returnData.leftDist = LIDAR_CORRECT_LEFT + relToAbsLidar(lidar.backDist);
-        returnData.rightDist = LIDAR_CORRECT_RIGHT + relToAbsLidar(lidar.frontDist);
+        returnData.frontDist = relLeft;
+        returnData.backDist = relRight;
+        returnData.leftDist = relBack;
+        returnData.rightDist = relFront;
     }
 
     return returnData;
