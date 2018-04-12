@@ -36,12 +36,18 @@ void setup(){
     }else{
         robotMode.setDefault(attacker);
     }*/
+
+    // pinMode(13, OUTPUT);
+    // digitalWrite(13, HIGH);
+    // delay(500);
+    // digitalWrite(13, LOW);
 }
 
 void loop(){
 
     /* Get OpenMV7 Data */
     cam.getCamData(ATTACK_YELLOW);
+    // Serial.println(cam.data.ballAngle);
 
     /* Get IR Data from ATMega */
     // spi.getIRData();
@@ -75,5 +81,5 @@ void loop(){
     // directionController.updateOtherData(xbee.OballX, xbee.OballY, xbee.OrobotX, xbee.OrobotY, xbee.OseeingBall == 1 ? true : false, xbee.OknowsPosition == 1 ? true : false);
 
     rotation.calculateRotation(imu.getHeading(), cam.data.yGoalAngle, 0);
-    motors.move(orbitSimple(cam.data.ballAngle, 1), rotation.getRotation(), 50, false);
+    motors.move(orbitSimple(cam.data.ballAngle, 0.5), rotation.getRotation(), 50, false);
 }
