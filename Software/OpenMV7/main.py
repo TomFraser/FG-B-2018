@@ -4,8 +4,6 @@ from finder import Finder
 import time
 
 ledController = LEDController()
-# red led on for init
-ledController.on(ledController.LED_RED)
 
 sender = Sender()
 sender.init(initSend=[65506, 65506, 65506, 65506, 65506, 655065])
