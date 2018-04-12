@@ -27,13 +27,12 @@
 
 #define BACKSPIN_PIN 6
 
-#define MAX_STRENGTH 80
-
+#define MAX_STRENGTH 80 /* REVIEW */
 #define LIGHTGATE_PIN 49
 #define KICKER_PIN 28
 #define LIGHTGATE_THRESHOLD 0
-#define MIN_BALL_CONFIDENCE 0
-#define BALL_CONFIDENCE 2
+#define MIN_BALL_CONFIDENCE 0.5
+#define BALL_CONFIDENCE 0.85
 
 /* Xbee */
 #define XBEE_PACKAGE 8
@@ -71,9 +70,6 @@
 
 
 #define LIDAR_CAM_RANGE 10
-
-
-
 /* Light Tracker */
 #define SPEED_ON_LINE 0
 #define SPEED_SLIDE 60

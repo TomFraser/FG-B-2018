@@ -1,14 +1,14 @@
 #include <ECUDriver.h>
 
 ECUDriver::ECUDriver(int pin){
-    delay(1000);
+    delay(100);
     motor.attach(pin);
     motor.write(179);
-    delay(1000);
+    delay(100);
     motor.write(-179);
-    delay(1000);
+    delay(100);
     motor.write(0);
-    delay(1000);
+    delay(100);
 }
 
 void ECUDriver::setSpeed(solenoidMode mode){
@@ -16,15 +16,15 @@ void ECUDriver::setSpeed(solenoidMode mode){
         case noSpeed:
             speed = 0;
         case lowSpeed:
-            speed = 30;
+            speed = 10;
         case highSpeed:
-            speed = 100;
+            speed = 20;
         case hasBall:
-            speed = 100;
+            speed = 20;
         case canKick:
-            speed = 100;
+            speed = 20;
     }
-    motor.write(map(speed, 0, 100, -179, 179));
+    motor.write(speed);
 }
 
 void ECUDriver::setSpeed(int speed){

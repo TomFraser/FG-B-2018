@@ -16,12 +16,6 @@ bool BallManager::controlBall(double ballConfidence){
     // }else if(ballConfidence < MIN_BALL_CONFIDENCE){
     //     mode = solenoidMode::noSpeed;
     // }
-    // if(lightGateTriggered()){
-    //     mode = solenoidMode::hasBall;
-    //     if(timeSinceKick.hasBeenMS(500)){
-    //         mode = solenoidMode::canKick;
-    //     }
-    // }
     // backspin.setSpeed(mode);
     // mode = solenoidMode::canKick;
     backspin.setSpeed(ballConfidence);
