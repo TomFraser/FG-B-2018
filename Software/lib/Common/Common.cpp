@@ -3,7 +3,7 @@
 double strengthToDistance(double strength){
     double d = 70;
     double h = 100;
-    double a = 0.01322012083
+    double a = 0.01322012083;
     double c = -8.75;
     double x = (25/1000*strength);
     double theta = radToAng*atan((x/(d+(a*x*x+c))));

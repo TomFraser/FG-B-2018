@@ -9,6 +9,8 @@
 
 // ulong initTime;
 // int led;
+double strengthToDistance(double strength);
+
 bool inRange(double value, double base, double range);
 
 bool inBaseRange(double value, double min, double max);

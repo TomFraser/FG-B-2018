@@ -16,20 +16,20 @@ void CoordCalc::updateData(cameraData cam, lidarData lidar, double compass_){
     if(cam.attackingYellow){
         // yellow
         absCam.attackAngle = relToAbs(cam.yGoalAngle);
-        absCam.attackDist = strengthToDistance(cam.yGoalStrength, true);
+        absCam.attackDist = strengthToDistance(cam.yGoalStrength);
 
         // blue
         absCam.defenceAngle = relToAbs(cam.bGoalAngle);
-        absCam.defenceDist = strengthToDistance(cam.bGoalStrength, false);
+        absCam.defenceDist = strengthToDistance(cam.bGoalStrength);
 
     } else {
         // blue
         absCam.attackAngle = relToAbs(cam.bGoalAngle);
-        absCam.attackDist = strengthToDistance(cam.bGoalStrength, true);
+        absCam.attackDist = strengthToDistance(cam.bGoalStrength);
 
         // yellow
         absCam.defenceAngle = relToAbs(cam.yGoalAngle);
-        absCam.defenceDist = strengthToDistance(cam.yGoalStrength, false);
+        absCam.defenceDist = strengthToDistance(cam.yGoalStrength);
     }
 
     // lidar data
