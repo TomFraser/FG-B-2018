@@ -1,5 +1,19 @@
 #include <Common.h>
 
+double strengthToDistance(double strength){
+    double d = 70;
+    double a = 0.01322012083
+    double c = -8.75;
+    double x = (25/1000*strength);
+    double theta = radToAng*atan((x/(d+(a*x*x+c))));
+    double alpha = (90-radToAng*atan(2*a*x))-theta;
+    double F = 180-2*alpha;
+    double Q = 2*alpha + theta - 90;
+    double q = sqrt(x*x + (d+(a*x*x+c))*(d+(a*x*x+c)));
+    return q*sin(angToRad*F)/sin(angToRad*Q);
+}
+
+
 bool inBaseRange(double value, double base, double range){
     return value < (base + range) && value > (base - range);
 }

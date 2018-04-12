@@ -12,24 +12,24 @@ void CoordCalc::updateData(cameraData cam, lidarData lidar, double compass_){
     // camera data
     absCamData absCam;
     absCam.ballAngle = relToAbs(cam.ballAngle);
-    absCam.ballDist = calcBallDistCam(cam.ballStrength);
+    absCam.ballDist = strengthToDistance(cam.ballStrength);
     if(cam.attackingYellow){
         // yellow
         absCam.attackAngle = relToAbs(cam.yGoalAngle);
-        absCam.attackDist = calcGoalDistCam(cam.yGoalStrength, true);
+        absCam.attackDist = strengthToDistance(cam.yGoalStrength, true);
 
         // blue
         absCam.defenceAngle = relToAbs(cam.bGoalAngle);
-        absCam.defenceDist = calcGoalDistCam(cam.bGoalStrength, false);
+        absCam.defenceDist = strengthToDistance(cam.bGoalStrength, false);
 
     } else {
         // blue
         absCam.attackAngle = relToAbs(cam.bGoalAngle);
-        absCam.attackDist = calcGoalDistCam(cam.bGoalStrength, true);
+        absCam.attackDist = strengthToDistance(cam.bGoalStrength, true);
 
         // yellow
         absCam.defenceAngle = relToAbs(cam.yGoalAngle);
-        absCam.defenceDist = calcGoalDistCam(cam.yGoalStrength, false);
+        absCam.defenceDist = strengthToDistance(cam.yGoalStrength, false);
     }
 
     // lidar data
@@ -119,50 +119,6 @@ int CoordCalc::absToRel(int absoluteDirection){
 
 uint16_t CoordCalc::relToAbsLidar(uint16_t value){
     return value * cos(abs(compass)*angToRad);
-}
-
-int CoordCalc::calcBallDistCam(int ballStrength){
-    // DANK
-    // gotta figure out an algorithm for this
-    if(ballStrength > 15 && ballStrength < 122){
-        return -sqrt(9550-pow(ballStrength-15, 2))+98;
-    } else {
-        return -1;
-    }
-}
-
-int CoordCalc::calcGoalDistCam(int goalArea, bool attack){
-    // DANK
-    #if ROBOT
-    // o_bot
-    if(goalArea > 105 && goalArea <= 206){
-      return -sqrt(9100-0.87*pow(goalArea-105, 2))+101;
-    }
-    else{
-      return -1;
-    }
-    #else
-    // p2_bot
-    if(attack){
-      // front thing
-      if(goalArea > 99 && goalArea <= 198){
-        return -1.02*sqrt(10400-1.06*pow(goalArea-99, 2))+111;
-      }
-      else{
-        return -1;
-      }
-    }
-    else{
-      // back thing
-      if(goalArea > 103 && goalArea <= 214){
-        return -sqrt(9100-0.76*pow(goalArea-105, 2))+99;
-      }
-      else{
-        return -1;
-      }
-
-    }
-    #endif
 }
 
 lidarData CoordCalc::adjustLidar(lidarData lidar){

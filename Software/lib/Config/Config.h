@@ -67,9 +67,8 @@
 #define LIDAR_CORRECT_RIGHT 5
 #define LIDAR_CORRECT_FRONT 5
 #define LIDAR_CORRECT_BACK 6
-
-
 #define LIDAR_CAM_RANGE 10
+
 /* Light Tracker */
 #define SPEED_ON_LINE 0
 #define SPEED_SLIDE 60

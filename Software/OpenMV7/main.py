@@ -22,8 +22,9 @@ while True:
     #clock.tick()
     # ledController.blink()
     finder.takeSnapshot(False) # (draw center cross)
-    data = finder.findObjects(False, False, False) # (mark ball, mark goals)
+    data = finder.findObjects(False, False, False) # (mark ball, mark yellow, mark blue)
     sender.sendData(data)
 
+    #print(data)
     #fps checking
     #print(clock.fps())

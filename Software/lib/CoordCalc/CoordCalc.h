@@ -30,9 +30,6 @@ public:
 private:
 
     /* Functions */
-    int calcGoalDistCam(int goalArea, bool attack);
-    int calcBallDistCam(int ballStrength);
-
     int relToAbs(int relativeDirection);
     int absToRel(int absoluteDirection);
 
