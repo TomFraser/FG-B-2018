@@ -1,16 +1,17 @@
 #include <Common.h>
 
 double strengthToDistance(double strength){
+    double maxS = 130;
     double d = 70;
     double h = 100;
     double a = 0.01322012083;
     double c = -8.75;
-    double x = (25/1000*strength);
+    double x = (25/maxS*strength);
     double theta = radToAng*atan((x/(d+(a*x*x+c))));
     double alpha = (90-radToAng*atan(2*a*x))-theta;
     double gamma = 180 - (theta + 2*alpha);
     double f = (d+h+(a*x*x+c))*tan(angToRad*gamma);
-    return x+f;
+    return (x+f)/10;
 }
 
 

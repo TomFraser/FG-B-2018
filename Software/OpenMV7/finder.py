@@ -24,7 +24,7 @@ class Finder:
         sensor.reset()
         sensor.set_pixformat(sensor.RGB565)
         sensor.set_framesize(sensor.QVGA) #Resolution, QVGA = 42FPS,QQVGA = 85FPS
-        sensor.set_auto_gain(False, value=100) #Must remain false for blob tracking
+        sensor.set_auto_gain(False, value=50) #Must remain false for blob tracking
         sensor.set_auto_whitebal(False) #Must remain false for blob tracking
         sensor.set_auto_exposure(False, value=400)
         sensor.set_brightness(0)
@@ -47,7 +47,7 @@ class Finder:
 
 
     def findObjects(self, markBall=False, markYellow=False, markBlue=False):
-        balls = self.img.find_blobs([self.thresholds[0]], x_stride=2, y_stride=2, area_threshold=1, pixel_threshold=1, merge=False)
+        balls = self.img.find_blobs([self.thresholds[0]], x_stride=2, y_stride=2, area_threshold=1, pixel_threshold=2, merge=False)
 
         # yGoals = self.img.find_blobs([self.thresholds[1]], x_stride=10, y_stride=10, area_threshold=1, pixel_threshold=1, merge=False)
         # bGoals = self.img.find_blobs([self.thresholds[2]], x_stride=10, y_stride=10, area_threshold=1, pixel_threshold=1, merge=False)
@@ -68,11 +68,15 @@ class Finder:
             elif blob.code() == 2:
                 bGoals.append(blob)
 
-
+        ballAngle = 65506
+        ballDist = 65506
+        ball = None
         if len(balls) > 0:
-            ball = sorted(balls, key= lambda x: x.pixels(), reverse=True)[0]
-        else:
-            ball = 0
+            for obj in sorted(balls, key= lambda x: x.pixels(), reverse=True):
+                ballAngle, ballDist = self.calcAngDist(obj)
+                if(ballDist > 40 and ballDist < 130):
+                    ball = obj
+                    break
 
         if len(yGoals) > 0:
             yGoal = sorted(yGoals, key= lambda x: x.pixels(), reverse=True)[0]
@@ -84,9 +88,12 @@ class Finder:
         else:
             bGoal = 0
 
-        ballAngle, ballDist = self.calcAngDist(ball)
         yGoalAngle, yGoalDist = self.calcAngDist(yGoal)
         bGoalAngle, bGoalDist = self.calcAngDist(bGoal)
+
+        if(ballDist < 40 or  ballDist > 130):
+            ballAngle = 65506
+            ball = None
 
         if(markBall and ball):
             self.img.draw_cross(ball.cx(), ball.cy())
@@ -112,4 +119,6 @@ class Finder:
 #f = Finder()
 #f.init(f.ROBOT_O)
 #f.takeSnapshot()
-#f.findObjects(False, False)
+#while True:
+    #f.takeSnapshot()
+    #f.findObjects(True, False, False)
