@@ -63,7 +63,7 @@ void loop(){
     xbeeData xdata = {{0, 0}, {0, 0}, false, false};
 
     /* Update Game Data */
-    dc.updateData(cam.data, ldata, light.data, xdata, imu.getHeading());
+    dc.updateData(cam.data, spi.lidars, light.data, xdata, imu.getHeading());
 
     /* Move based on mode and other data */
     // if(robotMode.getMode() == mode::defender){
