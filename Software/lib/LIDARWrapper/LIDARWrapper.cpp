@@ -12,6 +12,44 @@ void LIDAR::init(){
     Serial3.begin(115200);
     Serial4.begin(115200);
     Serial5.begin(115200);
+
+    /* Set Default Settings */
+
+    Serial1.write((uint8_t)0x42);
+    Serial1.write((uint8_t)0x57);
+    Serial1.write((uint8_t)0x02);
+    Serial1.write((uint8_t)0x00);
+    Serial1.write((uint8_t)0x00);
+    Serial1.write((uint8_t)0x00);
+    Serial1.write((uint8_t)0x01);
+    Serial1.write((uint8_t)0x06);
+
+    Serial3.write((uint8_t)0x42);
+    Serial3.write((uint8_t)0x57);
+    Serial3.write((uint8_t)0x02);
+    Serial3.write((uint8_t)0x00);
+    Serial3.write((uint8_t)0x00);
+    Serial3.write((uint8_t)0x00);
+    Serial3.write((uint8_t)0x01);
+    Serial3.write((uint8_t)0x06);
+
+    Serial4.write((uint8_t)0x42);
+    Serial4.write((uint8_t)0x57);
+    Serial4.write((uint8_t)0x02);
+    Serial4.write((uint8_t)0x00);
+    Serial4.write((uint8_t)0x00);
+    Serial4.write((uint8_t)0x00);
+    Serial4.write((uint8_t)0x01);
+    Serial4.write((uint8_t)0x06);
+
+    Serial5.write((uint8_t)0x42);
+    Serial5.write((uint8_t)0x57);
+    Serial5.write((uint8_t)0x02);
+    Serial5.write((uint8_t)0x00);
+    Serial5.write((uint8_t)0x00);
+    Serial5.write((uint8_t)0x00);
+    Serial5.write((uint8_t)0x01);
+    Serial5.write((uint8_t)0x06);
 }
 
 void LIDAR::read(){

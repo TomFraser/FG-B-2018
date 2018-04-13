@@ -8,13 +8,13 @@ T3SPI LIDAR;
 void transfer(){
     /* Respond based on request */
     switch(SPI0_POPR){
-        case 1:
+        case 0:
             SPI0_PUSHR_SLAVE = lidar.lidarVal[0]; break;
-        case 2:
+        case 1:
             SPI0_PUSHR_SLAVE = lidar.lidarVal[1]; break;
-        case 3:
+        case 2:
             SPI0_PUSHR_SLAVE = lidar.lidarVal[2]; break;
-        case 4:
+        case 3:
             SPI0_PUSHR_SLAVE = lidar.lidarVal[3]; break;
         default:
             65535; break;

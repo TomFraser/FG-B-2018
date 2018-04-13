@@ -51,7 +51,6 @@ void loop(){
 
     /* Get IR Data from ATMega */
     spi.getIRData();
-    Serial.println(spi.lidars.frontDist);
     /* Update IMU */
     imu.update();
 
@@ -60,7 +59,7 @@ void loop(){
     light.updateAngle();
 
     // PLACEHOLDER DATA THAT NEEDS TO BE DONE
-    lidarData ldata = {0, 0, 0, 0};
+    lidarData ldata = spi.lidars;
     xbeeData xdata = {{0, 0}, {0, 0}, false, false};
 
     /* Update Game Data */
