@@ -44,7 +44,8 @@ void loop(){
     cam.getCamData(ATTACK_YELLOW);
 
     /* Get IR Data from ATMega */
-    // spi.getIRData();
+    spi.getIRData();
+    Serial.println(spi.lidars.frontDist);
     /* Update IMU */
     imu.update();
 
@@ -75,5 +76,5 @@ void loop(){
     // directionController.updateOtherData(xbee.OballX, xbee.OballY, xbee.OrobotX, xbee.OrobotY, xbee.OseeingBall == 1 ? true : false, xbee.OknowsPosition == 1 ? true : false);
 
     rotation.calculateRotation(imu.getHeading(), cam.data.yGoalAngle, 0);
-    motors.move(orbitSimple(cam.data.ballAngle, 1), rotation.getRotation(), 80, false);
+    motors.move(orbitSimple(cam.data.ballAngle, 1), rotation.getRotation(), 40, false);
 }

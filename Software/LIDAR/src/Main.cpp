@@ -3,17 +3,19 @@
 #include <Common.h>
 #include <LIDARWrapper.h>
 
+T3SPI LIDAR;
+
 void transfer(){
     /* Respond based on request */
     switch(SPI0_POPR){
         case 1:
-            SPI0_PUSHR_SLAVE = lidarVal[0]; break;
+            SPI0_PUSHR_SLAVE = lidar.lidarVal[0]; break;
         case 2:
-            SPI0_PUSHR_SLAVE = lidarVal[1]; break;
+            SPI0_PUSHR_SLAVE = lidar.lidarVal[1]; break;
         case 3:
-            SPI0_PUSHR_SLAVE = lidarVal[2]; break;
+            SPI0_PUSHR_SLAVE = lidar.lidarVal[2]; break;
         case 4:
-            SPI0_PUSHR_SLAVE = lidarVal[3]; break;
+            SPI0_PUSHR_SLAVE = lidar.lidarVal[3]; break;
         default:
             65535; break;
     }

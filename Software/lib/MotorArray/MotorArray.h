@@ -21,8 +21,8 @@ private:
     /* PWM , DIR, BRK, REV */
     MotorDriver motorA = MotorDriver(2,7,24,1);
     MotorDriver motorB = MotorDriver(3,8,25,1);
-    MotorDriver motorC = MotorDriver(4,9,26,0);
-    MotorDriver motorD = MotorDriver(5,10,27,0);
+    MotorDriver motorC = MotorDriver(4,9,26,1);
+    MotorDriver motorD = MotorDriver(5,10,27,1);
 };
 extern MotorArray motors;
 
