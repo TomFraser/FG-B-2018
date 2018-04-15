@@ -81,5 +81,6 @@ void loop(){
     // directionController.updateOtherData(xbee.OballX, xbee.OballY, xbee.OrobotX, xbee.OrobotY, xbee.OseeingBall == 1 ? true : false, xbee.OknowsPosition == 1 ? true : false);
 
     rotation.calculateRotation(imu.getHeading(), cam.data.yGoalAngle, 0);
-    motors.move(orbitSimple(cam.data.ballAngle, 0.5), rotation.getRotation(), 50, false);
+    motors.move(orbit(cam.data.ballAngle, strengthToDistance(cam.data.ballStrength)), rotation.getRotation(), 75, true);
+    // Serial.println(orbit(cam.data.ballAngle, strengthToDistance(cam.data.ballStrength)));
 }

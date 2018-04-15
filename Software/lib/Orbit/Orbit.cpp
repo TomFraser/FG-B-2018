@@ -11,7 +11,7 @@ double orbitSimple(int angle, double ratio){
     if(angle == -1){
         return -1.00;
     }else if(isFrontal(angle)){
-        return angle < 180 ? (angle + (angle/50) * ratio) : (angle - (360-angle)/50 * ratio);
+        return angle < 180 ? (angle + (angle/50)) : (360-angle - (360-angle)/50);
     }else{
         return angle < 180 ? (angle + (90 * ratio)) : (angle - (90 * ratio));
     }
@@ -23,17 +23,17 @@ double orbit(int angle, int distance){
         return 65506;
     }
     if(distance != NULL){
-        if(distance >= BIG_DISTANCE){
+        if(distance > 75){
             /* Move ball direction */
             return angle;
-        }else if(distance < BIG_DISTANCE && distance >= SHORT_DISTANCE){
+        }else if(distance > 35 && distance <= 50){
             /* Sorta orbit */
-            orbitSimple(angle, 0.5);
-        }else if(distance < SHORT_DISTANCE){
+            orbitSimple(angle, 0.4);
+        }else if(distance < 35){
             /* Normal Orbit */
-            orbitSimple(angle, 1.0);
+            orbitSimple(angle, 0.65);
         }
     }else{
-        return orbitSimple(angle, 1.0);
+        return orbitSimple(angle, 0.65);
     }
 }
