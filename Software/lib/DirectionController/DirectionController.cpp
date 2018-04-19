@@ -18,6 +18,8 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
     myBallCoord = coordCalc.ball;
     myRobotCoord = coordCalc.robot;
 
+    Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
+
 }
 
 moveControl DirectionController::calculate(bool attack){

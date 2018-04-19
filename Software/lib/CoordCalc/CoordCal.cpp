@@ -35,6 +35,8 @@ void CoordCalc::updateData(cameraData cam, lidarData lidar, double compass_){
     // lidar data
     lidarData absLidar = adjustLidar(lidar);
 
+    // Serial.print(absLidar.frontDist); Serial.print(" "); Serial.print(absLidar.backDist); Serial.print(" "); Serial.print(absLidar.leftDist); Serial.print(" "); Serial.println(absLidar.rightDist);
+
     /* Calculate robot position */
     // caculate an estimate of our position with the camera
     coordinate camCoords = calculateCamCoords(absCam);
@@ -128,6 +130,7 @@ lidarData CoordCalc::adjustLidar(lidarData lidar){
     uint16_t relLeft = LIDAR_CORRECT_LEFT + relToAbsLidar(lidar.leftDist);
     uint16_t relRight = LIDAR_CORRECT_RIGHT + relToAbsLidar(lidar.rightDist);
 
+    Serial.println(compass);
     if(abs(compass) <= 90-LIDAR_CORRECT_ANGLE){
         returnData.frontDist = relFront;
         returnData.backDist = relBack;
