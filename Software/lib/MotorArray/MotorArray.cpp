@@ -6,7 +6,11 @@ MotorArray::MotorArray(){
     /* Motor Array Constructor */
 }
 
-void MotorArray::move(double angle, double rotation, int speed, bool boost){
+void MotorArray::move(moveControl move){
+    double angle = move.direction;
+    int speed = move.speed;
+    bool boost = move.doBoost;
+    double rotation = move.rotation;
     /* Calculate motor pwm values to move the robot on a certain angle */
     if(angle != 65506.00){
         for(int i = 0; i < 4; i++){

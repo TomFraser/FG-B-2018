@@ -9,14 +9,12 @@
 class RotationWrapper {
 public:
     RotationWrapper(){};
-    void calculateRotation(double rotation, double goal, double goalSize);
+    void calculateRotation(double rotation, double goal, double goalSize, double target);
     double getRotation();
 private:
     double compassHeading, goalHeading, gyration;
     PID IMUController = PID(-5, -0.1, -0.2, 0.00);
     PID goalController = PID(-5, -0.1, -0.2, 0.00);
 };
-
-extern RotationWrapper rotation;
 
 #endif

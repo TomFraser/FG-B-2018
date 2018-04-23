@@ -9,7 +9,7 @@
 class MotorArray {
 public:
     MotorArray();
-    void move(double angle, double rotation, int speed, bool boost);
+    void move(moveControl move);
     void sound(long in);
 private:
     int motorAngles[4] = {60, 135, 225, 300};

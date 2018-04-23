@@ -5,6 +5,7 @@
 #include <Arduino.h>
 #include <Config.h>
 #include <Structs.h>
+#include <Enum.h>
 
 
 // ulong initTime;

@@ -5,6 +5,7 @@ struct moveControl {
     double direction;
     int speed;
     bool doBoost;
+    double rotation;
 };
 
 struct coordinate {

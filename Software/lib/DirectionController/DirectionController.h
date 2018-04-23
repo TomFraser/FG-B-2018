@@ -6,6 +6,7 @@
 #include <Structs.h>
 #include <LightTracker.h>
 #include <CoordCalc.h>
+#include <RotationWrapper.h>
 
 class DirectionController{
 
@@ -13,7 +14,7 @@ public:
     /* Functions */
     void attackingYellow(bool attackYellow_);
     void updateData(cameraData cam_, lidarData lidar_, lightData light_, xbeeData xbee_, double compass_);
-    moveControl calculate(bool attack);
+    moveControl calculate(mode robotMode);
     xbeeData getXbeeData();
 
     /* Variables */
@@ -29,6 +30,7 @@ private:
     /* Objects */
     LightTracker lightTracker = LightTracker();
     CoordCalc coordCalc = CoordCalc();
+    RotationWrapper rotation = RotationWrapper();
 
     /* Variables */
 

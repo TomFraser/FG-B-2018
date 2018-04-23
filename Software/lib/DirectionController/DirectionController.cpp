@@ -22,11 +22,14 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
 
 }
 
-moveControl DirectionController::calculate(bool attack){
-    if(attack){
+moveControl DirectionController::calculate(mode robotMode){
+
+    if(robotMode == mode::attacker){
         return calculateAttack();
-    } else {
+    }else if(robotMode == mode::defender){
         return calculateGoalie();
+    }else{
+        return calculateAttack();
     }
 }
 
@@ -72,10 +75,12 @@ moveControl DirectionController::calculateAttack(){
     // make sure we dont go over the line
     lightTracker.update(relToAbs(light.angle), tempControl.direction, tempControl.speed, relToAbs(cam.ballAngle), light.numSensors);
 
+    rotation.calculateRotation(compass, cam.attackingYellow == true ? cam.yGoalAngle : cam.bGoalAngle, cam.attackingYellow == true ? cam.yGoalStrength : cam.bGoalStrength, 0.00);
     // set up the return data struct
     moveControl moveReturn = {absToRel(lightTracker.getDirection()),
                               lightTracker.getSpeed(),
-                              tempControl.doBoost && lightTracker.getNormalGameplay()};
+                              tempControl.doBoost && lightTracker.getNormalGameplay(),
+                              rotation.getRotation()};
 
     return moveReturn;
 }
