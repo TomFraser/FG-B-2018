@@ -74,13 +74,12 @@ moveControl DirectionController::calculateAttack(){
 
     // make sure we dont go over the line
     lightTracker.update(relToAbs(light.angle), tempControl.direction, tempControl.speed, relToAbs(cam.ballAngle), light.numSensors);
-
-    rotation.calculateRotation(compass, cam.attackingYellow == true ? cam.yGoalAngle : cam.bGoalAngle, cam.attackingYellow == true ? cam.yGoalStrength : cam.bGoalStrength, 0.00);
+    
     // set up the return data struct
     moveControl moveReturn = {absToRel(lightTracker.getDirection()),
                               lightTracker.getSpeed(),
                               tempControl.doBoost && lightTracker.getNormalGameplay(),
-                              rotation.getRotation()};
+                              rotationPID.update(compass, 0.00, 0.00)};
 
     return moveReturn;
 }

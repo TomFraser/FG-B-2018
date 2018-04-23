@@ -6,7 +6,7 @@
 #include <Structs.h>
 #include <LightTracker.h>
 #include <CoordCalc.h>
-#include <RotationWrapper.h>
+#include <PID.h>
 
 class DirectionController{
 
@@ -30,7 +30,7 @@ private:
     /* Objects */
     LightTracker lightTracker = LightTracker();
     CoordCalc coordCalc = CoordCalc();
-    RotationWrapper rotation = RotationWrapper();
+    PID rotationPID = PID(-5, -0.1, -0.2, 0.00);
 
     /* Variables */
 
@@ -42,6 +42,7 @@ private:
     xbeeData xbee;
     double compass;
     double moveAngle;
+    double gyration;
 
     // coordinate data
     coordinate myBallCoord;
