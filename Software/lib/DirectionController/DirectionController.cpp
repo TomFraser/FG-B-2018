@@ -74,7 +74,7 @@ moveControl DirectionController::calculateAttack(){
 
     // make sure we dont go over the line
     lightTracker.update(relToAbs(light.angle), tempControl.direction, tempControl.speed, relToAbs(cam.ballAngle), light.numSensors);
-    
+
     // set up the return data struct
     moveControl moveReturn = {absToRel(lightTracker.getDirection()),
                               lightTracker.getSpeed(),
@@ -85,5 +85,20 @@ moveControl DirectionController::calculateAttack(){
 }
 
 moveControl DirectionController::calculateGoalie(){
+    double ballAngle = 65506;
+    if(cam.ballAngle != 65506) {
+        ballAngle = relToAbs(cam.ballAngle);
+    } else if(xbee.seesBall) {
+        ballAngle = atan2(xbee.ballCoords.y - myRobotCoord.y, xbee.ballCoords.x - myRobotCoord.x);
+    }
+
+    if(ballAngle != 65506){
+        double horVector = goalieAnglePID.update(ballAngle, 0.00, 0.00);
+    } else {
+        // cant see the ball at all -> center with left and right sonars
+        double horVector = goalieSonarPID.update()
+    }
+
+
 
 }
