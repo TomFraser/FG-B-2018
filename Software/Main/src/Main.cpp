@@ -53,7 +53,7 @@ void loop(){
 
     /* Get IR Data from ATMega */
     spi.getIRData();
-    
+
     /* Update IMU */
     imu.update();
 
@@ -73,5 +73,4 @@ void loop(){
     // kicker.controlBall(20); //NOTE: the speed is actually 1000/whateverinput you give, for example 1000/5 = 200 speed;
 
     motors.move(dc.calculate(robotMode.getMode()));
-
 }
