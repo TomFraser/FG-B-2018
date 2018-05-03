@@ -37,8 +37,10 @@ private:
     PID rotationPID = PID(-5, -0.1, -0.2, 0.00);
     // Goalie pids
     PID goalieAnglePID = PID(-5, -0.1, -0.2, 0.00);
-    PID goalieSonarPID = PID(0.00, 0.00, 0.00, 0.00);
-    PID goalieVerPID = PID(0.00, 0.00, 0.00, 0.00);
+    PID goalieSonarPID = PID(2.50, 0.00, 0.2, 0.00);
+    //NEEDS TO BE TUNED WHEN LIDARS ARE RAISED ABOVE WALL
+    // also new target needs to be set
+    PID goalieVerPID = PID(1.00, 0.00, 0.00, 0.00);
 
     /* Variables */
 

@@ -31,11 +31,12 @@ void setup(){
     /* Init Serial */
     cam.initSerial();
     /* Set robot mode based on default mode */
-    if(ROBOT){
-        robotMode.setDefault(defender);
-    }else{
-        robotMode.setDefault(attacker);
-    }
+    // if(ROBOT){
+    //     robotMode.setDefault(defender);
+    // }else{
+    //     robotMode.setDefault(attacker);
+    // }
+    robotMode.setDefault(defender);
 
     // pinMode(13, OUTPUT);
     // digitalWrite(13, HIGH);
@@ -69,8 +70,10 @@ void loop(){
 
     // kicker.controlBall(20);
 
-    motors.move(dc.calculate(robotMode.getMode()));
-    // moveControl ctrl = dc.calculate(robotMode.getMode());
+    motors.move(dc.calculate(defender));
+    // moveControl ctrl = dc.calculate(defender);
+
+    // Serial.print(spi.lidars.rightDist); Serial.print(" "); Serial.println(spi.lidars.leftDist);
+
     // Serial.print(ctrl.direction); Serial.print(" "); Serial.print(ctrl.speed); Serial.print(" "); Serial.println(ctrl.rotation);
-    // Serial.println(cam.data.ballAngle);
 }

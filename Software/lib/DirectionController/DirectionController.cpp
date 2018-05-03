@@ -40,7 +40,7 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
     }
 
     // lidar data
-    lidarData lidar = adjustLidar(lidar_);
+    lidar = adjustLidar(lidar_);
     // Serial.print(lidar.frontDist); Serial.print(" "); Serial.print(lidar.backDist); Serial.print(" "); Serial.print(lidar.leftDist); Serial.print(" "); Serial.println(lidar.rightDist);
 
 
@@ -98,28 +98,34 @@ lidarData DirectionController::adjustLidar(lidarData lidar){
     uint16_t relLeft = LIDAR_CORRECT_LEFT + relToAbsLidar(lidar.leftDist);
     uint16_t relRight = LIDAR_CORRECT_RIGHT + relToAbsLidar(lidar.rightDist);
 
+    returnData.frontDist = relFront;
+    returnData.backDist = relBack;
+    returnData.leftDist = relLeft;
+    returnData.rightDist = relRight;
+
     // Serial.println(compass);
-    if(abs(compass) <= 90-LIDAR_CORRECT_ANGLE){
-        returnData.frontDist = relFront;
-        returnData.backDist = relBack;
-        returnData.leftDist = relLeft;
-        returnData.rightDist = relRight;
-    } else if(abs(compass) >= 90+LIDAR_CORRECT_ANGLE) {
-        returnData.frontDist = relBack;
-        returnData.backDist = relLeft;
-        returnData.leftDist = relRight;
-        returnData.rightDist = relLeft;
-    } else if(smallestAngleBetween(compass, 90) < LIDAR_CORRECT_ANGLE){
-        returnData.frontDist = relRight;
-        returnData.backDist = relLeft;
-        returnData.leftDist = relFront;
-        returnData.rightDist = relRight;
-    } else if(smallestAngleBetween(compass, -90) < LIDAR_CORRECT_ANGLE){
-        returnData.frontDist = relLeft;
-        returnData.backDist = relRight;
-        returnData.leftDist = relBack;
-        returnData.rightDist = relFront;
-    }
+    // if(abs(compass) <= 90-LIDAR_CORRECT_ANGLE){
+    //     returnData.frontDist = relFront;
+    //     returnData.backDist = relBack;
+    //     returnData.leftDist = relLeft;
+    //     returnData.rightDist = relRight;
+    // } else if(abs(compass) >= 90+LIDAR_CORRECT_ANGLE) {
+    //     returnData.frontDist = relBack;
+    //     returnData.backDist = relLeft;
+    //     returnData.leftDist = relRight;
+    //     returnData.rightDist = relLeft;
+    // } else if(smallestAngleBetween(compass, 90) < LIDAR_CORRECT_ANGLE){
+    //     returnData.frontDist = relRight;
+    //     returnData.backDist = relLeft;
+    //     returnData.leftDist = relFront;
+    //     returnData.rightDist = relRight;
+    // } else if(smallestAngleBetween(compass, -90) < LIDAR_CORRECT_ANGLE){
+    //     returnData.frontDist = relLeft;
+    //     returnData.backDist = relRight;
+    //     returnData.leftDist = relBack;
+    //     returnData.rightDist = relFront;
+    // }
+
 
     return returnData;
 }
@@ -130,11 +136,18 @@ moveControl DirectionController::calculateReturn(moveControl tempControl){
     // make sure we dont go over the line
     lightTracker.update(light.angle, tempControl.direction, tempControl.speed, cam.ballAngle, light.numSensors);
 
-    // set up the return data struct
-    moveControl moveReturn = {absToRel(lightTracker.getDirection()),
-                              lightTracker.getSpeed(),
-                              tempControl.doBoost && lightTracker.getNormalGameplay(),
+    // set up the return data struct (WITH LIGHT)
+    // moveControl moveReturn = {absToRel(lightTracker.getDirection()),
+    //                           lightTracker.getSpeed(),
+    //                           tempControl.doBoost && lightTracker.getNormalGameplay(),
+    //                           rotationPID.update(compass, tempControl.rotation, 0.00)};
+
+    // set up the return data struct (NO LIGHT)
+    moveControl moveReturn = {absToRel(tempControl.direction),
+                              tempControl.speed,
+                              tempControl.doBoost,
                               rotationPID.update(compass, tempControl.rotation, 0.00)};
+
 
     // Serial.print(moveReturn.direction); Serial.print(" "); Serial.print(moveReturn.speed); Serial.print(" "); Serial.println(moveReturn.rotation);
     return moveReturn;
@@ -169,18 +182,26 @@ moveControl DirectionController::calculateGoalie(){
     }
 
     double horVector;
-    if(ballAngle != 65506){
-        horVector = goalieAnglePID.update(ballAngle, 0.00, 0.00);
-    } else {
-        // cant see the ball at all -> center with left and right sonars
-        double lidarDiff = lidar.rightDist - lidar.leftDist;
-        horVector = goalieSonarPID.update(lidarDiff, 0.00, 0.00);
-    }
+    // if(ballAngle != 65506){
+    //     horVector = goalieAnglePID.update(ballAngle, 0.00, 0.00);
+    // } else {
+    //     // cant see the ball at all -> center with left and right sonars
+    //     double lidarDiff = lidar.rightDist - lidar.leftDist;
+    //     horVector = goalieSonarPID.update(lidarDiff, 0.00, 0.00);
+    // }
+    double lidarDiff = lidar.rightDist - lidar.leftDist;
+    lidarDiff = abs(lidarDiff) < 2 ? 0 : lidarDiff;
+    horVector = goalieSonarPID.update(lidarDiff, 0.00, 0.00);
+    // Serial.print(lidar.rightDist); Serial.print(" "); Serial.println(lidar.leftDist);
+    // Serial.println(lidarDiff);
+    // Serial.println(horVector);
 
-    double vertVector = goalieVerPID.update(lidar.backDist, GOALIE_DISTANCE, 0.00);
+    double vertVector = -goalieVerPID.update(lidar.backDist, GOALIE_DISTANCE, 0.00);
 
-    double direction = atan2(vertVector, horVector);
+    double direction = atan2(vertVector, horVector)*radToAng;
     double speed = sqrt(vertVector*vertVector + horVector*horVector);
+
+    direction = doubleMod(direction + 90, 360);
 
     moveControl returnControl = {direction,
                                  speed,
