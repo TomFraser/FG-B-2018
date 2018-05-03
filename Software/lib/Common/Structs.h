@@ -23,6 +23,16 @@ struct cameraData {
     bool attackingYellow;
 };
 
+struct absCameraData {
+    int ballAngle;
+    int ballDist;
+    int attackAngle;
+    int attackDist;
+    int defenceAngle;
+    int defenceDist;
+};
+
+
 struct lidarData {
     uint16_t frontDist;
     uint16_t backDist;

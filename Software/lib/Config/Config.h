@@ -94,6 +94,7 @@
 #define GOALIE_X_RANGE 15
 #define TARGET_X 0
 #define TARGET_Y 0
+#define GOALIE_DISTANCE 40
 
 /* Light */
 #define AUTO_LIGHT true
