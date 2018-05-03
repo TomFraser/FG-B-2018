@@ -28,12 +28,12 @@ double orbit(int angle, int distance){
             return angle;
         }else if(distance > 35 && distance <= 50){
             /* Sorta orbit */
-            orbitSimple(angle, 0.4);
+            orbitSimple(angle, 0.3);
         }else if(distance < 35){
             /* Normal Orbit */
-            orbitSimple(angle, 0.65);
+            orbitSimple(angle, 0.6);
         }
     }else{
-        return orbitSimple(angle, 0.65);
+        return orbitSimple(angle, 0.6);
     }
 }
