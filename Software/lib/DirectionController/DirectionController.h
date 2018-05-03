@@ -25,7 +25,6 @@ private:
     double relToAbs(double relativeDirection);
     double absToRel(double absoluteDirection);
     uint16_t relToAbsLidar(uint16_t value);
-    double getOrbit(double direction);
     moveControl calculateReturn(moveControl tempControl);
     moveControl calculateAttack();
     moveControl calculateGoalie();
