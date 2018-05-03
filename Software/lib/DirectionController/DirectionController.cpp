@@ -171,6 +171,7 @@ moveControl DirectionController::calculateGoalie(){
         horVector = goalieAnglePID.update(ballAngle, 0.00, 0.00);
     } else {
         // cant see the ball at all -> center with left and right sonars
+<<<<<<< HEAD
         double lidarDiff = lidar.rightDist - lidar.leftDist;
         horVector = goalieSonarPID.update(lidarDiff, 0.00, 0.00);
     }
@@ -186,4 +187,8 @@ moveControl DirectionController::calculateGoalie(){
                                  0};
     return returnControl;
 
+=======
+        // double horVector = goalieSonarPID.update();
+    }
+>>>>>>> 0985a46c5ed244086d94e3eb366afcd0c5a88418
 }

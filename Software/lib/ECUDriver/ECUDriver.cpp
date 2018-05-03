@@ -28,5 +28,5 @@ void ECUDriver::setSpeed(solenoidMode mode){
 }
 
 void ECUDriver::setSpeed(int speed){
-    motor.write(speed);
+    motor.writeMicroseconds(1000 + (1000/speed));
 }
