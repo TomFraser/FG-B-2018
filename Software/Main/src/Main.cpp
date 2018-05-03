@@ -37,9 +37,6 @@ void setup(){
         robotMode.setDefault(attacker);
     }
 
-    delay(3000);
-    kicker.controlBall(0);
-    delay(1000);
     // pinMode(13, OUTPUT);
     // digitalWrite(13, HIGH);
     // delay(500);
@@ -70,7 +67,10 @@ void loop(){
     /* Send and recieve Xbee Data */
     // xbee.updateData(dc.getXbeeData());
 
-    // kicker.controlBall(20); //NOTE: the speed is actually 1000/whateverinput you give, for example 1000/5 = 200 speed;
+    // kicker.controlBall(20);
 
     motors.move(dc.calculate(robotMode.getMode()));
+    // moveControl ctrl = dc.calculate(robotMode.getMode());
+    // Serial.print(ctrl.direction); Serial.print(" "); Serial.print(ctrl.speed); Serial.print(" "); Serial.println(ctrl.rotation);
+    // Serial.println(cam.data.ballAngle);
 }

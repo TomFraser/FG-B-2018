@@ -51,9 +51,9 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
 
     // orbit
     moveAngle = relToAbs(orbit(cam_.ballAngle, cam.ballDist));
+    // Serial.print(cam.ballDist); Serial.print(" "); Serial.print(cam_.ballAngle); Serial.print(" "); Serial.println(moveAngle);
 
-
-    Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
+    // Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
 
 }
 
@@ -98,7 +98,7 @@ lidarData DirectionController::adjustLidar(lidarData lidar){
     uint16_t relLeft = LIDAR_CORRECT_LEFT + relToAbsLidar(lidar.leftDist);
     uint16_t relRight = LIDAR_CORRECT_RIGHT + relToAbsLidar(lidar.rightDist);
 
-    Serial.println(compass);
+    // Serial.println(compass);
     if(abs(compass) <= 90-LIDAR_CORRECT_ANGLE){
         returnData.frontDist = relFront;
         returnData.backDist = relBack;
@@ -125,6 +125,8 @@ lidarData DirectionController::adjustLidar(lidarData lidar){
 }
 
 moveControl DirectionController::calculateReturn(moveControl tempControl){
+    // Serial.print(tempControl.direction); Serial.print(" "); Serial.print(tempControl.speed); Serial.print(" "); Serial.println(tempControl.rotation);
+
     // make sure we dont go over the line
     lightTracker.update(light.angle, tempControl.direction, tempControl.speed, cam.ballAngle, light.numSensors);
 
@@ -133,6 +135,10 @@ moveControl DirectionController::calculateReturn(moveControl tempControl){
                               lightTracker.getSpeed(),
                               tempControl.doBoost && lightTracker.getNormalGameplay(),
                               rotationPID.update(compass, tempControl.rotation, 0.00)};
+
+    // Serial.print(moveReturn.direction); Serial.print(" "); Serial.print(moveReturn.speed); Serial.print(" "); Serial.println(moveReturn.rotation);
+    return moveReturn;
+
 }
 
 // play modes

@@ -10,6 +10,7 @@ void CoordCalc::updateData(absCameraData cam, lidarData lidar){
     /* Calculate robot position */
     // caculate an estimate of our position with the camera
     coordinate camCoords = calculateCamCoords(cam);
+    // Serial.print(camCoords.x); Serial.print(" "); Serial.println(camCoords.y);
 
     // calculate coordinates based on lidar data
     int leftX = TABLE_LEFT_X - lidar.leftDist;
@@ -23,13 +24,17 @@ void CoordCalc::updateData(absCameraData cam, lidarData lidar){
     bool frontYverify;
     bool backYverify;
 
+    // Serial.print(camCoords.x); Serial.print(" "); Serial.print(leftX); Serial.print(" "); Serial.println(rightX);
+    // Serial.print(camCoords.y); Serial.print(" "); Serial.print(frontY); Serial.print(" "); Serial.println(backY);
+
+
     // verify lidar with camera (if we cant see the goal with cam - just assume lidar is correct)
     if(camCoords.x != 65506 && camCoords.y != 65506){
-        bool leftXverify = inBaseRange(leftX, camCoords.x, LIDAR_CAM_RANGE);
-        bool rightXverify = inBaseRange(rightX, camCoords.x, LIDAR_CAM_RANGE);
+        leftXverify = inBaseRange(leftX, camCoords.x, LIDAR_CAM_RANGE);
+        rightXverify = inBaseRange(rightX, camCoords.x, LIDAR_CAM_RANGE);
 
-        bool frontYverify = inBaseRange(frontY, camCoords.y, LIDAR_CAM_RANGE);
-        bool backYverify = inBaseRange(backY, camCoords.y, LIDAR_CAM_RANGE);
+        frontYverify = inBaseRange(frontY, camCoords.y, LIDAR_CAM_RANGE);
+        backYverify = inBaseRange(backY, camCoords.y, LIDAR_CAM_RANGE);
     } else {
         leftXverify = true;
         rightXverify = true;
