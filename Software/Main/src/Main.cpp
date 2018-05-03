@@ -50,10 +50,10 @@ void loop(){
 
     /* Get OpenMV7 Data */
     cam.getCamData(ATTACK_YELLOW);
-    // Serial.println(cam.data.ballAngle);
 
     /* Get IR Data from ATMega */
     spi.getIRData();
+    
     /* Update IMU */
     imu.update();
 
@@ -65,29 +65,13 @@ void loop(){
     xbeeData xdata = {{0, 0}, {0, 0}, false, false};
 
     /* Update Game Data */
-    // dc.updateData(cam.data, spi.lidars, light.data, xdata, imu.getHeading());
-
-    /* Move based on mode and other data */
-    // if(robotMode.getMode() == mode::defender){
-        // directionController.calculateGoalie();
-        // motors.move(dc.getDirection(), imu.getHeading(), dc.getSpeed(), false);
-    // }else{
-        // directionController.calculateAttack();
-        // motors.move(dc.getDirection(), imu.getHeading(), dc.getSpeed(), dc.getFollowingBall());
-    // }
+    dc.updateData(cam.data, spi.lidars, light.data, xdata, imu.getHeading());
 
     /* Send and recieve Xbee Data */
-    // xbee.updateData(dc.getBallX(), dc.getBallY(), dc.getX(), dc.getY(), dc.getFollowingBall(), dc.getBallX() != 65506 ? 1 : 0);
+    // xbee.updateData(dc.getXbeeData());
 
-    /* Update other robots data to direction Controller */
-    // directionController.updateOtherData(xbee.OballX, xbee.OballY, xbee.OrobotX, xbee.OrobotY, xbee.OseeingBall == 1 ? true : false, xbee.OknowsPosition == 1 ? true : false);
-    // moveControl data = dc.calculate(robotMode.getMode());
-    // data.direction = orbitSimple(data.direction, 1);
-    // motors.move(data);
-    kicker.controlBall(20); //NOTE: the speed is actually 1000/whateverinput you give, for example 1000/5 = 200 speed;
-    
-    rotation.calculateRotation(imu.getHeading(), 0.00, 0.00, 0.00);
-    moveControl data = {orbitSimple(cam.data.ballAngle, 1), 50, false, rotation.getRotation()};
-    // motors.move(data);
-    Serial.println(orbitSimple(cam.data.ballAngle, 1));
+    // kicker.controlBall(20); //NOTE: the speed is actually 1000/whateverinput you give, for example 1000/5 = 200 speed;
+
+    motors.move(dc.calculate(robotMode.getMode()));
+
 }
