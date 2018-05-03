@@ -37,6 +37,9 @@ void setup(){
         robotMode.setDefault(attacker);
     }
 
+    delay(3000);
+    kicker.controlBall(0);
+    delay(1000);
     // pinMode(13, OUTPUT);
     // digitalWrite(13, HIGH);
     // delay(500);
@@ -81,10 +84,10 @@ void loop(){
     // moveControl data = dc.calculate(robotMode.getMode());
     // data.direction = orbitSimple(data.direction, 1);
     // motors.move(data);
-    kicker.controlBall(5); //NOTE: the speed is actually 1000/whateverinput you give, for example 1000/5 = 200 speed;
+    kicker.controlBall(20); //NOTE: the speed is actually 1000/whateverinput you give, for example 1000/5 = 200 speed;
     
     rotation.calculateRotation(imu.getHeading(), 0.00, 0.00, 0.00);
     moveControl data = {orbitSimple(cam.data.ballAngle, 1), 50, false, rotation.getRotation()};
-    motors.move(data);
+    // motors.move(data);
     Serial.println(orbitSimple(cam.data.ballAngle, 1));
 }
