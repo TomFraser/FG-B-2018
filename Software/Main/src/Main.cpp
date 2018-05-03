@@ -15,6 +15,7 @@
 
 
 /* NOTE Constructors are called in the .cpp file for each class */
+RotationWrapper rotation = RotationWrapper();
 
 void setup(){
     /* Begin Serial */
@@ -61,7 +62,7 @@ void loop(){
     xbeeData xdata = {{0, 0}, {0, 0}, false, false};
 
     /* Update Game Data */
-    dc.updateData(cam.data, spi.lidars, light.data, xdata, imu.getHeading());
+    // dc.updateData(cam.data, spi.lidars, light.data, xdata, imu.getHeading());
 
     /* Move based on mode and other data */
     // if(robotMode.getMode() == mode::defender){
@@ -77,7 +78,13 @@ void loop(){
 
     /* Update other robots data to direction Controller */
     // directionController.updateOtherData(xbee.OballX, xbee.OballY, xbee.OrobotX, xbee.OrobotY, xbee.OseeingBall == 1 ? true : false, xbee.OknowsPosition == 1 ? true : false);
-
-    motors.move(dc.calculate(robotMode.getMode()));
-    // Serial.println(orbit(cam.data.ballAngle, strengthToDistance(cam.data.ballStrength)));
+    // moveControl data = dc.calculate(robotMode.getMode());
+    // data.direction = orbitSimple(data.direction, 1);
+    // motors.move(data);
+    kicker.controlBall(5); //NOTE: the speed is actually 1000/whateverinput you give, for example 1000/5 = 200 speed;
+    
+    rotation.calculateRotation(imu.getHeading(), 0.00, 0.00, 0.00);
+    moveControl data = {orbitSimple(cam.data.ballAngle, 1), 50, false, rotation.getRotation()};
+    motors.move(data);
+    Serial.println(orbitSimple(cam.data.ballAngle, 1));
 }

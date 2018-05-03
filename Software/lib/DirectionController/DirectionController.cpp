@@ -96,9 +96,6 @@ moveControl DirectionController::calculateGoalie(){
         double horVector = goalieAnglePID.update(ballAngle, 0.00, 0.00);
     } else {
         // cant see the ball at all -> center with left and right sonars
-        double horVector = goalieSonarPID.update()
+        // double horVector = goalieSonarPID.update();
     }
-
-
-
 }
