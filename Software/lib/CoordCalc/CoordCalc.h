@@ -5,23 +5,13 @@
 #include <Common.h>
 #include <Structs.h>
 
-/* Structs */
-struct absCamData {
-    int ballAngle;
-    int ballDist;
-    int attackAngle;
-    int attackDist;
-    int defenceAngle;
-    int defenceDist;
-};
-
 class CoordCalc{
 
 public:
     CoordCalc();
 
     /* Functions */
-    void updateData(cameraData cam, lidarData lidar, double compass);
+    void updateData(absCameraData cam, lidarData lidar);
 
     /* Variables */
     coordinate ball;
@@ -30,14 +20,7 @@ public:
 private:
 
     /* Functions */
-    int relToAbs(int relativeDirection);
-    int absToRel(int absoluteDirection);
-
-    lidarData adjustLidar(lidarData lidar);
-
-    coordinate calculateCamCoords(absCamData cam);
-
-    uint16_t relToAbsLidar(uint16_t value);
+    coordinate calculateCamCoords(absCameraData cam);
 
     /* Variables */
     double compass;

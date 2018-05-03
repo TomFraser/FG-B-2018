@@ -7,6 +7,7 @@
 #include <LightTracker.h>
 #include <CoordCalc.h>
 #include <PID.h>
+#include <Orbit.h>
 
 class DirectionController{
 
@@ -23,9 +24,13 @@ private:
     /* Functions */
     double relToAbs(double relativeDirection);
     double absToRel(double absoluteDirection);
+    uint16_t relToAbsLidar(uint16_t value);
     double getOrbit(double direction);
+    moveControl calculateReturn(moveControl tempControl);
     moveControl calculateAttack();
     moveControl calculateGoalie();
+    lidarData adjustLidar(lidarData lidar);
+
 
     /* Objects */
     LightTracker lightTracker = LightTracker();
@@ -40,7 +45,7 @@ private:
 
     // input data
     bool attackYellow;
-    cameraData cam;
+    absCameraData cam;
     lidarData lidar;
     lightData light;
     xbeeData xbee;
