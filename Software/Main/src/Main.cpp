@@ -37,7 +37,6 @@ void setup(){
     //     robotMode.setDefault(attacker);
     // }
     robotMode.setDefault(defender);
-
     // pinMode(13, OUTPUT);
     // digitalWrite(13, HIGH);
     // delay(500);

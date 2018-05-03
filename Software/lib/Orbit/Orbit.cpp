@@ -10,8 +10,8 @@ double orbitSimple(int angle, double ratio){
     }
     if(angle == -1){
         return -1.00;
-    }else if(isFrontal(angle)){
-        return angle < 180 ? (angle + (angle/50)) : (360-angle - (360-angle)/50);
+    }else if(isFrontalLarge(angle)){
+        return angle < 180 ? (angle + ((angle * 1.5 * ratio)) : (angle - ((360 - angle) * 1.5 * ratio));
     }else{
         return angle < 180 ? (angle + (90 * ratio)) : (angle - (90 * ratio));
     }
@@ -28,15 +28,15 @@ double orbit(int angle, int distance){
             return angle;
         }else if(distance > 50 && distance <= 75){
             /* A lil bit closer */
-            return orbitSimple(angle, 0.15);
+            return orbitSimple(angle, 0.2);
         }else if(distance > 35 && distance <= 50){
-            /* Sorta orbit */
-            return orbitSimple(angle, 0.3);
+            /* Almost Normal Orbit orbit */
+            return orbitSimple(angle, 0.45);
         }else if(distance <= 35){
-            /* Normal Orbit */
-            return orbitSimple(angle, 0.6);
+            /* More Aggressive than Normal Orbit */
+            return orbitSimple(angle, 0.75);
         }
-    }else{
+    }else{ /* Do Normal Orbit */
         return orbitSimple(angle, 0.6);
     }
 }
