@@ -14,9 +14,6 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
     light.angle = relToAbs(light_.angle);
     light.numSensors = light_.numSensors;
 
-    // orbit
-    moveAngle = relToAbs(getOrbit(cam.ballAngle));
-
     // xbee data from other robot
     xbee = xbee_;
 
@@ -51,6 +48,10 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
     coordCalc.updateData(cam, lidar);
     myBallCoord = coordCalc.ball;
     myRobotCoord = coordCalc.robot;
+
+    // orbit
+    moveAngle = relToAbs(orbit(cam_.ballAngle, cam.ballDist));
+
 
     Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
 
@@ -88,11 +89,6 @@ double DirectionController::absToRel(double absoluteDirection){
 
 uint16_t DirectionController::relToAbsLidar(uint16_t value){
     return value * cos(abs(compass)*angToRad);
-}
-
-double DirectionController::getOrbit(double direction){
-    // a function that will return the correct orbit that the robot is running
-    return orbitSimple(direction, 1);
 }
 
 lidarData DirectionController::adjustLidar(lidarData lidar){
