@@ -51,6 +51,7 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
 
     // orbit
     moveAngle = relToAbs(orbit(cam_.ballAngle, cam.ballDist));
+    // Serial.println(moveAngle);
     // Serial.print(cam.ballDist); Serial.print(" "); Serial.print(cam_.ballAngle); Serial.print(" "); Serial.println(moveAngle);
 
     // Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
@@ -166,6 +167,10 @@ moveControl DirectionController::calculateAttack(){
 
         // BACKSPIN LOGIC CAN GO HERE TOO (also goal tracking)
     } else {
+        tempControl.direction = moveAngle;
+        tempControl.speed = SPEED_VAL;
+        tempControl.doBoost = true;
+        tempControl.rotation = 0;
         // cant see ball -> go to other ball coords or predefined ones
         // (or do a spiral for superteam)
     }

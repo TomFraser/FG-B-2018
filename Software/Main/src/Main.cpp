@@ -19,7 +19,7 @@ RotationWrapper rotation = RotationWrapper();
 
 void setup(){
     /* Begin Serial */
-    // Serial.begin(9600);
+    Serial.begin(9600);
     /* Init SPI */
     spi.initSPI();
     /* Init IMU */
@@ -36,7 +36,7 @@ void setup(){
     // }else{
     //     robotMode.setDefault(attacker);
     // }
-    robotMode.setDefault(defender);
+    robotMode.setDefault(attacker);
     // pinMode(13, OUTPUT);
     // digitalWrite(13, HIGH);
     // delay(500);
@@ -69,7 +69,7 @@ void loop(){
 
     // kicker.controlBall(20);
 
-    motors.move(dc.calculate(defender));
+    motors.move(dc.calculate(attacker));
     // moveControl ctrl = dc.calculate(defender);
 
     // Serial.print(spi.lidars.rightDist); Serial.print(" "); Serial.println(spi.lidars.leftDist);
