@@ -39,6 +39,11 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
         cam.defenceDist = strengthToDistance(cam_.yGoalStrength);
     }
 
+    // Serial.println(cam_.yGoalStrength); Serial.print(" "); Serial.println(cam.attackDist);
+    // Serial.println(cam.ballDist);
+    // Serial.println(cam_.yGoalStrength); Serial.print(" "); Serial.println(strengthToDistance(cam_.yGoalStrength));
+
+
     // lidar data
     lidar = adjustLidar(lidar_);
     // Serial.print(lidar.frontDist); Serial.print(" "); Serial.print(lidar.backDist); Serial.print(" "); Serial.print(lidar.leftDist); Serial.print(" "); Serial.println(lidar.rightDist);
@@ -51,10 +56,9 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
 
     // orbit
     moveAngle = relToAbs(orbit(cam_.ballAngle, cam.ballDist));
-    // Serial.println(moveAngle);
-    // Serial.print(cam.ballDist); Serial.print(" "); Serial.print(cam_.ballAngle); Serial.print(" "); Serial.println(moveAngle);
 
-    // Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
+    // Serial.print(cam.ballDist); Serial.print(" "); Serial.print(cam_.ballAngle); Serial.print(" "); Serial.println(moveAngle);
+    Serial.println(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
 
 }
 

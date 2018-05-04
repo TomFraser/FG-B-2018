@@ -72,7 +72,7 @@ void loop(){
     motors.move(dc.calculate(attacker));
     // moveControl ctrl = dc.calculate(defender);
 
-    // Serial.print(spi.lidars.rightDist); Serial.print(" "); Serial.println(spi.lidars.leftDist);
+    // Serial.print(spi.lidars.leftDist); Serial.print(" "); Serial.println(spi.lidars.rightDist);
 
     // Serial.print(ctrl.direction); Serial.print(" "); Serial.print(ctrl.speed); Serial.print(" "); Serial.println(ctrl.rotation);
 }
