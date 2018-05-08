@@ -24,20 +24,20 @@ void loop(){
     // === Print out raw values ===
     Light.getVals(lightValues);
     for(int i=0; i < LIGHTSENSOR_NUM; i++){
-      Serial.print(lightValues[i]);
+      // Serial.print(lightValues[i]);
 
       if(lightValues[i]<10){
-        Serial.print(" ");
+        // Serial.print(" ");
       }
       if(lightValues[i]<100){
-        Serial.print(" ");
+        // Serial.print(" ");
       }
       if(lightValues[i] < 1000){
-        Serial.print(" ");
+        // Serial.print(" ");
       }
-      Serial.print(" ");
+      // Serial.print(" ");
     }
-    Serial.println();
+    // Serial.println();
     delay(100);
   }
   else if(mode == 1){
@@ -50,13 +50,13 @@ void loop(){
       // else{
       //   Serial.print(" ");
       // }
-      Serial.print(results[i]);
-      Serial.print("   ");
+      // Serial.print(results[i]);
+      // Serial.print("   ");
     }
-    Serial.println();
+    // Serial.println();
   }
   else if(mode == 2){
-    Serial.println(Light.data.angle);
+    // Serial.println(Light.data.angle);
   }
   else if(mode == 3){
     // // === Print out on white ===
@@ -71,14 +71,14 @@ void loop(){
 
     if(print){
       for(int i=0; i < LIGHTSENSOR_NUM; i++){
-        Serial.print(results[i]);
-        Serial.print("   ");
+        // Serial.print(results[i]);
+        // Serial.print("   ");
       }
-      Serial.println();
+      // Serial.println();
 
     }
   }
   else if(mode == 4){
-    Serial.println(Light.data.numSensors);
+    // Serial.println(Light.data.numSensors);
   }
 }

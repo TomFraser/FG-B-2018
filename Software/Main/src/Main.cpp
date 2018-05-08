@@ -41,6 +41,9 @@ void setup(){
     // digitalWrite(13, HIGH);
     // delay(500);
     // digitalWrite(13, LOW);
+    // delay(3000);
+    // kicker.controlBall(0);
+    // delay(2000);
 }
 
 void loop(){
@@ -67,7 +70,7 @@ void loop(){
     /* Send and recieve Xbee Data */
     // xbee.updateData(dc.getXbeeData());
 
-    // kicker.controlBall(20);
+    // kicker.controlBall(10);
 
     motors.move(dc.calculate(attacker));
     // moveControl ctrl = dc.calculate(defender);
