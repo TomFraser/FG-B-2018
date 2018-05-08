@@ -25,8 +25,9 @@ void CoordCalc::updateData(absCameraData cam, lidarData lidar){
     bool backYverify;
 
     // Serial.print(camCoords.x); Serial.print(" "); Serial.print(leftX); Serial.print(" "); Serial.println(rightX);
+    // Serial.print(lidar.leftDist); Serial.print(" "); Serial.println(lidar.rightDist);
     // Serial.print(camCoords.y); Serial.print(" "); Serial.print(frontY); Serial.print(" "); Serial.println(backY);
-
+    // Serial.print(camCoords.x); Serial.print(" "); Serial.println(camCoords.y);
 
     // verify lidar with camera (if we cant see the goal with cam - just assume lidar is correct)
     if(camCoords.x != 65506 && camCoords.y != 65506){

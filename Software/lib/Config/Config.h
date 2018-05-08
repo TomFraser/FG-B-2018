@@ -9,8 +9,8 @@
 #define IR_TRANSFER_NUM 4
 
 /* Speeds */
-#define SPEED_VAL 80
-#define FORWARD_SPEED 80
+#define SPEED_VAL 75
+#define FORWARD_SPEED 100
 
 #define angToRad 0.01745329251
 #define radToAng 57.2957795131

@@ -41,6 +41,9 @@ void setup(){
     // digitalWrite(13, HIGH);
     // delay(500);
     // digitalWrite(13, LOW);
+    // delay(3000);
+    // kicker.controlBall(0);
+    // delay(2000);
 }
 
 void loop(){
@@ -67,12 +70,12 @@ void loop(){
     /* Send and recieve Xbee Data */
     // xbee.updateData(dc.getXbeeData());
 
-    // kicker.controlBall(20);
+    // kicker.controlBall(10);
 
     motors.move(dc.calculate(attacker));
     // moveControl ctrl = dc.calculate(defender);
 
-    // Serial.print(spi.lidars.rightDist); Serial.print(" "); Serial.println(spi.lidars.leftDist);
+    // Serial.print(spi.lidars.leftDist); Serial.print(" "); Serial.println(spi.lidars.rightDist);
 
     // Serial.print(ctrl.direction); Serial.print(" "); Serial.print(ctrl.speed); Serial.print(" "); Serial.println(ctrl.rotation);
 }
