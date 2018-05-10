@@ -58,7 +58,7 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
     moveAngle = relToAbs(orbit(cam_.ballAngle, cam.ballDist));
 
     // Serial.print(cam.ballDist); Serial.print(" "); Serial.print(cam_.ballAngle); Serial.print(" "); Serial.println(moveAngle);
-    Serial.println(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
+    // Serial.println(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
 
 }
 
@@ -148,10 +148,15 @@ moveControl DirectionController::calculateReturn(moveControl tempControl){
     //                           rotationPID.update(compass, tempControl.rotation, 0.00)};
 
     // set up the return data struct (NO LIGHT)
+    if(cam.attackAngle != 65506){
+        double notnotrotationvariablevariable2 = goalTrackingPID.update(compass, tempControl.rotation, 0.00);
+    }else{
+        double notnotrotationvariablevariable = rotationPID.update(compass, 0.00, 0.00);
+    }
     moveControl moveReturn = {absToRel(tempControl.direction),
                               tempControl.speed,
                               tempControl.doBoost,
-                              rotationPID.update(compass, tempControl.rotation, 0.00)};
+                              cam.attackAngle == 65506 ? notnotrotationvariablevariable : notnotrotationvariablevariable2};
 
 
     // Serial.print(moveReturn.direction); Serial.print(" "); Serial.print(moveReturn.speed); Serial.print(" "); Serial.println(moveReturn.rotation);
@@ -166,7 +171,8 @@ moveControl DirectionController::calculateAttack(){
         // if we know where the ball is -> go to it
         tempControl.direction = moveAngle;
         tempControl.speed = SPEED_VAL;
-        tempControl.doBoost = true;
+        tempControl.doBoost = false;
+        // tempControl.rotation = cam.attackAngle != 65506 ? (doubleMod(-cam.attackAngle + 180, 360.0) - 180) : 0;
         tempControl.rotation = 0;
 
         // BACKSPIN LOGIC CAN GO HERE TOO (also goal tracking)

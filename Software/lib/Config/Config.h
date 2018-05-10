@@ -9,8 +9,8 @@
 #define IR_TRANSFER_NUM 4
 
 /* Speeds */
-#define SPEED_VAL 80
-#define FORWARD_SPEED 80
+#define SPEED_VAL 75
+#define FORWARD_SPEED 100
 
 #define angToRad 0.01745329251
 #define radToAng 57.2957795131
@@ -122,6 +122,6 @@
 #define LIGHT_16 A18
 #define LIGHT_17 A19
 #define LIGHT_18 A20
-#define LIGHT_19 39
-#define LIGHT_20 38
+#define LIGHT_19 A21
+#define LIGHT_20 A22
 #define NUM_COUNTBACK 2
