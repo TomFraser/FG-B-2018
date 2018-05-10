@@ -55,6 +55,8 @@ private:
     double moveAngle;
     double gyration;
 
+    double notnotrotationvariablevariable, notnotrotationvariablevariable2;
+
     // coordinate data
     coordinate myBallCoord;
     coordinate myRobotCoord;
