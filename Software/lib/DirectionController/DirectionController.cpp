@@ -196,7 +196,7 @@ moveControl DirectionController::calculateGoalie(){
         ballAngle = atan2(xbee.ballCoords.y - myRobotCoord.y, xbee.ballCoords.x - myRobotCoord.x);
     }
 
-    Serial.println(ballAngle);
+    ballAngle = ballAngle != 65506 ? doubleMod(ballAngle+180, 360)-180 : 65506;
 
     double horVector;
     if(ballAngle != 65506){

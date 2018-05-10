@@ -10,9 +10,9 @@ class Finder:
     def init(self, robot_):
         self.robot = robot_
         if self.robot == self.ROBOT_O: #O_bot
-            self.thresholds = [(29, 66, 16, 81, 13, 127), #Ball
-            (37, 100, -10, 127, 5, 127),  #Yellow Goal
-            (30, 47, -7, 127, -128, -32)] # Blue Goal
+            self.thresholds = [(41, 76, 17, 127, 7, 127), #Ball
+            (57, 100, -9, 9, 14, 127),  #Yellow Goal
+            (0, 100, -128, 10, -128, -21)] # Blue Goal
         elif self.robot == self.ROBOT_P2: #P2_bot
             self.thresholds = [(0, 100, 16, 127, 3, 83), #Ball
             (39, 71, -41, 53, 48, 127), #Yellow Goal
@@ -25,7 +25,7 @@ class Finder:
         sensor.skip_frames(time=500)
 
         sensor.set_auto_whitebal(False, rgb_gain_db=(-6.02073, -6.02073, 1.717804)) #Must remain false for blob tracking
-        sensor.set_auto_exposure(False, exposure_us=5000)
+        sensor.set_auto_exposure(False, exposure_us=7000)
         sensor.skip_frames(time=500)
 
         curr_gain = sensor.get_gain_db()
@@ -51,7 +51,7 @@ class Finder:
         return (angle, dist)
 
 
-    def findObjects(self, markBall=False, markYellow=False, markBlue=False, minDist=40, maxDist=130):
+    def findObjects(self, markBall=False, markYellow=False, markBlue=False, minDist=40, maxDist=160):
         balls = self.img.find_blobs([self.thresholds[0]], x_stride=2, y_stride=2, area_threshold=1, pixel_threshold=2, merge=False)
 
         # yGoals = self.img.find_blobs([self.thresholds[1]], x_stride=10, y_stride=10, area_threshold=1, pixel_threshold=1, merge=False)

@@ -37,7 +37,7 @@ private:
     PID rotationPID = PID(-5, -0.1, -0.2, 0.00);
     PID goalTrackingPID = PID(-3, -0.1, -0.2, 0.00);
     // Goalie pids
-    PID goalieAnglePID = PID(-5, -0.1, -0.2, 0.00);
+    PID goalieAnglePID = PID(-4, 0, -0.5, 0.00);
     PID goalieSonarPID = PID(2.50, 0.00, 0.2, 0.00);
     //NEEDS TO BE TUNED WHEN LIDARS ARE RAISED ABOVE GOAL
     // also new target needs to be set
