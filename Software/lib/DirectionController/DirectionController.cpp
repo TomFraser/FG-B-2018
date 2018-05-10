@@ -149,9 +149,9 @@ moveControl DirectionController::calculateReturn(moveControl tempControl){
 
     // set up the return data struct (NO LIGHT)
     if(cam.attackAngle != 65506){
-        double notnotrotationvariablevariable2 = goalTrackingPID.update(compass, tempControl.rotation, 0.00);
+        notnotrotationvariablevariable2 = goalTrackingPID.update(compass, tempControl.rotation, 0.00);
     }else{
-        double notnotrotationvariablevariable = rotationPID.update(compass, 0.00, 0.00);
+        notnotrotationvariablevariable = rotationPID.update(compass, 0.00, 0.00);
     }
     moveControl moveReturn = {absToRel(tempControl.direction),
                               tempControl.speed,
