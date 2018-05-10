@@ -191,21 +191,20 @@ moveControl DirectionController::calculateGoalie(){
     }
 
     double horVector;
-    // if(ballAngle != 65506){
-    //     horVector = goalieAnglePID.update(ballAngle, 0.00, 0.00);
-    // } else {
-    //     // cant see the ball at all -> center with left and right sonars
-    //     double lidarDiff = lidar.rightDist - lidar.leftDist;
-    //     horVector = goalieSonarPID.update(lidarDiff, 0.00, 0.00);
-    // }
-    double lidarDiff = lidar.rightDist - lidar.leftDist;
-    lidarDiff = abs(lidarDiff) < 2 ? 0 : lidarDiff;
-    horVector = goalieSonarPID.update(lidarDiff, 0.00, 0.00);
+    if(ballAngle != 65506){
+        horVector = goalieAnglePID.update(ballAngle, 0.00, 0.00);
+    } else {
+        // cant see the ball at all -> center with left and right sonars
+        double lidarDiff = lidar.rightDist - lidar.leftDist;
+        lidarDiff = abs(lidarDiff) < 2 ? 0 : lidarDiff;
+        horVector = goalieSonarPID.update(lidarDiff, 0.00, 0.00);
+    }
     // Serial.print(lidar.rightDist); Serial.print(" "); Serial.println(lidar.leftDist);
     // Serial.println(lidarDiff);
     // Serial.println(horVector);
 
-    double vertVector = -goalieVerPID.update(lidar.backDist, GOALIE_DISTANCE, 0.00);
+    // double vertVector = -goalieVerPID.update(lidar.backDist, GOALIE_DISTANCE, 0.00);
+    double vertVector = 0;
 
     double direction = atan2(vertVector, horVector)*radToAng;
     double speed = sqrt(vertVector*vertVector + horVector*horVector);
