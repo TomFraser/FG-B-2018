@@ -105,7 +105,6 @@ void Light::readLight(){
 
       if(thresholds[i] != -1 && !broken[i]){
         int val = analogRead(lightSensors[i]);
-        Serial.print(i); Serial.print(': '); Serial.print(val); Serial.print(" ");
         if(val >= thresholds[i]){
             seeingWhite[i] = true;
             tempCount++;
@@ -119,7 +118,6 @@ void Light::readLight(){
       }
     }
     data.numSensors = tempCount;
-    Serial.println();
 }
 
 //[0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0]
