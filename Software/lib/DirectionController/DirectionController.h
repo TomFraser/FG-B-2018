@@ -55,7 +55,7 @@ private:
     double moveAngle;
     double gyration;
 
-    double notnotrotationvariablevariable, notnotrotationvariablevariable2;
+    double rPID, gPID;
 
     // coordinate data
     coordinate myBallCoord;

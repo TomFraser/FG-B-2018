@@ -72,7 +72,7 @@ void loop(){
 
     // kicker.controlBall(10);
 
-    motors.move(dc.calculate(defender));
+    motors.move(dc.calculate(attacker));
     // moveControl ctrl = dc.calculate(defender);
 
     // Serial.print(spi.lidars.leftDist); Serial.print(" "); Serial.println(spi.lidars.rightDist);
