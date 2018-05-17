@@ -94,8 +94,7 @@
 #define GOALIE_X_RANGE 15
 #define TARGET_X 0
 #define TARGET_Y 0
-// NEEDS TO BE SET WHEN LIDARS ARE RAISED
-#define GOALIE_DISTANCE 60
+#define GOALIE_DISTANCE 50
 
 /* Light */
 #define AUTO_LIGHT true

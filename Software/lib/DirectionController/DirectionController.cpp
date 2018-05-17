@@ -207,8 +207,7 @@ moveControl DirectionController::calculateGoalie(){
     // Serial.println(lidarDiff);
     // Serial.println(horVector);
 
-    // double vertVector = -goalieVerPID.update(lidar.backDist, GOALIE_DISTANCE, 0.00);
-    double vertVector = 0;
+    double vertVector = -goalieVerPID.update(lidar.backDist, GOALIE_DISTANCE, 0.00);
 
     double direction = atan2(vertVector, horVector)*radToAng;
     double speed = sqrt(vertVector*vertVector + horVector*horVector);

@@ -10,7 +10,7 @@ class Finder:
     def init(self, robot_):
         self.robot = robot_
         if self.robot == self.ROBOT_O: #O_bot
-            self.thresholds = [(41, 76, 17, 127, 7, 127), #Ball
+            self.thresholds = [(52, 74, 30, 127, 13, 127), #Ball
             (57, 100, -9, 9, 14, 127),  #Yellow Goal
             (0, 100, -128, 10, -128, -21)] # Blue Goal
         elif self.robot == self.ROBOT_P2: #P2_bot
