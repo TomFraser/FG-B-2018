@@ -74,10 +74,12 @@ moveControl DirectionController::calculate(mode robotMode){
 }
 
 xbeeData DirectionController::getXbeeData(){
-    xbeeData returnData = {myBallCoord,
-                           myRobotCoord,
-                           myBallCoord.x != 65506 && myBallCoord.y != 65506,
-                           myRobotCoord.x != 65506 && myRobotCoord.y != 65506};
+    xbeeData returnData = {
+        myBallCoord,
+        myRobotCoord,
+        myBallCoord.x != 65506 && myBallCoord.y != 65506,
+        myRobotCoord.x != 65506 && myRobotCoord.y != 65506
+    };
     return returnData;
 }
 
@@ -179,6 +181,11 @@ moveControl DirectionController::calculateAttack(){
         tempControl.rotation = 0;
         // cant see ball -> go to other ball coords or predefined ones
         // (or do a spiral for superteam)
+        if(!SUPERTEAM){
+            /* Normal Game */
+        }else{
+            /* Big Boi Field! */
+        }
     }
 
     return tempControl;
@@ -214,9 +221,11 @@ moveControl DirectionController::calculateGoalie(){
 
     direction = doubleMod(direction + 90, 360);
 
-    moveControl returnControl = {direction,
-                                 speed,
-                                 false,
-                                 0};
+    moveControl returnControl = {
+        direction,
+        speed,
+        false,
+        0
+    };
     return returnControl;
 }

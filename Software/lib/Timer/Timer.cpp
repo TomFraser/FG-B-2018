@@ -15,10 +15,10 @@ long Timer::getTime(){
     return _tDiff;
 }
 
-bool Timer::hasBeenMS(long microseconds){
+bool Timer::hasBeenMS(long milliseconds){
     /* Check if the timer difference has been longer than the input */
     _tDiff = millis() - _iTime;
-    if(_tDiff >= microseconds){
+    if(_tDiff >= milliseconds){
         return true;
     }
     return false;

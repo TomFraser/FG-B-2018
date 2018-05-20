@@ -2,6 +2,7 @@
 
 #define ROBOT 1
 #define ATTACK_YELLOW true
+#define SUPERTEAM false
 
 #define ALT_SCK 14
 #define CAM_TRANSFER_NUM 12
@@ -34,6 +35,10 @@
 #define MIN_BALL_CONFIDENCE 0.5
 #define BALL_CONFIDENCE 0.85
 
+/* Dribbler & Kicker */
+#define KICK_DIST 90
+#define MIN_GOAL_ANGLE 90
+
 /* Xbee */
 #define XBEE_PACKAGE 8
 #define XBEE_CONST 128
@@ -62,7 +67,7 @@
 
 #define LIDAR_CORRECT_ANGLE 15 // angle from horizontal
 
-// lidar corrections
+/* lidar Corrections */
 #define LIDAR_CORRECT_LEFT 5
 #define LIDAR_CORRECT_RIGHT 5
 #define LIDAR_CORRECT_FRONT 5

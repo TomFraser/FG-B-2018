@@ -70,7 +70,7 @@ void loop(){
     /* Send and recieve Xbee Data */
     // xbee.updateData(dc.getXbeeData());
 
-    // kicker.controlBall(10);
+    // kicker.controlBall(10, 100, 100);
 
     motors.move(dc.calculate(defender));
     // moveControl ctrl = dc.calculate(defender);

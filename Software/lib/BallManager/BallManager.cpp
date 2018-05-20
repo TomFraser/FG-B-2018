@@ -8,24 +8,22 @@ BallManager::BallManager(){
     timeSinceKick.reset();
 }
 
-bool BallManager::controlBall(double ballConfidence){
-    // if(ballConfidence >= MIN_BALL_CONFIDENCE && ballConfidence < BALL_CONFIDENCE){
-    //     mode = solenoidMode::lowSpeed;
-    // }else if(ballConfidence >= BALL_CONFIDENCE){
-    //     mode = solenoidMode::highSpeed;
-    // }else if(ballConfidence < MIN_BALL_CONFIDENCE){
-    //     mode = solenoidMode::noSpeed;
-    // }
-    // backspin.setSpeed(mode);
-    // mode = solenoidMode::canKick;
-    backspin.setSpeed(ballConfidence);
+bool BallManager::controlBall(double ballDist, int goalDist, int angleToGoal){
+    if(goalDist <= KICK_DIST && angleToGoal <= MIN_GOAL_ANGLE){
+        backspin.setSpeed(1000);
+        delay(5);
+        kickBall();
+    }else{
+        /* Here, we need to find the min distance to the ball */
+        backspin.setSpeed(ballDist);
+    }
 }
 
 void BallManager::kickBall(){
     if(timeSinceKick.hasBeenMS(2000)){
         if(mode = solenoidMode::canKick){
             digitalWrite(KICKER_PIN, HIGH);
-            delay(25);
+            delay(5);
             digitalWrite(KICKER_PIN, LOW);
             timeSinceKick.reset();
         }

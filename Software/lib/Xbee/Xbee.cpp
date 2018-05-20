@@ -22,7 +22,7 @@ void Xbees::tryConnect(){
         isConnected();
     }else{
         /* We assume the Xbee is connected */
-        updateData(0,0,0,0,0,0);
+
     }
 }
 
@@ -35,10 +35,14 @@ void Xbees::updateData(int bX, int bY, int rX, int rY, int seeing, int pos){
     seeingBall = seeing;
     knowsPosition = pos;
 
-    if(sendTime.hasBeenMS(20)){
-        sendData();
-        sendTime.reset();
-        readData();
+    if(isConnected()){
+        if(sendTime.hasBeenMS(20)){
+            sendData();
+            sendTime.reset();
+            readData();
+        }
+    }else{
+        tryConnect();
     }
 }
 
@@ -54,7 +58,7 @@ void Xbees::sendData(){
 }
 
 void Xbees::readData(){
-    while(XSerial.available() == XBEE_PACKAGE){
+    while(XSerial.available() >= XBEE_PACKAGE){
         uint16_t firstByte = XSerial.read();
         uint16_t secondByte = XSerial.peek();
 
@@ -74,6 +78,11 @@ void Xbees::readData(){
             OrobotY = dataBuf[3];
             OseeingBall = dataBuf[4];
             OknowsPosition = dataBuf[5];
+        }else{
+            /* The data isnt synced. Flush all Serial data */
+            for(int i = 0; i < XSerial.available(); i++){
+                XSerial.read();
+            }
         }
     }
 }
