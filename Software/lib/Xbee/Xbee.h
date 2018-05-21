@@ -11,10 +11,10 @@ public:
     Xbees();
     bool isConnected();
     void tryConnect();
-    void updateData(int bX, int bY, int rX, int rY, int seeing, int pos);
+    void updateData(xbeeData data);
 
     /* Recieve Data */
-    int OballX, OballY, OrobotX, OrobotY, OseeingBall, OknowsPosition;
+    xbeeData xData = {{65506, 65506}, {65506, 65506}, false, false};
     
 private:
     void sendData();

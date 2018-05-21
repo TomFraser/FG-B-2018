@@ -11,8 +11,8 @@ public:
     BallManager();
     /* TODO More here */
     bool controlBall(double ballConfidence, int goalDist, int angleToGoal);
-private:
     void kickBall();
+private:
     ECUDriver backspin = ECUDriver(BACKSPIN_PIN);
     Timer timeSinceKick = Timer(0);
 

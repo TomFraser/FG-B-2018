@@ -31,12 +31,8 @@ void setup(){
     /* Init Serial */
     cam.initSerial();
     /* Set robot mode based on default mode */
-    // if(ROBOT){
-    //     robotMode.setDefault(defender);
-    // }else{
-    //     robotMode.setDefault(attacker);
-    // }
     robotMode.setDefault(attacker);
+
     // pinMode(13, OUTPUT);
     // digitalWrite(13, HIGH);
     // delay(500);
@@ -71,8 +67,8 @@ void loop(){
     // xbee.updateData(dc.getXbeeData());
 
     // kicker.controlBall(10, 100, 100);
-
-    motors.move(dc.calculate(defender));
+    robotMode.setMode(defender);
+    motors.move(dc.calculate(robotMode.getMode()));
     // moveControl ctrl = dc.calculate(defender);
 
     // Serial.print(spi.lidars.leftDist); Serial.print(" "); Serial.println(spi.lidars.rightDist);

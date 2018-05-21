@@ -9,7 +9,7 @@ public:
 
     void reset();
     long getTime();
-    bool hasBeenMS(long microseconds);
+    bool hasBeenMS(long milliseconds);
 
 private:
     int timerMode;

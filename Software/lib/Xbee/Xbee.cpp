@@ -26,14 +26,14 @@ void Xbees::tryConnect(){
     }
 }
 
-void Xbees::updateData(int bX, int bY, int rX, int rY, int seeing, int pos){
-    ballX = bX + XBEE_CONST;
-    ballY = bY + XBEE_CONST;
-    robotX = rX + XBEE_CONST;
-    robotY = rY + XBEE_CONST;
+void Xbees::updateData(xbeeData data){
+    ballX = data.ballCoords.x + XBEE_CONST;
+    ballY = data.ballCoords.y + XBEE_CONST;
+    robotX = data.robotCoords.x + XBEE_CONST;
+    robotY = data.robotCoords.y + XBEE_CONST;
 
-    seeingBall = seeing;
-    knowsPosition = pos;
+    seeingBall = data.seesBall;
+    knowsPosition = data.knowsPosition;
 
     if(isConnected()){
         if(sendTime.hasBeenMS(20)){
@@ -72,12 +72,12 @@ void Xbees::readData(){
             dataBuf[4] = XSerial.read();
             dataBuf[5] = XSerial.read();
 
-            OballX = dataBuf[0];
-            OballY = dataBuf[1];
-            OrobotX = dataBuf[2];
-            OrobotY = dataBuf[3];
-            OseeingBall = dataBuf[4];
-            OknowsPosition = dataBuf[5];
+            xData.ballCoords.x = dataBuf[0];
+            xData.ballCoords.y = dataBuf[1];
+            xData.robotCoords.x = dataBuf[2];
+            xData.robotCoords.x = dataBuf[3];
+            xData.seesBall = dataBuf[4];
+            xData.knowsPosition = dataBuf[5];
         }else{
             /* The data isnt synced. Flush all Serial data */
             for(int i = 0; i < XSerial.available(); i++){
@@ -88,6 +88,7 @@ void Xbees::readData(){
 }
 
 void Xbees::resetAllData(){
-    ballX, ballY, robotX, robotY, OballX, OballY, OrobotX, OrobotY = 65506;
-    seeingBall, knowsPosition, OseeingBall, OknowsPosition = 0;
+    xData = {{65506, 65506}, {65506, 65506}, false, false};
+    ballX, ballY, robotX, robotY = 65506;
+    seeingBall, knowsPosition = false;
 }
