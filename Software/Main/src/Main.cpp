@@ -67,8 +67,8 @@ void loop(){
     // xbee.updateData(dc.getXbeeData());
 
     // kicker.controlBall(10, 100, 100);
-    robotMode.setMode(defender);
-    motors.move(dc.calculate(robotMode.getMode()));
+    robotMode.setMode(attacker);
+    motors.move(dc.calculate(attacker));
     // moveControl ctrl = dc.calculate(defender);
 
     // Serial.print(spi.lidars.leftDist); Serial.print(" "); Serial.println(spi.lidars.rightDist);

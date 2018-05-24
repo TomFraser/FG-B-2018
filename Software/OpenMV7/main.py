@@ -1,4 +1,3 @@
-from ledController import LEDController
 from sender import Sender
 from finder import Finder
 import time

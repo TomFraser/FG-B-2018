@@ -10,11 +10,11 @@ class Finder:
     def init(self, robot_):
         self.robot = robot_
         if self.robot == self.ROBOT_O: #O_bot
-            self.thresholds = [(52, 74, 30, 127, 13, 127), #Ball
+            self.thresholds = [(46, 98, 30, 110, 42, 77), #Ball
             (57, 100, -9, 9, 14, 127),  #Yellow Goal
             (0, 100, -128, 10, -128, -21)] # Blue Goal
         elif self.robot == self.ROBOT_P2: #P2_bot
-            self.thresholds = [(0, 100, 16, 127, 3, 83), #Ball
+            self.thresholds = [(46, 98, 30, 110, 42, 77), #Ball
             (39, 71, -41, 53, 48, 127), #Yellow Goal
             (0, 27, -20, -6, -20, 4)] # Blue Goal
 
@@ -29,10 +29,12 @@ class Finder:
         sensor.skip_frames(time=500)
 
         curr_gain = sensor.get_gain_db()
-        sensor.set_auto_gain(False, gain_db=curr_gain*1.3) #Must remain false for blob tracking
-
+        #Fix White Bal
+        sensor.set_auto_whitebal(False, rgb_gain_db=(-6.02073, -5.368, -2.963)) #Must remain false for blob tracking
+        sensor.set_auto_exposure(False, exposure_us=3000)
         sensor.set_brightness(0)
         sensor.set_contrast(3)
+        sensor.set_saturation(3)
 
         sensor.skip_frames(time=500)
 
