@@ -1,7 +1,7 @@
 #define DEBUG true
 
 #define ROBOT 1
-#define ATTACK_YELLOW true
+#define ATTACK_YELLOW false
 #define SUPERTEAM false
 
 #define ALT_SCK 14
@@ -10,7 +10,7 @@
 #define IR_TRANSFER_NUM 4
 
 /* Speeds */
-#define SPEED_VAL 55
+#define SPEED_VAL 80
 #define FORWARD_SPEED 100
 
 #define angToRad 0.01745329251

@@ -22,7 +22,7 @@ void MotorArray::move(moveControl move){
         }
         scale = 255/doubleAbs(fmax(fmax(fmax(doubleAbs(motorSpeeds[0]), doubleAbs(motorSpeeds[1])), doubleAbs(motorSpeeds[2])), doubleAbs(motorSpeeds[3])));
         for(int i = 0; i < 4; i++){
-            if(isFrontal(angle) == true && boost == true){
+            if(isFrontalLarge(angle) == true && boost == true){
                 motorSpeeds[i] = (motorSpeeds[i] * scale)/100 * FORWARD_SPEED;
             }else{
                 motorSpeeds[i] = (motorSpeeds[i] * scale)/100 * speed;

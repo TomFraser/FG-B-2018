@@ -144,18 +144,18 @@ moveControl DirectionController::calculateReturn(moveControl tempControl){
     lightTracker.update(light.angle, tempControl.direction, tempControl.speed, cam.ballAngle, light.numSensors);
 
     // set up the return data struct (WITH LIGHT)
-    // moveControl moveReturn = {absToRel(lightTracker.getDirection()),
-    //                           lightTracker.getSpeed(),
-    //                           tempControl.doBoost && lightTracker.getNormalGameplay(),
-    //                           rotationPID.update(compass, tempControl.rotation, 0.00)};
+    moveControl moveReturn = {absToRel(lightTracker.getDirection()),
+                              lightTracker.getSpeed(),
+                              tempControl.doBoost && lightTracker.getNormalGameplay(),
+                              rotationPID.update(compass, tempControl.rotation, 0.00)};
 
     // set up the return data struct (NO LIGHT)
-    rPID = rotationPID.update(compass, 0.00, 0.00);
-    gPID = goalTrackingPID.update(compass, tempControl.rotation, 0.00);
-    moveControl moveReturn = {absToRel(tempControl.direction),
-                              tempControl.speed,
-                              tempControl.doBoost,
-                              cam.attackAngle == 65506 ? rPID : gPID};
+    // rPID = rotationPID.update(compass, 0.00, 0.00);
+    // gPID = goalTrackingPID.update(compass, tempControl.rotation, 0.00);
+    // moveControl moveReturn = {absToRel(tempControl.direction),
+    //                           tempControl.speed,
+    //                           tempControl.doBoost,
+    //                           cam.attackAngle == 65506 ? rPID : gPID};
 
 
     // Serial.print(moveReturn.direction); Serial.print(" "); Serial.print(moveReturn.speed); Serial.print(" "); Serial.println(moveReturn.rotation);
@@ -171,7 +171,8 @@ moveControl DirectionController::calculateAttack(){
         tempControl.direction = moveAngle;
         tempControl.speed = SPEED_VAL;
         tempControl.doBoost = false;
-        tempControl.rotation = cam.attackAngle == 65506 ? 0 : (doubleMod((-relToAbs(cam.attackAngle) + 180), 360.0) - 180);
+        // tempControl.rotation = cam.attackAngle == 65506 ? 0 : (doubleMod((-relToAbs(cam.attackAngle) + 180), 360.0) - 180);
+        tempControl.rotation = 0;
 
         // BACKSPIN LOGIC CAN GO HERE TOO (also goal tracking)
     } else {
