@@ -9,38 +9,51 @@ void CoordCalc::updateData(absCameraData cam, lidarData lidar){
 
     /* Calculate robot position */
     // caculate an estimate of our position with the camera
+    // Serial.println(cam.attackDist);
     coordinate camCoords = calculateCamCoords(cam);
     // Serial.print(camCoords.x); Serial.print(" "); Serial.println(camCoords.y);
-
-    // calculate coordinates based on lidar data
-    int leftX = TABLE_LEFT_X - lidar.leftDist;
-    int rightX = TABLE_RIGHT_X + lidar.rightDist;
-
-    int frontY = TABLE_FRONT_Y - lidar.frontDist;
-    int backY = TABLE_BACK_Y + lidar.backDist;
 
     bool leftXverify;
     bool rightXverify;
     bool frontYverify;
     bool backYverify;
 
-    // Serial.print(camCoords.x); Serial.print(" "); Serial.print(leftX); Serial.print(" "); Serial.println(rightX);
-    // Serial.print(lidar.leftDist); Serial.print(" "); Serial.println(lidar.rightDist);
-    // Serial.print(camCoords.y); Serial.print(" "); Serial.print(frontY); Serial.print(" "); Serial.println(backY);
-    // Serial.print(camCoords.x); Serial.print(" "); Serial.println(camCoords.y);
+    int leftX;
+    int rightX;
+    int frontY;
+    int backY;
 
-    // verify lidar with camera (if we cant see the goal with cam - just assume lidar is correct)
-    if(camCoords.x != 65506 && camCoords.y != 65506){
-        leftXverify = inBaseRange(leftX, camCoords.x, LIDAR_CAM_RANGE);
-        rightXverify = inBaseRange(rightX, camCoords.x, LIDAR_CAM_RANGE);
+    if(lidar.leftDist != 65506){
+        // calculate coordinates based on lidar data
+        leftX = TABLE_LEFT_X - lidar.leftDist;
+        rightX = TABLE_RIGHT_X + lidar.rightDist;
 
-        frontYverify = inBaseRange(frontY, camCoords.y, LIDAR_CAM_RANGE);
-        backYverify = inBaseRange(backY, camCoords.y, LIDAR_CAM_RANGE);
+        frontY = TABLE_FRONT_Y - lidar.frontDist;
+        backY = TABLE_BACK_Y + lidar.backDist;
+
+        // Serial.print(camCoords.x); Serial.print(" "); Serial.print(leftX); Serial.print(" "); Serial.println(rightX);
+        // Serial.print(lidar.leftDist); Serial.print(" "); Serial.println(lidar.rightDist);
+        // Serial.print(camCoords.y); Serial.print(" "); Serial.print(frontY); Serial.print(" "); Serial.println(backY);
+        // Serial.print(camCoords.x); Serial.print(" "); Serial.println(camCoords.y);
+
+        // verify lidar with camera (if we cant see the goal with cam - just assume lidar is correct)
+        if(camCoords.x != 65506 && camCoords.y != 65506){
+            leftXverify = inBaseRange(leftX, camCoords.x, LIDAR_CAM_RANGE);
+            rightXverify = inBaseRange(rightX, camCoords.x, LIDAR_CAM_RANGE);
+
+            frontYverify = inBaseRange(frontY, camCoords.y, LIDAR_CAM_RANGE);
+            backYverify = inBaseRange(backY, camCoords.y, LIDAR_CAM_RANGE);
+        } else {
+            leftXverify = true;
+            rightXverify = true;
+            frontYverify = true;
+            backYverify = true;
+        }
     } else {
-        leftXverify = true;
-        rightXverify = true;
-        frontYverify = true;
-        backYverify = true;
+        leftXverify = false;
+        rightXverify = false;
+        frontYverify = false;
+        backYverify = false;
     }
 
     // calulate final x

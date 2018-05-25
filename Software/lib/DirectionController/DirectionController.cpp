@@ -58,7 +58,7 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
     moveAngle = relToAbs(orbit(cam_.ballAngle, cam.ballDist));
 
     // Serial.print(cam.ballDist); Serial.print(" "); Serial.print(cam_.ballAngle); Serial.print(" "); Serial.println(moveAngle);
-    // Serial.println(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
+    Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
 
 }
 
@@ -105,10 +105,24 @@ lidarData DirectionController::adjustLidar(lidarData lidar){
     uint16_t relLeft = LIDAR_CORRECT_LEFT + relToAbsLidar(lidar.leftDist);
     uint16_t relRight = LIDAR_CORRECT_RIGHT + relToAbsLidar(lidar.rightDist);
 
-    returnData.frontDist = relFront;
-    returnData.backDist = relBack;
-    returnData.leftDist = relLeft;
-    returnData.rightDist = relRight;
+    if(abs(compass) <= 45){
+        returnData.frontDist = relFront;
+        returnData.backDist = relBack;
+        returnData.leftDist = relLeft;
+        returnData.rightDist = relRight;
+    } else if(abs(compass) >= 135){
+        returnData.frontDist = relBack;
+        returnData.backDist = relFront;
+        returnData.leftDist = relRight;
+        returnData.rightDist = relLeft;
+    } else {
+        returnData.frontDist = 65506;
+        returnData.backDist = 65506;
+        returnData.leftDist = 65506;
+        returnData.rightDist = 65006;
+    }
+
+
 
     // Serial.println(compass);
     // if(abs(compass) <= 90-LIDAR_CORRECT_ANGLE){

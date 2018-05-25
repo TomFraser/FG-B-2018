@@ -12,8 +12,8 @@ class Finder:
         self.robot = robot_
         if self.robot == self.ROBOT_O: #O_bot
             self.thresholds = [(38, 100, 57, 127, 10, 127), #Ball
-            (57, 100, -9, 9, 14, 127),  #Yellow Goal
-            (0, 100, -128, 10, -128, -21)] # Blue Goal
+            (85, 100, -23, 127, 19, 127),  #Yellow Goal
+            (0, 47, -128, -5, -128, -8)] # Blue Goal
         elif self.robot == self.ROBOT_P2: #P2_bot
             self.thresholds = [(46, 98, 30, 110, 42, 77), #Ball
             (39, 71, -41, 53, 48, 127), #Yellow Goal
@@ -26,19 +26,18 @@ class Finder:
         sensor.set_framesize(sensor.QVGA) #Resolution, QVGA = 42FPS,QQVGA = 85FPS
         sensor.skip_frames(time=500)
 
-        sensor.set_auto_whitebal(False, rgb_gain_db=(-5.368132, -6.02073, -2.868481)) #Must remain false for blob tracking
-        sensor.set_auto_exposure(False, exposure_us=2000)
+        sensor.set_auto_whitebal(False, rgb_gain_db=(-6, -6, -4)) #Must remain false for blob tracking
+        sensor.set_auto_exposure(False, exposure_us=2500)
         sensor.skip_frames(time=500)
 
         curr_gain = sensor.get_gain_db()
-        sensor.set_auto_gain(False, gain_db=curr_gain) #Must remain false for blob tracking
+        sensor.set_auto_gain(False, gain_db=curr_gain*1.2) #Must remain false for blob tracking
 
         sensor.set_brightness(1)
         sensor.set_contrast(0)
         sensor.set_saturation(2)
 
         sensor.skip_frames(time=500)
-
 
 
     def takeSnapshot(self, center=False):
@@ -126,7 +125,7 @@ class Finder:
 #test code
 #f = Finder()
 #f.init(f.ROBOT_O)
-#f.takeSnapshot()
+#f.takeSnapshot()k
 #while True:
     #f.takeSnapshot()
     #f.findObjects(True, False, False)
@@ -267,7 +266,7 @@ while True:
     #clock.tick()
     # ledController.blink()
     finder.takeSnapshot() # (draw center cross)
-    data = finder.findObjects() # (mark ball, mark yellow, mark blue)
+    data = finder.findObjects(True, True, True) # (mark ball, mark yellow, mark blue)
     sender.sendData(data)
 
     #print(data)
