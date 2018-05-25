@@ -58,7 +58,7 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
     moveAngle = relToAbs(orbit(cam_.ballAngle, cam.ballDist));
 
     // Serial.print(cam.ballDist); Serial.print(" "); Serial.print(cam_.ballAngle); Serial.print(" "); Serial.println(moveAngle);
-    Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
+    // Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
 
 }
 
