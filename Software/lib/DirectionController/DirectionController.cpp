@@ -39,15 +39,8 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
         cam.defenceDist = strengthToDistance(cam_.yGoalStrength);
     }
 
-    // Serial.println(cam_.yGoalStrength); Serial.print(" "); Serial.println(cam.attackDist);
-    // Serial.println(cam.ballDist);
-    // Serial.println(cam_.yGoalStrength); Serial.print(" "); Serial.println(strengthToDistance(cam_.yGoalStrength));
-
-
     // lidar data
     lidar = adjustLidar(lidar_);
-    // Serial.print(lidar.frontDist); Serial.print(" "); Serial.print(lidar.backDist); Serial.print(" "); Serial.print(lidar.leftDist); Serial.print(" "); Serial.println(lidar.rightDist);
-
 
     /* Calculate Coordinates of Ball and Robot */
     coordCalc.updateData(cam, lidar);
@@ -56,10 +49,6 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
 
     // orbit
     moveAngle = relToAbs(orbit(cam_.ballAngle, cam.ballDist));
-
-    // Serial.print(cam.ballDist); Serial.print(" "); Serial.print(cam_.ballAngle); Serial.print(" "); Serial.println(moveAngle);
-    // Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
-
 }
 
 moveControl DirectionController::calculate(mode robotMode){
@@ -121,60 +110,18 @@ lidarData DirectionController::adjustLidar(lidarData lidar){
         returnData.leftDist = 65506;
         returnData.rightDist = 65006;
     }
-
-
-
-    // Serial.println(compass);
-    // if(abs(compass) <= 90-LIDAR_CORRECT_ANGLE){
-    //     returnData.frontDist = relFront;
-    //     returnData.backDist = relBack;
-    //     returnData.leftDist = relLeft;
-    //     returnData.rightDist = relRight;
-    // } else if(abs(compass) >= 90+LIDAR_CORRECT_ANGLE) {
-    //     returnData.frontDist = relBack;
-    //     returnData.backDist = relLeft;
-    //     returnData.leftDist = relRight;
-    //     returnData.rightDist = relLeft;
-    // } else if(smallestAngleBetween(compass, 90) < LIDAR_CORRECT_ANGLE){
-    //     returnData.frontDist = relRight;
-    //     returnData.backDist = relLeft;
-    //     returnData.leftDist = relFront;
-    //     returnData.rightDist = relRight;
-    // } else if(smallestAngleBetween(compass, -90) < LIDAR_CORRECT_ANGLE){
-    //     returnData.frontDist = relLeft;
-    //     returnData.backDist = relRight;
-    //     returnData.leftDist = relBack;
-    //     returnData.rightDist = relFront;
-    // }
-
-
     return returnData;
 }
 
 moveControl DirectionController::calculateReturn(moveControl tempControl){
-    // Serial.print(tempControl.direction); Serial.print(" "); Serial.print(tempControl.speed); Serial.print(" "); Serial.println(tempControl.rotation);
-
     // make sure we dont go over the line
     lightTracker.update(light.angle, tempControl.direction, tempControl.speed, cam.ballAngle, light.numSensors);
 
     // set up the return data struct (WITH LIGHT)
-    moveControl moveReturn = {absToRel(lightTracker.getDirection()),
-                              lightTracker.getSpeed(),
-                              tempControl.doBoost && lightTracker.getNormalGameplay(),
-                              rotationPID.update(compass, tempControl.rotation, 0.00)};
-
-    // set up the return data struct (NO LIGHT)
-    // rPID = rotationPID.update(compass, 0.00, 0.00);
-    // gPID = goalTrackingPID.update(compass, tempControl.rotation, 0.00);
-    // moveControl moveReturn = {absToRel(tempControl.direction),
-    //                           tempControl.speed,
-    //                           tempControl.doBoost,
-    //                           cam.attackAngle == 65506 ? rPID : gPID};
-
-
-    // Serial.print(moveReturn.direction); Serial.print(" "); Serial.print(moveReturn.speed); Serial.print(" "); Serial.println(moveReturn.rotation);
-    return moveReturn;
-
+    return {absToRel(lightTracker.getDirection()),
+            lightTracker.getSpeed(),
+            tempControl.doBoost && lightTracker.getNormalGameplay(),
+            rotationPID.update(compass, tempControl.rotation, 0.00)};
 }
 
 // play modes
@@ -184,17 +131,18 @@ moveControl DirectionController::calculateAttack(){
         // if we know where the ball is -> go to it
         tempControl.direction = moveAngle;
         tempControl.speed = SPEED_VAL;
-        tempControl.doBoost = false;
-        // tempControl.rotation = cam.attackAngle == 65506 ? 0 : (doubleMod((-relToAbs(cam.attackAngle) + 180), 360.0) - 180);
-        tempControl.rotation = 0;
+        tempControl.doBoost = true;
+        tempControl.rotation = 0; // rotation target
 
         // BACKSPIN LOGIC CAN GO HERE TOO (also goal tracking)
     } else {
+        // cant see ball -> go to other ball coords or predefined ones
+
+        // (or just dont move atm)
         tempControl.direction = moveAngle;
         tempControl.speed = SPEED_VAL;
-        tempControl.doBoost = true;
+        tempControl.doBoost = false;
         tempControl.rotation = 0;
-        // cant see ball -> go to other ball coords or predefined ones
         // (or do a spiral for superteam)
         if(!SUPERTEAM){
             /* Normal Game */
@@ -225,9 +173,6 @@ moveControl DirectionController::calculateGoalie(){
         lidarDiff = abs(lidarDiff) < 2 ? 0 : lidarDiff;
         horVector = goalieSonarPID.update(lidarDiff, 0.00, 0.00);
     }
-    // Serial.print(lidar.rightDist); Serial.print(" "); Serial.println(lidar.leftDist);
-    // Serial.println(lidarDiff);
-    // Serial.println(horVector);
 
     double vertVector = -goalieVerPID.update(lidar.backDist, GOALIE_DISTANCE, 0.00);
 

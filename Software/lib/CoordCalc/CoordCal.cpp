@@ -11,7 +11,6 @@ void CoordCalc::updateData(absCameraData cam, lidarData lidar){
     // caculate an estimate of our position with the camera
     // Serial.println(cam.attackDist);
     coordinate camCoords = calculateCamCoords(cam);
-    // Serial.print(camCoords.x); Serial.print(" "); Serial.println(camCoords.y);
 
     bool leftXverify;
     bool rightXverify;
@@ -30,11 +29,6 @@ void CoordCalc::updateData(absCameraData cam, lidarData lidar){
 
         frontY = TABLE_FRONT_Y - lidar.frontDist;
         backY = TABLE_BACK_Y + lidar.backDist;
-
-        // Serial.print(camCoords.x); Serial.print(" "); Serial.print(leftX); Serial.print(" "); Serial.println(rightX);
-        // Serial.print(lidar.leftDist); Serial.print(" "); Serial.println(lidar.rightDist);
-        // Serial.print(camCoords.y); Serial.print(" "); Serial.print(frontY); Serial.print(" "); Serial.println(backY);
-        // Serial.print(camCoords.x); Serial.print(" "); Serial.println(camCoords.y);
 
         // verify lidar with camera (if we cant see the goal with cam - just assume lidar is correct)
         if(camCoords.x != 65506 && camCoords.y != 65506){
