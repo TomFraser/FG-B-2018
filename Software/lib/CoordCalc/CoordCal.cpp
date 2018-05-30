@@ -12,6 +12,8 @@ void CoordCalc::updateData(absCameraData cam, lidarData lidar){
     // Serial.println(cam.attackDist);
     coordinate camCoords = calculateCamCoords(cam);
 
+    // Serial.print(camCoords.x); Serial.print(" "); Serial.println(camCoords.y);
+
     bool leftXverify;
     bool rightXverify;
     bool frontYverify;

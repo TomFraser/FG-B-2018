@@ -269,6 +269,8 @@ finder = Finder()
 finder.init(finder.ROBOT_O)
 
 ledController.on(ledController.LED_RED)
+sensor.skip_frames(time=500)
+
 # all leds off after init
 ledController.allOff()
 
@@ -276,7 +278,7 @@ while True:
     #clock.tick()
     # ledController.blink()
     finder.takeSnapshot() # (draw center cross)
-    data = finder.findObjects() # (mark ball, mark yellow, mark blue)
+    data = finder.findObjects(True, True, False) # (mark ball, mark yellow, mark blue)
     sender.sendData(data)
 
     #print(data)

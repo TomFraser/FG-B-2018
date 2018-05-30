@@ -1,7 +1,7 @@
 #define DEBUG false
 
 #define ROBOT 1
-#define ATTACK_YELLOW true
+#define ATTACK_YELLOW false
 #define SUPERTEAM false
 
 #define ALT_SCK 14
