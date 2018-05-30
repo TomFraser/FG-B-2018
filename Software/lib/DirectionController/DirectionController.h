@@ -29,6 +29,7 @@ private:
     moveControl calculateAttack();
     moveControl calculateGoalie();
     lidarData adjustLidar(lidarData lidar);
+    moveControl calculateSpiral(double target);
 
 
     /* Objects */
@@ -42,6 +43,15 @@ private:
     PID goalieVerPID = PID(2.00, 0.00, 0.2, 0.00);
 
     /* Variables */
+
+    /* Spiral */
+    bool isSpiral = false;
+    long initialSpiralTime;
+    double ballLocation = 65506;
+    bool goingDirection;
+    bool goingOpposite;
+    double spiralAdd;
+    double spiralDirection;
 
     // input data
     bool attackYellow;
