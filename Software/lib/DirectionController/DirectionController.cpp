@@ -151,21 +151,26 @@ moveControl DirectionController::calculateAttack(){
         tempControl.speed = SPEED_VAL;
         tempControl.doBoost = true;
         tempControl.rotation = 0; // rotation target
+        if(cam.attackAngle != 65506){
+            // tempControl.rotation = (360 - absToRel(cam.attackAngle));
+            tempControl.rotation = 0;
+        }else{
+            tempControl.rotation = 0;
+        }
+        isSpiral = false;
+        ballLocation = cam.ballAngle;
 
         // BACKSPIN LOGIC CAN GO HERE TOO (also goal tracking)
     } else {
-        // cant see ball -> go to other ball coords or predefined ones
-
-        // (or just dont move atm)
-        tempControl.direction = moveAngle;
-        tempControl.speed = SPEED_VAL;
-        tempControl.doBoost = false;
-        tempControl.rotation = 0;
-        // (or do a spiral for superteam)
         if(!SUPERTEAM){
             /* Normal Game */
+            tempControl.direction = moveAngle;
+            tempControl.speed = SPEED_VAL;
+            tempControl.doBoost = false;
+            tempControl.rotation = 0;
         }else{
             /* Big Boi Field! */
+            return calculateSpiral(ballLocation);
         }
     }
 
@@ -206,4 +211,36 @@ moveControl DirectionController::calculateGoalie(){
         0
     };
     return returnControl;
+}
+
+moveControl DirectionController::calculateSpiral(double target){
+    if(!isSpiral){
+        initialSpiralTime = millis();
+        spiralDirection = 0;
+    }else{
+        /* Spiral has been occuring */
+    }
+    /* Spiral More towards last direction of ball and less from oppo last dir */
+    if(target != 65506){
+        goingDirection = smallestAngleBetween(target, spiralDirection) < 1;
+        goingOpposite = abs(smallestAngleBetween(target, spiralDirection)-180) < 45;
+    }else{
+        /* We don't know where the ball is */
+        goingDirection = false;
+        goingOpposite = false;
+    }
+
+    if(goingDirection){
+        /* Towards last Ball */
+        spiralAdd = 1000/(millis() - initialSpiralTime + SPIRAL_CONST) * SPIRAL_DIRECION_RATE;
+    }else if(goingOpposite){
+        /* Opposite last Ball */
+        spiralAdd = 1000/(millis() - initialSpiralTime + SPIRAL_CONST) * (1/SPIRAL_DIRECION_RATE);
+    }else{
+        /* Normal Spiral */
+        spiralAdd = 1000/(millis() - initialSpiralTime + SPIRAL_CONST) * SPIRAL_RATE;
+    }
+
+    spiralDirection = doubleMod(spiralDirection + spiralAdd, 360.0);
+    return {spiralDirection, SPIRAL_SPEED ,false, 0};
 }

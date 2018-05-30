@@ -12,7 +12,7 @@ class Finder:
         self.robot = robot_
         if self.robot == self.ROBOT_O: #O_bot
             self.thresholds = [(38, 100, 57, 127, 10, 127), #Ball
-            (85, 100, -23, 127, 19, 127),  #Yellow Goal
+            (44, 67, -12, 53, 44, 77),  #Yellow Goal
             (0, 47, -128, -5, -128, -8)] # Blue Goal
         elif self.robot == self.ROBOT_P2: #P2_bot
             self.thresholds = [(46, 98, 30, 110, 42, 77), #Ball
@@ -24,6 +24,7 @@ class Finder:
         sensor.reset()
         sensor.set_pixformat(sensor.RGB565)
         sensor.set_framesize(sensor.QVGA) #Resolution, QVGA = 42FPS,QQVGA = 85FPS
+        sensor.set_windowing((70, 0, 181, 179))
         sensor.skip_frames(time=500)
 
         sensor.set_auto_whitebal(False, rgb_gain_db=(-6, -6, -4)) #Must remain false for blob tracking
@@ -40,7 +41,7 @@ class Finder:
         sensor.skip_frames(time=500)
 
 
-    def takeSnapshot(self, center=False):
+    def takeSnapshot(self, center=True):
         self.img = sensor.snapshot()
         if(center): self.img.draw_cross(int(self.img.width() / 2), int(self.img.height() / 2))
 

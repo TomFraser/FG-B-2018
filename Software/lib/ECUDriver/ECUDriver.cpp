@@ -1,16 +1,13 @@
 #include <ECUDriver.h>
 
 ECUDriver::ECUDriver(int pin){
-    delay(100);
     motor.attach(pin);
-    motor.write(179);
-    delay(100);
-    motor.write(-179);
-    delay(100);
-    motor.write(0);
-    delay(100);
+    delay(1000);
+    motor.writeMicroseconds(1000);
+    delay(1000);
 }
 
+/* Dont use this! */
 void ECUDriver::setSpeed(solenoidMode mode){
     switch(mode){
         case noSpeed:
