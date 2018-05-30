@@ -124,6 +124,24 @@ moveControl DirectionController::calculateReturn(moveControl tempControl){
             rotationPID.update(compass, tempControl.rotation, 0.00)};
 }
 
+moveControl DirectionController::goToCoords(coordinate target){
+    moveControl moveReturn = {65506,
+                              0,
+                              false,
+                              0};
+
+    if(myRobotCoord.x == 65506 || myRobotCoord.y == 65506){
+        // we dunno whats going on -> just stop
+        moveReturn.direction = 65506;
+        moveReturn.speed = 0;
+    } else {
+        // we know where we are! go for it
+        coordinate delta = {target.x - myRobotCoord.x, target.y - myRobotCoord.y};
+        int distance = (int)sqrt(pow(delta.x, 2) + pow(delta.y, 2));
+
+    }
+}
+
 // play modes
 moveControl DirectionController::calculateAttack(){
     moveControl tempControl;
