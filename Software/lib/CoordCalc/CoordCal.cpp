@@ -24,11 +24,11 @@ void CoordCalc::updateData(absCameraData cam, lidarData lidar){
     int frontY;
     int backY;
 
-    leftX = lidar.leftDist != 65506 ? TABLE_LEFT_X - lidar.leftDist : 65506;
+    leftX = lidar.leftDist != 65506 ? TABLE_LEFT_X + lidar.leftDist : 65506;
     rightX = lidar.rightDist != 65506 ? TABLE_RIGHT_X - lidar.rightDist : 65506;
 
     frontY = lidar.frontDist != 65506 ? TABLE_FRONT_Y - lidar.frontDist : 65506;
-    backY = lidar.backDist != 65506 ? TABLE_BACK_Y - lidar.backDist : 65506;
+    backY = lidar.backDist != 65506 ? TABLE_BACK_Y + lidar.backDist : 65506;
 
     if(camCoords.x != 65506 && camCoords.y != 65506){
         leftXverify = leftX != 65506 && inBaseRange(leftX, camCoords.x, LIDAR_CAM_RANGE);

@@ -55,8 +55,8 @@
 #define DEFENSE_GOAL_Y -90
 #define DEFENSE_GOAL_X 0
 
-#define TABLE_LEFT_X 91
-#define TABLE_RIGHT_X -91
+#define TABLE_LEFT_X -91
+#define TABLE_RIGHT_X 91
 #define TABLE_FRONT_Y 121
 #define TABLE_BACK_Y -121
 
