@@ -14,6 +14,11 @@ public:
     lidarData lidars;
 private:
     uint16_t tempIRData[IR_TRANSFER_NUM];
+
+    bool frontBroken = true;
+    bool backBroken = false;
+    bool leftBroken = false;
+    bool rightBroken = false;
 };
 
 extern SPIWrapper spi;

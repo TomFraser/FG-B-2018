@@ -71,7 +71,7 @@ void loop(){
     motors.move(dc.calculate(robotMode.getMode()));
 
     // moveControl ctrl = dc.calculate(attacker);
-    Serial.print(spi.lidars.leftDist); Serial.print(" "); Serial.println(spi.lidars.rightDist);
+    // Serial.print(spi.lidars.frontDist); Serial.print(" "); Serial.println(spi.lidars.backDist);
 
     // Serial.print(ctrl.direction); Serial.print(" "); Serial.print(ctrl.speed); Serial.print(" "); Serial.println(ctrl.rotation);
     // Serial.println(imu.getHeading());

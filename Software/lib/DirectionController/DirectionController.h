@@ -30,7 +30,6 @@ private:
     moveControl calculateGoalie();
     lidarData adjustLidar(lidarData lidar);
     moveControl calculateSpiral(double target);
-    moveControl goToCoords(coordinate target);
 
 
     /* Objects */

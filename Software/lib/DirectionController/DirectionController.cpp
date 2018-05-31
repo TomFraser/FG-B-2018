@@ -134,24 +134,6 @@ moveControl DirectionController::calculateReturn(moveControl tempControl){
             rotationPID.update(compass, tempControl.rotation, 0.00)};
 }
 
-moveControl DirectionController::goToCoords(coordinate target){
-    moveControl moveReturn = {65506,
-                              0,
-                              false,
-                              0};
-
-    if(myRobotCoord.x != 65506 && myRobotCoord.y != 65506){
-        // we know where we are! go for it
-        coordinate delta = {target.x - myRobotCoord.x, target.y - myRobotCoord.y};
-        double distance = sqrt(pow(delta.x, 2) + pow(delta.y, 2));
-        // maybe add a distance cutoff
-        moveReturn.direction = atan2(delta.x, delta.y) * radToAng;
-        moveReturn.speed = goToCoordsPID.update(distance, 0.00, 0.00);
-    }
-
-    return moveReturn;
-}
-
 // play modes
 moveControl DirectionController::calculateAttack(){
     moveControl tempControl;
@@ -174,7 +156,7 @@ moveControl DirectionController::calculateAttack(){
     } else {
         if(!SUPERTEAM){
             /* Normal Game */
-            tempControl = goToCoords({0, 0});
+
         }else{
             /* Big Boi Field! */
             return calculateSpiral(ballLocation);

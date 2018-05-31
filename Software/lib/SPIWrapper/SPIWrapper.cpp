@@ -31,5 +31,5 @@ void SPIWrapper::getIRData(){
     /* These values are clockwise and public */
     /* NOTE: Check that these lidars are in the correct order */
     /* tempIRData = FRONT LEFT RIGHT BACK */
-    lidars = {tempIRData[1], tempIRData[3], tempIRData[0], tempIRData[2]};
+    lidars = {frontBroken ? 65506 : tempIRData[1], backBroken ? 65506 : tempIRData[3], leftBroken ? 65506 : tempIRData[0], rightBroken ? 65506 : tempIRData[2]};
 }

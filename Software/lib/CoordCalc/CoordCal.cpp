@@ -24,34 +24,23 @@ void CoordCalc::updateData(absCameraData cam, lidarData lidar){
     int frontY;
     int backY;
 
-    if(lidar.leftDist != 65506){
-        // calculate coordinates based on lidar data
-        leftX = TABLE_LEFT_X - lidar.leftDist;
-        rightX = TABLE_RIGHT_X + lidar.rightDist;
+    leftX = lidar.leftDist != 65506 ? TABLE_LEFT_X - lidar.leftDist : 65506;
+    rightX = lidar.rightDist != 65506 ? TABLE_RIGHT_X - lidar.rightDist : 65506;
 
-        frontY = TABLE_FRONT_Y - lidar.frontDist;
-        backY = TABLE_BACK_Y + lidar.backDist;
+    frontY = lidar.frontDist != 65506 ? TABLE_FRONT_Y - lidar.frontDist : 65506;
+    backY = lidar.backDist != 65506 ? TABLE_BACK_Y - lidar.backDist : 65506;
 
-        // Serial.print(leftX); Serial.print(" "); Serial.println(rightX);
+    if(camCoords.x != 65506 && camCoords.y != 65506){
+        leftXverify = leftX != 65506 && inBaseRange(leftX, camCoords.x, LIDAR_CAM_RANGE);
+        rightXverify = rightX != 65506 && inBaseRange(rightX, camCoords.x, LIDAR_CAM_RANGE);
 
-        // verify lidar with camera (if we cant see the goal with cam - just assume lidar is correct)
-        if(camCoords.x != 65506 && camCoords.y != 65506){
-            leftXverify = inBaseRange(leftX, camCoords.x, LIDAR_CAM_RANGE);
-            rightXverify = inBaseRange(rightX, camCoords.x, LIDAR_CAM_RANGE);
-
-            frontYverify = inBaseRange(frontY, camCoords.y, LIDAR_CAM_RANGE);
-            backYverify = inBaseRange(backY, camCoords.y, LIDAR_CAM_RANGE);
-        } else {
-            leftXverify = true;
-            rightXverify = true;
-            frontYverify = true;
-            backYverify = true;
-        }
+        frontYverify = frontY != 65506 && inBaseRange(frontY, camCoords.y, LIDAR_CAM_RANGE);
+        backYverify = backY != 65506 && inBaseRange(backY, camCoords.y, LIDAR_CAM_RANGE);
     } else {
-        leftXverify = false;
-        rightXverify = false;
-        frontYverify = false;
-        backYverify = false;
+        leftXverify = leftX != 65506;
+        rightXverify = rightX != 65506;
+        frontYverify = frontY != 65506;
+        backYverify = backY != 65506;
     }
 
     // calulate final x

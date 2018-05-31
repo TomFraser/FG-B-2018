@@ -40,4 +40,5 @@ void setup(){
 
 void loop(){
     lidar.read();
+    // Serial.print(lidar.lidarVal[0]); Serial.print(" "); Serial.print(lidar.lidarVal[1]); Serial.print(" "); Serial.print(lidar.lidarVal[2]); Serial.print(" "); Serial.println(lidar.lidarVal[3]);
 }
