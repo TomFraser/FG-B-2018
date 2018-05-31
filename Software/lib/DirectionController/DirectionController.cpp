@@ -47,6 +47,9 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
     myBallCoord = coordCalc.ball;
     myRobotCoord = coordCalc.robot;
 
+    // update our coord mover object so it knows where we are
+    coordMover.update(myRobotCoord);
+
     // Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
     // Serial.println(cam.defenceDist);
     // Serial.println(cam_.yGoalStrength);
@@ -131,13 +134,14 @@ moveControl DirectionController::calculateReturn(moveControl tempControl){
     return {absToRel(tempControl.direction),
             tempControl.speed,
             tempControl.doBoost,
-            rotationPID.update(compass, tempControl.rotation, 0.00)};
+            rotationPID.update(doubleMod(doubleMod(compass+tempControl.rotation, 360)+180, 360)-180, 0.00, 0.00)};
 }
 
 // play modes
 moveControl DirectionController::calculateAttack(){
     moveControl tempControl;
-    if(moveAngle != 65506){
+    if(false){
+    // if(moveAngle != 65506){
         // if we know where the ball is -> go to it
         tempControl.direction = moveAngle;
         tempControl.speed = SPEED_VAL;
@@ -156,10 +160,15 @@ moveControl DirectionController::calculateAttack(){
     } else {
         if(!SUPERTEAM){
             /* Normal Game */
-
+            if(coordMover.completed){
+                coordinate targets[] = {{-40, -70}, {-40, 0}, {-40, 60}, {0, 60}};
+                coordMover.setTargetList(targets, sizeof(targets)/sizeof(targets[0]));
+            }
+            tempControl = coordMover.calcMove();
+            tempControl.rotation = 0;
         }else{
             /* Big Boi Field! */
-            return calculateSpiral(ballLocation);
+            tempControl = calculateSpiral(ballLocation);
         }
     }
     // Serial.print(tempControl.direction); Serial.print(" "); Serial.print(tempControl.speed); Serial.print(" "); Serial.println(tempControl.rotation);

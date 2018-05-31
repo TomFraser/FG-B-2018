@@ -8,6 +8,7 @@
 #include <CoordCalc.h>
 #include <PID.h>
 #include <Orbit.h>
+#include <CoordMover.h>
 
 class DirectionController{
 
@@ -35,15 +36,14 @@ private:
     /* Objects */
     LightTracker lightTracker = LightTracker();
     CoordCalc coordCalc = CoordCalc();
+    CoordMover coordMover = CoordMover();
+    // PIDs
     PID rotationPID = PID(-5, -0.1, -0.2, 0.00);
     PID goalTrackingPID = PID(-3, -0.1, -0.2, 0.00);
     // Goalie pids
     PID goalieAnglePID = PID(-4, 0, -0.5, 0.00);
     PID goalieSonarPID = PID(2.50, 0.00, 0.2, 0.00);
     PID goalieVerPID = PID(2.00, 0.00, 0.2, 0.00);
-
-    // Go to coords pids
-    PID goToCoordsPID = PID(-1.00, 0.0, 0.0, 0.00);
 
     /* Variables */
 

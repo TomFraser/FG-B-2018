@@ -6,13 +6,16 @@ CoordMover::CoordMover(){
 }
 
 /* Public Functions */
-void CoordMover::updateData(coordinate current_){
-    current = current;
+void CoordMover::update(coordinate current_){
+    current = current_;
 }
 
 moveControl CoordMover::calcMove(){
     // get the current target from the list
     coordinate currTarget = targetList[0];
+
+    // Serial.print(current.x); Serial.print(" "); Serial.println(current.y);
+    // Serial.print(currTarget.x); Serial.print(" "); Serial.println(currTarget.y);
 
     completed = false;
 
@@ -51,10 +54,9 @@ void CoordMover::clearTargetList(){
 }
 
 
-void CoordMover::setTargetList(coordinate* toSet){
-    int arrayLength = sizeof(toSet)/sizeof(toSet[0]);
+void CoordMover::setTargetList(coordinate toSet[], int size){
     clearTargetList();
-    for(int i=0; i < arrayLength; i++){
+    for(int i=0; i < size; i++){
         targetList[i] = toSet[i];
     }
 }
