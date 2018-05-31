@@ -1,12 +1,12 @@
 #include <Common.h>
 
 double strengthToDistance(double strength){
-    double dv = 1.08;
-    double dh = 1.47;
-    double r = 12200;
-    double h = 28;
-    double v = 123;
-    if(strength <= 119){
+    double dv = 1.52;
+    double dh = 1;
+    double r = 6200;
+    double h = 0;
+    double v = 116;
+    if(strength <= 78){
         return -dv*sqrt(r-dh*pow(strength-h, 2))+v;
     } else {
         return 65506;
