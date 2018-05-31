@@ -32,6 +32,8 @@ void CoordCalc::updateData(absCameraData cam, lidarData lidar){
         frontY = TABLE_FRONT_Y - lidar.frontDist;
         backY = TABLE_BACK_Y + lidar.backDist;
 
+        // Serial.print(leftX); Serial.print(" "); Serial.println(rightX);
+
         // verify lidar with camera (if we cant see the goal with cam - just assume lidar is correct)
         if(camCoords.x != 65506 && camCoords.y != 65506){
             leftXverify = inBaseRange(leftX, camCoords.x, LIDAR_CAM_RANGE);

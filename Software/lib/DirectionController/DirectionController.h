@@ -30,6 +30,7 @@ private:
     moveControl calculateGoalie();
     lidarData adjustLidar(lidarData lidar);
     moveControl calculateSpiral(double target);
+    moveControl goToCoords(coordinate target);
 
 
     /* Objects */
@@ -41,6 +42,9 @@ private:
     PID goalieAnglePID = PID(-4, 0, -0.5, 0.00);
     PID goalieSonarPID = PID(2.50, 0.00, 0.2, 0.00);
     PID goalieVerPID = PID(2.00, 0.00, 0.2, 0.00);
+
+    // Go to coords pids
+    PID goToCoordsPID = PID(-1.00, 0.0, 0.0, 0.00);
 
     /* Variables */
 

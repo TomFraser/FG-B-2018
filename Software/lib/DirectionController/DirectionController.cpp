@@ -47,7 +47,7 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
     myBallCoord = coordCalc.ball;
     myRobotCoord = coordCalc.robot;
 
-    Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
+    // Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
     // Serial.println(cam.defenceDist);
     // Serial.println(cam_.yGoalStrength);
 
@@ -122,29 +122,35 @@ moveControl DirectionController::calculateReturn(moveControl tempControl){
     lightTracker.update(light.angle, tempControl.direction, tempControl.speed, cam.ballAngle, light.numSensors);
 
     // set up the return data struct (WITH LIGHT)
-    return {absToRel(lightTracker.getDirection()),
-            lightTracker.getSpeed(),
-            tempControl.doBoost && lightTracker.getNormalGameplay(),
+    // return {absToRel(lightTracker.getDirection()),
+    //         lightTracker.getSpeed(),
+    //         tempControl.doBoost && lightTracker.getNormalGameplay(),
+    //         rotationPID.update(compass, tempControl.rotation, 0.00)};
+
+    // set up the return data struct (NO LIGHT)
+    return {absToRel(tempControl.direction),
+            tempControl.speed,
+            tempControl.doBoost,
             rotationPID.update(compass, tempControl.rotation, 0.00)};
 }
 
-// moveControl DirectionController::goToCoords(coordinate target){
-//     moveControl moveReturn = {65506,
-//                               0,
-//                               false,
-//                               0};
-//
-//     if(myRobotCoord.x == 65506 || myRobotCoord.y == 65506){
-//         // we dunno whats going on -> just stop
-//         moveReturn.direction = 65506;
-//         moveReturn.speed = 0;
-//     } else {
-//         // we know where we are! go for it
-//         coordinate delta = {target.x - myRobotCoord.x, target.y - myRobotCoord.y};
-//         int distance = (int)sqrt(pow(delta.x, 2) + pow(delta.y, 2));
-//
-//     }
-// }
+moveControl DirectionController::goToCoords(coordinate target){
+    moveControl moveReturn = {65506,
+                              0,
+                              false,
+                              0};
+
+    if(myRobotCoord.x != 65506 && myRobotCoord.y != 65506){
+        // we know where we are! go for it
+        coordinate delta = {target.x - myRobotCoord.x, target.y - myRobotCoord.y};
+        double distance = sqrt(pow(delta.x, 2) + pow(delta.y, 2));
+        // maybe add a distance cutoff
+        moveReturn.direction = atan2(delta.x, delta.y) * radToAng;
+        moveReturn.speed = goToCoordsPID.update(distance, 0.00, 0.00);
+    }
+
+    return moveReturn;
+}
 
 // play modes
 moveControl DirectionController::calculateAttack(){
@@ -168,15 +174,13 @@ moveControl DirectionController::calculateAttack(){
     } else {
         if(!SUPERTEAM){
             /* Normal Game */
-            tempControl.direction = moveAngle;
-            tempControl.speed = SPEED_VAL;
-            tempControl.doBoost = false;
-            tempControl.rotation = 0;
+            tempControl = goToCoords({0, 0});
         }else{
             /* Big Boi Field! */
             return calculateSpiral(ballLocation);
         }
     }
+    // Serial.print(tempControl.direction); Serial.print(" "); Serial.print(tempControl.speed); Serial.print(" "); Serial.println(tempControl.rotation);
 
     return tempControl;
 }
