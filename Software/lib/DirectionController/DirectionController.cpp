@@ -50,8 +50,8 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
     // update our coord mover object so it knows where we are
     coordMover.update(myRobotCoord);
 
-    // Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
-    // Serial.println(cam.defenceDist);
+    Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
+    // Serial.println(cam.defenceAngle);
     // Serial.println(cam_.yGoalStrength);
 
     // orbit
@@ -140,19 +140,18 @@ moveControl DirectionController::calculateReturn(moveControl tempControl){
 // play modes
 moveControl DirectionController::calculateAttack(){
     moveControl tempControl;
-    if(false){
-    // if(moveAngle != 65506){
+    // if(false){
+    if(moveAngle != 65506){
         // if we know where the ball is -> go to it
         tempControl.direction = moveAngle;
         tempControl.speed = SPEED_VAL;
         tempControl.doBoost = true;
-        tempControl.rotation = 0; // rotation target
         if(cam.attackAngle != 65506){
-            // tempControl.rotation = (360 - absToRel(cam.attackAngle));
-            tempControl.rotation = 0;
-        }else{
-            tempControl.rotation = 0;
+            tempControl.rotation = cam.attackAngle;
+        } else {
+            tempControl.rotation = 0; // rotation target
         }
+
         isSpiral = false;
         ballLocation = cam.ballAngle;
 
@@ -161,11 +160,12 @@ moveControl DirectionController::calculateAttack(){
         if(!SUPERTEAM){
             /* Normal Game */
             if(coordMover.completed){
-                coordinate targets[] = {{-40, -70}, {-40, 0}, {-40, 60}, {0, 60}};
+                // coordinate targets[] = {{40, -40}, {40, 0}, {40, 40}, {0, 40}};
+                coordinate targets[] = {{40, -40}, {40, 0}, {40, 40}, {0, 50}};
                 coordMover.setTargetList(targets, sizeof(targets)/sizeof(targets[0]));
             }
             tempControl = coordMover.calcMove();
-            tempControl.rotation = 0;
+            tempControl.rotation = 180;
         }else{
             /* Big Boi Field! */
             tempControl = calculateSpiral(ballLocation);

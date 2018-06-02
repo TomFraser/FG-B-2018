@@ -13,6 +13,11 @@ struct coordinate {
     int y;
 };
 
+struct moveTarget {
+    coordinate target;
+    double heading;
+};
+
 struct cameraData {
     int ballAngle;
     int ballStrength;

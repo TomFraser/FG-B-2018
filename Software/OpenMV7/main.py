@@ -11,7 +11,7 @@ class Finder:
     def init(self, robot_):
         self.robot = robot_
         if self.robot == self.ROBOT_O: #O_bot
-            self.thresholds = [(47, 100, 22, 127, 23, 127), #Ball
+            self.thresholds = [(40, 65, 42, 74, 18, 58), #Ball
             (65, 100, -40, 127, 36, 127),  #Yellow Goal
             (0, 60, -128, 4, -128, -20)] # Blue Goal
         elif self.robot == self.ROBOT_P2: #P2_bot
@@ -275,12 +275,12 @@ sensor.skip_frames(time=500)
 ledController.allOff()
 
 while True:
-    clock.tick()
+    #clock.tick()
     # ledController.blink()
     finder.takeSnapshot() # (draw center cross)
-    data = finder.findObjects(False, False, False) # (mark ball, mark yellow, mark blue)
+    data = finder.findObjects(True, True, True) # (mark ball, mark yellow, mark blue)
     sender.sendData(data)
 
     #print(data)
     #fps checking
-    print(clock.fps())
+    #print(clock.fps())

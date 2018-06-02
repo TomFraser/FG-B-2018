@@ -74,6 +74,7 @@ moveControl CoordMover::goToCoords(coordinate target){
         double distance = sqrt(pow(delta.x, 2) + pow(delta.y, 2));
         // maybe add a distance cutoff
         moveReturn.direction = atan2(delta.x, delta.y) * radToAng;
+        moveReturn.direction = doubleMod(-moveReturn.direction - 90, 360) + 90;
         moveReturn.speed = goToCoordsPID.update(distance, 0.00, 0.00);
     } else if(current.x != 65506) {
         // we know only horizontal

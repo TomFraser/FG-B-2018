@@ -161,6 +161,8 @@ coordinate CoordCalc::calculateCamCoords(absCameraData cam){
       returnCoord.y = 65506;
     }
 
+    returnCoord.x *= -1;
+
     return returnCoord;
 
 }
