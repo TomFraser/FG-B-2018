@@ -275,12 +275,12 @@ sensor.skip_frames(time=500)
 ledController.allOff()
 
 while True:
-    #clock.tick()
+    clock.tick()
     # ledController.blink()
     finder.takeSnapshot() # (draw center cross)
-    data = finder.findObjects(True, True, False) # (mark ball, mark yellow, mark blue)
+    data = finder.findObjects(False, False, False) # (mark ball, mark yellow, mark blue)
     sender.sendData(data)
 
     #print(data)
     #fps checking
-    #print(clock.fps())
+    print(clock.fps())

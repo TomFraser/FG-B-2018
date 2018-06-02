@@ -8,7 +8,7 @@ MotorArray::MotorArray(){
 
 void MotorArray::move(moveControl move){
     double angle = move.direction;
-    int speed = move.speed;
+    int speed = abs(move.speed);
     bool boost = move.doBoost;
     double rotation = move.rotation;
     /* Calculate motor pwm values to move the robot on a certain angle */
