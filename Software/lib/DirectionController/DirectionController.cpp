@@ -39,6 +39,8 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
         cam.defenceDist = strengthToDistance(cam_.yGoalStrength);
     }
 
+    // Serial.println(lidar_.frontDist);
+
     // lidar data
     lidar = adjustLidar(lidar_);
 
@@ -50,7 +52,7 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
     // update our coord mover object so it knows where we are
     coordMover.update(myRobotCoord);
 
-    Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
+    // Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
     // Serial.println(cam.defenceAngle);
     // Serial.println(cam_.yGoalStrength);
 
@@ -96,10 +98,16 @@ uint16_t DirectionController::relToAbsLidar(uint16_t value){
 
 lidarData DirectionController::adjustLidar(lidarData lidar){
     lidarData returnData;
-    uint16_t relFront = LIDAR_CORRECT_FRONT + relToAbsLidar(lidar.frontDist);
-    uint16_t relBack = LIDAR_CORRECT_BACK + relToAbsLidar(lidar.backDist);
-    uint16_t relLeft = LIDAR_CORRECT_LEFT + relToAbsLidar(lidar.leftDist);
-    uint16_t relRight = LIDAR_CORRECT_RIGHT + relToAbsLidar(lidar.rightDist);
+
+    lidar.frontDist = lidar.frontDist != 65506 && lidar.frontDist > LIDAR_MAX_VALUE ? 65506 : lidar.frontDist;
+    lidar.backDist = lidar.backDist != 65506 && lidar.backDist > LIDAR_MAX_VALUE ? 65506 : lidar.backDist;
+    lidar.leftDist = lidar.leftDist != 65506 && lidar.leftDist > LIDAR_MAX_VALUE ? 65506 : lidar.leftDist;
+    lidar.rightDist = lidar.rightDist != 65506 && lidar.rightDist > LIDAR_MAX_VALUE ? 65506 : lidar.rightDist;
+
+    uint16_t relFront = lidar.frontDist == 65506 ? 65506 : LIDAR_CORRECT_FRONT + relToAbsLidar(lidar.frontDist);
+    uint16_t relBack = lidar.backDist == 65506 ? 65506 : LIDAR_CORRECT_BACK + relToAbsLidar(lidar.backDist);
+    uint16_t relLeft = lidar.leftDist == 65506 ? 65506 : LIDAR_CORRECT_LEFT + relToAbsLidar(lidar.leftDist);
+    uint16_t relRight = lidar.rightDist == 65506 ? 65506 : LIDAR_CORRECT_RIGHT + relToAbsLidar(lidar.rightDist);
 
     if(abs(compass) <= 45){
         returnData.frontDist = relFront;

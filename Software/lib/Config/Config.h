@@ -1,7 +1,7 @@
 #define DEBUG false
 
 #define ROBOT 1
-#define ATTACK_YELLOW true
+#define ATTACK_YELLOW false
 #define SUPERTEAM false
 
 #define ALT_SCK 14
@@ -66,6 +66,8 @@
 #define LIDAR_MIN_SUM_VER 80
 
 #define LIDAR_CORRECT_ANGLE 15 // angle from horizontal
+
+#define LIDAR_MAX_VALUE 1000 // if lidar is over this value its an error
 
 /* lidar Corrections */
 #define LIDAR_CORRECT_LEFT 5

@@ -9,10 +9,11 @@ void CoordCalc::updateData(absCameraData cam, lidarData lidar){
 
     /* Calculate robot position */
     // caculate an estimate of our position with the camera
-    // Serial.println(cam.attackDist);
     coordinate camCoords = calculateCamCoords(cam);
 
     // Serial.print(camCoords.x); Serial.print(" "); Serial.println(camCoords.y);
+
+    // Serial.print(lidar.leftDist); Serial.print(" "); Serial.print(lidar.rightDist); Serial.print(" "); Serial.print(lidar.frontDist); Serial.print(" "); Serial.println(lidar.backDist);
 
     bool leftXverify;
     bool rightXverify;
@@ -29,6 +30,8 @@ void CoordCalc::updateData(absCameraData cam, lidarData lidar){
 
     frontY = lidar.frontDist != 65506 ? TABLE_FRONT_Y - lidar.frontDist : 65506;
     backY = lidar.backDist != 65506 ? TABLE_BACK_Y + lidar.backDist : 65506;
+
+    // Serial.print(leftX); Serial.print(" "); Serial.print(rightX); Serial.print(" "); Serial.print(frontY); Serial.print(" "); Serial.println(backY);
 
     if(camCoords.x != 65506 && camCoords.y != 65506){
         leftXverify = leftX != 65506 && inBaseRange(leftX, camCoords.x, LIDAR_CAM_RANGE);
