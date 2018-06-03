@@ -50,7 +50,7 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
     // update our coord mover object so it knows where we are
     coordMover.update(myRobotCoord);
 
-    Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
+    // Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
     // Serial.println(cam.defenceAngle);
     // Serial.println(cam_.yGoalStrength);
 
@@ -161,11 +161,10 @@ moveControl DirectionController::calculateAttack(){
             /* Normal Game */
             if(coordMover.completed){
                 // coordinate targets[] = {{40, -40}, {40, 0}, {40, 40}, {0, 40}};
-                coordinate targets[] = {{40, -40}, {40, 0}, {40, 40}, {0, 50}};
+                moveTarget targets[] = {{{40, -40}, 180}, {{40, 0}, 180}, {{40, 40}, 180}, {{0, 50}, 180}, {{0, 50}, 0}};
                 coordMover.setTargetList(targets, sizeof(targets)/sizeof(targets[0]));
             }
             tempControl = coordMover.calcMove();
-            tempControl.rotation = 180;
         }else{
             /* Big Boi Field! */
             tempControl = calculateSpiral(ballLocation);
