@@ -92,39 +92,96 @@ double DirectionController::absToRel(double absoluteDirection){
   return absoluteDirection != 65506 ? doubleMod(absoluteDirection + compass, 360.0) : 65506;
 }
 
-uint16_t DirectionController::relToAbsLidar(uint16_t value){
-    return value * cos(abs(compass)*angToRad);
+uint16_t DirectionController::relToAbsLidar(uint16_t value, double zeroHeading){
+    // Serial.print(compass); Serial.print(" "); Serial.println((doubleMod(doubleMod(compass+zeroHeading, 360)+180, 360)-180));
+    return value * cos((doubleMod(doubleMod(compass+zeroHeading, 360)+180, 360)-180)*angToRad);
 }
 
 lidarData DirectionController::adjustLidar(lidarData lidar){
     lidarData returnData;
 
-    lidar.frontDist = lidar.frontDist != 65506 && lidar.frontDist > LIDAR_MAX_VALUE ? 65506 : lidar.frontDist;
-    lidar.backDist = lidar.backDist != 65506 && lidar.backDist > LIDAR_MAX_VALUE ? 65506 : lidar.backDist;
-    lidar.leftDist = lidar.leftDist != 65506 && lidar.leftDist > LIDAR_MAX_VALUE ? 65506 : lidar.leftDist;
-    lidar.rightDist = lidar.rightDist != 65506 && lidar.rightDist > LIDAR_MAX_VALUE ? 65506 : lidar.rightDist;
+    lidar.frontDist = lidar.frontDist > LIDAR_MAX_VALUE ? 65506 : lidar.frontDist;
+    lidar.backDist = lidar.backDist > LIDAR_MAX_VALUE ? 65506 : lidar.backDist;
+    lidar.leftDist = lidar.leftDist > LIDAR_MAX_VALUE ? 65506 : lidar.leftDist;
+    lidar.rightDist = lidar.rightDist > LIDAR_MAX_VALUE ? 65506 : lidar.rightDist;
 
-    uint16_t relFront = lidar.frontDist == 65506 ? 65506 : LIDAR_CORRECT_FRONT + relToAbsLidar(lidar.frontDist);
-    uint16_t relBack = lidar.backDist == 65506 ? 65506 : LIDAR_CORRECT_BACK + relToAbsLidar(lidar.backDist);
-    uint16_t relLeft = lidar.leftDist == 65506 ? 65506 : LIDAR_CORRECT_LEFT + relToAbsLidar(lidar.leftDist);
-    uint16_t relRight = lidar.rightDist == 65506 ? 65506 : LIDAR_CORRECT_RIGHT + relToAbsLidar(lidar.rightDist);
-
-    if(abs(compass) <= 45){
-        returnData.frontDist = relFront;
-        returnData.backDist = relBack;
-        returnData.leftDist = relLeft;
-        returnData.rightDist = relRight;
-    } else if(abs(compass) >= 135){
-        returnData.frontDist = relBack;
-        returnData.backDist = relFront;
-        returnData.leftDist = relRight;
-        returnData.rightDist = relLeft;
+    // Serial.println(compass);
+    // Serial.print(lidar.frontDist); Serial.print(" "); Serial.print(lidar.backDist); Serial.print(" "); Serial.print(lidar.leftDist); Serial.print(" "); Serial.println(lidar.rightDist);
+    int zeroHeading;
+    if(compass < 0){
+        if(compass > -45) {
+            // front
+            zeroHeading = 0;
+        } else if(compass > -135) {
+            // left
+            zeroHeading = 90;
+        } else {
+            // back
+            zeroHeading = 180;
+        }
     } else {
-        returnData.frontDist = 65506;
-        returnData.backDist = 65506;
-        returnData.leftDist = 65506;
-        returnData.rightDist = 65006;
+        if(compass < 45) {
+            // front
+            zeroHeading = 0;
+        } else if(compass < 135) {
+            // right
+            zeroHeading = -90;
+        } else {
+            // back
+            zeroHeading = -180;
+        }
     }
+
+    lidar.frontDist = lidar.frontDist == 65506 ? 65506 : LIDAR_CORRECT_FRONT + relToAbsLidar(lidar.frontDist, zeroHeading);
+    lidar.backDist = lidar.backDist == 65506 ? 65506 : LIDAR_CORRECT_BACK + relToAbsLidar(lidar.backDist, zeroHeading);
+    lidar.leftDist = lidar.leftDist == 65506 ? 65506 : LIDAR_CORRECT_LEFT + relToAbsLidar(lidar.leftDist, zeroHeading);
+    lidar.rightDist = lidar.rightDist == 65506 ? 65506 : LIDAR_CORRECT_RIGHT + relToAbsLidar(lidar.rightDist, zeroHeading);
+
+    if(compass < 0){
+        if(compass > -45) {
+            // front
+            returnData.frontDist = lidar.frontDist;
+            returnData.backDist = lidar.backDist;
+            returnData.leftDist = lidar.leftDist;
+            returnData.rightDist = lidar.rightDist;
+        } else if(compass > -135) {
+            // left
+            returnData.frontDist = lidar.rightDist;
+            returnData.backDist = lidar.leftDist;
+            returnData.leftDist = lidar.frontDist;
+            returnData.rightDist = lidar.backDist;
+        } else {
+            // back
+            returnData.frontDist = lidar.backDist;
+            returnData.backDist = lidar.frontDist;
+            returnData.leftDist = lidar.rightDist;
+            returnData.rightDist = lidar.leftDist;
+        }
+    } else {
+        if(compass < 45) {
+            // front
+            returnData.frontDist = lidar.frontDist;
+            returnData.backDist = lidar.backDist;
+            returnData.leftDist = lidar.leftDist;
+            returnData.rightDist = lidar.rightDist;
+        } else if(compass < 135) {
+            // right
+            returnData.frontDist = lidar.leftDist;
+            returnData.backDist = lidar.rightDist;
+            returnData.leftDist = lidar.backDist;
+            returnData.rightDist = lidar.frontDist;
+        } else {
+            // back
+            returnData.frontDist = lidar.backDist;
+            returnData.backDist = lidar.frontDist;
+            returnData.leftDist = lidar.rightDist;
+            returnData.rightDist = lidar.leftDist;
+        }
+    }
+
+
+    Serial.print(returnData.frontDist); Serial.print(" "); Serial.print(returnData.backDist); Serial.print(" "); Serial.print(returnData.leftDist); Serial.print(" "); Serial.println(returnData.rightDist);
+    // Serial.println();
     return returnData;
 }
 

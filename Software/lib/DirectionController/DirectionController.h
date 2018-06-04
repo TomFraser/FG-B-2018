@@ -25,7 +25,7 @@ private:
     /* Functions */
     double relToAbs(double relativeDirection);
     double absToRel(double absoluteDirection);
-    uint16_t relToAbsLidar(uint16_t value);
+    uint16_t relToAbsLidar(uint16_t value, double zeroHeading);
     moveControl calculateReturn(moveControl tempControl);
     moveControl calculateAttack();
     moveControl calculateGoalie();
