@@ -193,7 +193,7 @@ moveControl DirectionController::calculateReturn(moveControl tempControl){
     // return {absToRel(lightTracker.getDirection()),
     //         lightTracker.getSpeed(),
     //         tempControl.doBoost && lightTracker.getNormalGameplay(),
-    //         rotationPID.update(compass, tempControl.rotation, 0.00)};
+    //         rotationPID.update(doubleMod(doubleMod(compass+tempControl.rotation, 360)+180, 360)-180, 0.00, 0.00)};
 
     // set up the return data struct (NO LIGHT)
     return {absToRel(tempControl.direction),
@@ -220,7 +220,7 @@ moveControl DirectionController::calculateAttack(){
         isSpiral = false;
         ballLocation = cam.ballAngle;
 
-        // BACKSPIN LOGIC CAN GO HERE TOO (also goal tracking)
+        // BACKSPIN LOGIC CAN GO HERE
     } else {
         if(!SUPERTEAM){
             /* Normal Game */
