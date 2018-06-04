@@ -9,7 +9,8 @@ void CoordCalc::updateData(absCameraData cam, lidarData lidar){
 
     /* Calculate robot position */
     // caculate an estimate of our position with the camera
-    coordinate camCoords = calculateCamCoords(cam);
+    // coordinate camCoords = calculateCamCoords(cam);
+    coordinate camCoords = {65506, 65506};
 
     // Serial.print(camCoords.x); Serial.print(" "); Serial.println(camCoords.y);
 
@@ -100,8 +101,10 @@ coordinate CoordCalc::calculateCamCoords(absCameraData cam){
     int yDefense;
 
     //65506 is the 'no goal' angle
-    bool attackGoal = (cam.attackAngle != 65506);
-    bool defenseGoal = (cam.defenceAngle != 65506);
+    bool attackGoal = (cam.attackAngle != 65506 && cam.attackDist != 65506);
+    bool defenseGoal = (cam.defenceAngle != 65506 && cam.defenceDist != 65506);
+
+    // Serial.print(attackGoal); Serial.print(" "); Serial.println(defenseGoal);
 
     // attack calulations
     if(attackGoal){
@@ -164,7 +167,7 @@ coordinate CoordCalc::calculateCamCoords(absCameraData cam){
       returnCoord.y = 65506;
     }
 
-    returnCoord.x *= -1;
+    returnCoord.x = returnCoord.x != 65506 ? returnCoord.x * -1 : 65506;
 
     return returnCoord;
 

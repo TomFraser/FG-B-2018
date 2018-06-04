@@ -12,8 +12,10 @@ void CoordMover::update(coordinate current_){
 
 moveControl CoordMover::calcMove(){
     // get the current target from the list
-    moveTarget movTarget = targetList[0];
-    coordinate currTarget = movTarget.target;
+    coordinate currTarget = targetList[0];
+
+    // Serial.print(current.x); Serial.print(" "); Serial.println(current.y);
+    // Serial.print(currTarget.x); Serial.print(" "); Serial.println(currTarget.y);
 
     completed = false;
 
@@ -29,13 +31,10 @@ moveControl CoordMover::calcMove(){
         for(int i=0; i < TARGET_LIST_LENGTH - 1; i++){
             targetList[i] = targetList[i+1];
         }
-        targetList[TARGET_LIST_LENGTH] = {{65506, 65506}, 0};
+        targetList[TARGET_LIST_LENGTH] = {65506, 65506};
 
         // get the current target from the list
-        moveTarget movTarget = targetList[0];
-        coordinate currTarget = movTarget.target;
-
-        completed = false;
+        currTarget = targetList[0];
 
         if(currTarget.x == 65506 && currTarget.y == 65506){
             // there are no more instructions currently -> we've completed them all
@@ -44,18 +43,18 @@ moveControl CoordMover::calcMove(){
         }
     }
 
-    return goToCoords(movTarget);
+    return goToCoords(currTarget);
 }
 
 // target array control
 void CoordMover::clearTargetList(){
     for(int i=0; i < TARGET_LIST_LENGTH; i++){
-        targetList[i] = {{65506, 65506}, 0};
+        targetList[i] = {65506, 65506};
     }
 }
 
 
-void CoordMover::setTargetList(moveTarget toSet[], int size){
+void CoordMover::setTargetList(coordinate toSet[], int size){
     clearTargetList();
     for(int i=0; i < size; i++){
         targetList[i] = toSet[i];
@@ -63,12 +62,11 @@ void CoordMover::setTargetList(moveTarget toSet[], int size){
 }
 
 /* Private Functions */
-moveControl CoordMover::goToCoords(moveTarget movTarget){
+moveControl CoordMover::goToCoords(coordinate target){
     moveControl moveReturn = {65506,
                               0,
                               false,
-                              movTarget.heading};
-    coordinate target = movTarget.target;
+                              0};
 
     if(current.x != 65506 && current.y != 65506){
         // we know where we are! go for it

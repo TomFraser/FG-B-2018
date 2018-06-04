@@ -180,7 +180,7 @@ lidarData DirectionController::adjustLidar(lidarData lidar){
     }
 
 
-    Serial.print(returnData.frontDist); Serial.print(" "); Serial.print(returnData.backDist); Serial.print(" "); Serial.print(returnData.leftDist); Serial.print(" "); Serial.println(returnData.rightDist);
+    // Serial.print(returnData.frontDist); Serial.print(" "); Serial.print(returnData.backDist); Serial.print(" "); Serial.print(returnData.leftDist); Serial.print(" "); Serial.println(returnData.rightDist);
     // Serial.println();
     return returnData;
 }
@@ -226,10 +226,11 @@ moveControl DirectionController::calculateAttack(){
             /* Normal Game */
             if(coordMover.completed){
                 // coordinate targets[] = {{40, -40}, {40, 0}, {40, 40}, {0, 40}};
-                moveTarget targets[] = {{{40, -40}, 180}, {{40, 0}, 180}, {{40, 40}, 180}, {{0, 50}, 180}, {{0, 50}, 0}};
+                coordinate targets[] = {{40, -40}, {40, 40}, {-40, 40}, {-40, -40}, {0, 0}};
                 coordMover.setTargetList(targets, sizeof(targets)/sizeof(targets[0]));
             }
             tempControl = coordMover.calcMove();
+            tempControl.rotation = 180;
         }else{
             /* Big Boi Field! */
             tempControl = calculateSpiral(ballLocation);
