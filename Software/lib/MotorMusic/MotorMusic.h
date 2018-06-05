@@ -7,6 +7,7 @@
 
 void motorMusic(String song, int trackNum);
 void playSong(uint16_t songData[], const uint16_t songLength, const uint8_t tempo);
+void playSongAsync(uint16_t songData[], uint16_t songLength, uint8_t tempo);
 int trackOneCount = 0;
 
 #endif
