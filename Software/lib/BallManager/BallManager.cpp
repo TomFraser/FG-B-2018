@@ -8,15 +8,14 @@ BallManager::BallManager(){
     timeSinceKick.reset();
 }
 
-bool BallManager::controlBall(double ballDist, int goalDist, int angleToGoal){
-    if(goalDist <= KICK_DIST && angleToGoal <= MIN_GOAL_ANGLE){
-        backspin.setSpeed(1000);
-        delay(5);
-        kickBall();
+bool BallManager::controlBall(double maxSpeed, double ballAngle){
+    if(fromFront(ballAngle) > 60){
+        maxSpeed == 0;
+        backspin.setSpeed(0);
     }else{
-        /* Here, we need to find the min distance to the ball */
-        backspin.setSpeed(ballDist);
+        backspin.setSpeed(1/(pow(fromFront(ballAngle), 0.1)) * maxSpeed);
     }
+    // Serial.println(1/(pow(fromFront(ballAngle), 0.1)) * maxSpeed);
 }
 
 void BallManager::kickBall(){

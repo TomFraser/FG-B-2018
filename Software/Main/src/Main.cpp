@@ -35,11 +35,11 @@ void setup(){
 
     // pinMode(13, OUTPUT);
     // digitalWrite(13, HIGH);
-    // delay(500);
-    // digitalWrite(13, LOW);
-    // delay(3000);
-    // kicker.controlBall(0);
-    // delay(2000);
+    delay(500);
+    digitalWrite(13, LOW);
+    delay(3000);
+    kicker.controlBall(0, 100);
+    delay(2000);
 }
 
 void loop(){
@@ -66,9 +66,9 @@ void loop(){
     /* Send and recieve Xbee Data */
     // xbee.updateData(dc.getXbeeData());
 
-    // kicker.controlBall(10, 100, 100);
+    kicker.controlBall(10, cam.data.ballAngle);
     robotMode.setMode(attacker);
-    motors.move(dc.calculate(robotMode.getMode()));
+    // motors.move(dc.calculate(robotMode.getMode()));
 
     // moveControl ctrl = dc.calculate(attacker);
     // Serial.print(spi.lidars.frontDist); Serial.print(" "); Serial.println(spi.lidars.backDist);

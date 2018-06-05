@@ -11,20 +11,22 @@ class Finder:
     def init(self, robot_):
         self.robot = robot_
         if self.robot == self.ROBOT_O: #O_bot
-            self.thresholds = [(40, 65, 42, 74, 18, 58), #Ball
+            self.thresholds = [(46, 79, 33, 78, -8, 72), #Ball
             (65, 100, -40, 127, 36, 127),  #Yellow Goal
             (0, 60, -128, 4, -128, -20)] # Blue Goal
         elif self.robot == self.ROBOT_P2: #P2_bot
-            self.thresholds = [(46, 98, 30, 110, 42, 77), #Ball
+            self.thresholds = [(45, 71, 21, 68, 5, 76), #Ball
             (39, 71, -41, 53, 48, 127), #Yellow Goal
-            (0, 27, -20, -6, -20, 4)] # Blue Goal
+            (27, 44, -30, 7, -45, -6)] # Blue Goal
 
 
         # sensor setup
         sensor.reset()
         sensor.set_pixformat(sensor.RGB565)
         sensor.set_framesize(sensor.QVGA) #Resolution, QVGA = 42FPS,QQVGA = 85FPS
-        sensor.set_windowing((70, 0, 181, 179))
+        sensor.set_windowing((70, 0, 180, 179))
+        #sensor.set_windowing((77,8,186,187))
+
         sensor.skip_frames(time=2000)
 
         sensor.set_auto_exposure(False)

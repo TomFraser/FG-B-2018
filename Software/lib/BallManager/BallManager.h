@@ -10,7 +10,7 @@ class BallManager {
 public:
     BallManager();
     /* TODO More here */
-    bool controlBall(double ballConfidence, int goalDist, int angleToGoal);
+    bool controlBall(double maxSpeed, double ballAngle);
     void kickBall();
 private:
     ECUDriver backspin = ECUDriver(BACKSPIN_PIN);
