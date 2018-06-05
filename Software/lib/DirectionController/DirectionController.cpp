@@ -39,7 +39,7 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
         cam.defenceDist = strengthToDistance(cam_.yGoalStrength);
     }
 
-    // Serial.println(lidar_.frontDist);
+    // Serial.println(lidar_.backDist);
 
     // lidar data
     lidar = adjustLidar(lidar_);

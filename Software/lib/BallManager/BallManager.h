@@ -16,7 +16,7 @@ private:
     ECUDriver backspin = ECUDriver(BACKSPIN_PIN);
     Timer timeSinceKick = Timer(0);
 
-    solenoidMode mode;
+    solenoidMode mode = canKick;
 };
 
 extern BallManager kicker;

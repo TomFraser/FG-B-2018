@@ -66,9 +66,10 @@ void loop(){
     /* Send and recieve Xbee Data */
     // xbee.updateData(dc.getXbeeData());
 
-    kicker.controlBall(10, cam.data.ballAngle);
+    // kicker.controlBall(10, cam.data.ballAngle);
+    // kicker.kickBall();
     robotMode.setMode(attacker);
-    // motors.move(dc.calculate(robotMode.getMode()));
+    motors.move(dc.calculate(robotMode.getMode()));
 
     // moveControl ctrl = dc.calculate(attacker);
     // Serial.print(spi.lidars.frontDist); Serial.print(" "); Serial.println(spi.lidars.backDist);
