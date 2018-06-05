@@ -205,8 +205,8 @@ moveControl DirectionController::calculateReturn(moveControl tempControl){
 // play modes
 moveControl DirectionController::calculateAttack(){
     moveControl tempControl;
-    // if(false){
-    if(moveAngle != 65506){
+    if(false){
+    // if(moveAngle != 65506){
         // if we know where the ball is -> go to it
         tempControl.direction = moveAngle;
         tempControl.speed = SPEED_VAL;
