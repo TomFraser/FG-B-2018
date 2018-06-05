@@ -6,6 +6,7 @@ double strengthToDistance(double strength){
     double r = 6200;
     double h = 0;
     double v = 116;
+
     if(strength <= 78){
         return -dv*sqrt(r-dh*pow(strength-h, 2))+v;
     } else {

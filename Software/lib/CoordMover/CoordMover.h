@@ -18,18 +18,18 @@ public:
 
     // target list stuff
     void clearTargetList();
-    void setTargetList(moveTarget toSet[], int size);
+    void setTargetList(coordinate toSet[], int size);
 
     bool completed = true;
 
 
 private:
-    moveControl goToCoords(moveTarget target);
+    moveControl goToCoords(coordinate target);
     coordinate current;
-    moveTarget targetList[TARGET_LIST_LENGTH];
+    coordinate targetList[TARGET_LIST_LENGTH];
 
     // PIDs
-    PID goToCoordsPID = PID(-1.00, 0.0, 0.0, 0.00);
+    PID goToCoordsPID = PID(-2.00, 0.0, -0.1, 0.00);
 
 
 };
