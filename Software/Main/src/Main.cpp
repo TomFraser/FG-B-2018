@@ -35,11 +35,11 @@ void setup(){
 
     // pinMode(13, OUTPUT);
     // digitalWrite(13, HIGH);
-    delay(500);
-    digitalWrite(13, LOW);
-    delay(3000);
-    kicker.controlBall(0, 100);
-    delay(2000);
+    // delay(500);
+    // digitalWrite(13, LOW);
+    // delay(3000);
+    // kicker.controlBall(0, 100);
+    // delay(2000);
 }
 
 void loop(){
