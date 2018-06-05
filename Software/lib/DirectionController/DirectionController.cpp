@@ -227,10 +227,11 @@ moveControl DirectionController::calculateAttack(){
             if(coordMover.completed){
                 // coordinate targets[] = {{40, -40}, {40, 0}, {40, 40}, {0, 40}};
                 coordinate targets[] = {{40, -40}, {40, 40}, {-40, 40}, {-40, -40}, {0, 0}};
-                coordMover.setTargetList(targets, sizeof(targets)/sizeof(targets[0]));
+                int rotationTargets[] = {180, 0, 180, 0, 180};
+                coordMover.setTargetList(targets, sizeof(targets)/sizeof(targets[0]), rotationTargets);
             }
             tempControl = coordMover.calcMove();
-            tempControl.rotation = 180;
+            Serial.println(tempControl.rotation);
         }else{
             /* Big Boi Field! */
             tempControl = calculateSpiral(ballLocation);
