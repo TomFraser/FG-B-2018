@@ -11,6 +11,7 @@
 #include <DirectionController.h>
 #include <Light.h>
 #include <ModeWrapper.h>
+#include <MotorMusic.h>
 // #include <Xbee.h>
 
 

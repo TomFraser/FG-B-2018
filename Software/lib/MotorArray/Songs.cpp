@@ -12,6 +12,13 @@ void writeFreq(double freq, double delays){
     analogWriteFrequency(5, 19000);
 }
 
+void writeFreq(double freq){
+    analogWriteFrequency(2,freq);
+    analogWriteFrequency(3, freq);
+    analogWriteFrequency(4, freq);
+    analogWriteFrequency(5, freq);
+}
+
 void rainbow(){
     /* TODO */
 }

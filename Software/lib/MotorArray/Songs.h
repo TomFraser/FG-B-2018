@@ -4,6 +4,7 @@
 #include <Arduino.h>
 
 void writeFreq(double freq, double delays);
+void writeFreq(double freq);
 void frog();
 void rainbow();
 void xp();

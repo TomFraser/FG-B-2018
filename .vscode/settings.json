@@ -2,6 +2,10 @@
     "files.associations": {
         "limits": "cpp",
         "type_traits": "cpp",
-        "__config": "cpp"
+        "__config": "cpp",
+        "iterator": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "vector": "cpp"
     }
 }
