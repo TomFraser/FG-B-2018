@@ -6,8 +6,9 @@ CoordMover::CoordMover(){
 }
 
 /* Public Functions */
-void CoordMover::update(coordinate current_){
+void CoordMover::update(coordinate current_, double currentHeading_){
     current = current_;
+    currentHeading = currentHeading_;
 }
 
 moveControl CoordMover::calcMove(){
@@ -26,8 +27,10 @@ moveControl CoordMover::calcMove(){
         return {65506, 0, false, currRotation};
     }
 
+    // Serial.print(currentHeading); Serial.print(" "); Serial.println(currRotation);
+
     // update until theres an instruction that we haven't completed yet
-    while(abs(currTarget.x-current.x) < COMPLETED_THRESHOLD && abs(currTarget.y-current.y) < COMPLETED_THRESHOLD){
+    while(abs(currTarget.x-current.x) < COMPLETED_THRESHOLD && abs(currTarget.y-current.y) < COMPLETED_THRESHOLD && abs(currentHeading - currRotation) < COMPLETED_THRESHOLD){
         // if we're here we've completed the current target - pop that one and shift all the others up
         for(int i=0; i < TARGET_LIST_LENGTH - 1; i++){
             targetList[i] = targetList[i+1];

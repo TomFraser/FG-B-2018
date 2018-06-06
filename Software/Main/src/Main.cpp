@@ -67,7 +67,7 @@ void loop(){
     /* Send and recieve Xbee Data */
     // xbee.updateData(dc.getXbeeData());
 
-    // kicker.controlBall(10, cam.data.ballAngle);
+    // kicker.controlBall(12, 0);
     // kicker.kickBall();
     robotMode.setMode(attacker);
     motors.move(dc.calculate(robotMode.getMode()));
