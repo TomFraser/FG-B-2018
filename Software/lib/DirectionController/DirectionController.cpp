@@ -53,6 +53,8 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
     coordMover.update(myRobotCoord, compass);
 
     // Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
+    // Serial.print(myBallCoord.x); Serial.print(" "); Serial.println(myBallCoord.y);
+    // Serial.println();
     // Serial.println(cam.defenceAngle);
     // Serial.println(cam_.yGoalStrength);
 
@@ -231,7 +233,7 @@ moveControl DirectionController::calculateAttack(){
                 coordMover.setTargetList(targets, sizeof(targets)/sizeof(targets[0]), rotationTargets);
             }
             tempControl = coordMover.calcMove();
-            Serial.println(tempControl.rotation);
+            // Serial.println(tempControl.rotation);
         }else{
             /* Big Boi Field! */
             tempControl = calculateSpiral(ballLocation);
