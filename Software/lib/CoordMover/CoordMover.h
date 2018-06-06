@@ -13,7 +13,7 @@ class CoordMover{
 
 public:
     CoordMover();
-    void update(coordinate current_);
+    void update(coordinate current_, double currentHeading_);
     moveControl calcMove();
 
     // target list stuff
@@ -26,6 +26,7 @@ public:
 private:
     moveControl goToCoords(coordinate target, int targetRot);
     coordinate current;
+    double currentHeading;
     coordinate targetList[TARGET_LIST_LENGTH];
     coordinate data = {65506, 65506};
     int targetRotationList[TARGET_LIST_LENGTH];
@@ -37,4 +38,3 @@ private:
 
 };
 #endif
-

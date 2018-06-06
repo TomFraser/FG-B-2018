@@ -80,9 +80,10 @@ void CoordCalc::updateData(absCameraData cam, lidarData lidar){
     }
 
     /* Calculate ball position */
-    if(cam.ballAngle != 65506){
-        ball.x = robot.x + cam.ballDist*sin(angToRad*cam.ballDist);
-        ball.y = robot.y + cam.ballDist*cos(angToRad*cam.ballDist);
+    if(cam.ballAngle != 65506 && cam.ballDist != 65506){
+        cam.ballAngle = mod(-cam.ballAngle-90, 360) + 90;
+        ball.x = robot.x + cam.ballDist*sin(angToRad*cam.ballAngle);
+        ball.y = robot.y + cam.ballDist*cos(angToRad*cam.ballAngle);
     } else {
         ball.x = 65506;
         ball.y = 65506;

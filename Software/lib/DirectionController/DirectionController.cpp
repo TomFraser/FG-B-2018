@@ -50,9 +50,11 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
     myRobotCoord = coordCalc.robot;
 
     // update our coord mover object so it knows where we are
-    coordMover.update(myRobotCoord);
+    coordMover.update(myRobotCoord, compass);
 
     // Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
+    // Serial.print(myBallCoord.x); Serial.print(" "); Serial.println(myBallCoord.y);
+    // Serial.println();
     // Serial.println(cam.defenceAngle);
     // Serial.println(cam_.yGoalStrength);
 
@@ -193,13 +195,13 @@ moveControl DirectionController::calculateReturn(moveControl tempControl){
     // return {absToRel(lightTracker.getDirection()),
     //         lightTracker.getSpeed(),
     //         tempControl.doBoost && lightTracker.getNormalGameplay(),
-    //         rotationPID.update(doubleMod(doubleMod(compass+tempControl.rotation, 360)+180, 360)-180, 0.00, 0.00)};
+    //         rotationPID.update(doubleMod(doubleMod(compass-tempControl.rotation, 360)+180, 360)-180, 0.00, 0.00)};
 
     // set up the return data struct (NO LIGHT)
     return {absToRel(tempControl.direction),
             tempControl.speed,
             tempControl.doBoost,
-            rotationPID.update(doubleMod(doubleMod(compass+tempControl.rotation, 360)+180, 360)-180, 0.00, 0.00)};
+            rotationPID.update(doubleMod(doubleMod(compass-tempControl.rotation, 360)+180, 360)-180, 0.00, 0.00)};
 }
 
 // play modes
@@ -226,12 +228,12 @@ moveControl DirectionController::calculateAttack(){
             /* Normal Game */
             if(coordMover.completed){
                 // coordinate targets[] = {{40, -40}, {40, 0}, {40, 40}, {0, 40}};
-                coordinate targets[] = {{40, -40}, {40, 40}, {-40, 40}, {-40, -40}, {0, 0}};
-                int rotationTargets[] = {180, 0, 180, 0, 180};
+                coordinate targets[] = {{0, -50}, {40, -50}, {40, 0}, {40, 50}, {0, 50}, {0, 70}};
+                int rotationTargets[] = {0, -90, -90, -90, 180, 0};
                 coordMover.setTargetList(targets, sizeof(targets)/sizeof(targets[0]), rotationTargets);
             }
             tempControl = coordMover.calcMove();
-            Serial.println(tempControl.rotation);
+            // Serial.println(tempControl.rotation);
         }else{
             /* Big Boi Field! */
             tempControl = calculateSpiral(ballLocation);
