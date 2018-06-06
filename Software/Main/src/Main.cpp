@@ -12,7 +12,7 @@
 #include <Light.h>
 #include <ModeWrapper.h>
 #include <MotorMusic.h>
-// #include <Xbee.h>
+#include <Xbee.h>
 
 
 /* NOTE Constructors are called in the .cpp file for each class */
@@ -59,19 +59,19 @@ void loop(){
     light.updateAngle();
 
     // PLACEHOLDER DATA THAT NEEDS TO BE DONE
-    xbeeData xdata = {{0, 0}, {0, 0}, false, false};
+    xbeeData xdata = {{12, 12}, {12, 12}, true, false};
 
     /* Update Game Data */
     dc.updateData(cam.data, spi.lidars, light.data, xdata, imu.getHeading());
 
     /* Send and recieve Xbee Data */
-    // xbee.updateData(dc.getXbeeData());
+    xbee.updateData(dc.getXbeeData());
+    Serial.println(xbee.xData.ballCoords.x);
 
     // kicker.controlBall(12, 0);
     // kicker.kickBall();
     robotMode.setMode(attacker);
-    // motors.move(dc.calculate(robotMode.getMode()));
-    // Serial.println("Async");
+    motors.move(dc.calculate(robotMode.getMode()));
 
     // moveControl ctrl = dc.calculate(attacker);
     // Serial.print(spi.lidars.frontDist); Serial.print(" "); Serial.println(spi.lidars.backDist);
