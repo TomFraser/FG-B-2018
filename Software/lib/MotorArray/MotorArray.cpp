@@ -6,6 +6,13 @@ MotorArray::MotorArray(){
     /* Motor Array Constructor */
 }
 
+void MotorArray::speed(int speed){
+    motorA.set(speed);
+    motorB.set(speed);
+    motorC.set(speed);
+    motorD.set(speed);
+}
+
 void MotorArray::move(moveControl move){
     double angle = move.direction;
     int speed = abs(move.speed);
@@ -48,7 +55,7 @@ void MotorArray::sound(long in){
     motorB.set(70);
     motorC.set(70);
     motorD.set(70);
-    pirates();
+    frog();
 }
 
 int MotorArray::sign(double value) {
