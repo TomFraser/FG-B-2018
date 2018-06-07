@@ -65,8 +65,7 @@ void loop(){
     dc.updateData(cam.data, spi.lidars, light.data, xdata, imu.getHeading());
 
     /* Send and recieve Xbee Data */
-    xbee.updateData(dc.getXbeeData());
-    Serial.println(xbee.xData.ballCoords.x);
+    xbee.update(xdata);
 
     // kicker.controlBall(12, 0);
     // kicker.kickBall();
@@ -78,4 +77,6 @@ void loop(){
 
     // Serial.print(ctrl.direction); Serial.print(" "); Serial.print(ctrl.speed); Serial.print(" "); Serial.println(ctrl.rotation);
     // Serial.println(imu.getHeading());
+
+    Serial.println("ur mom gay");
 }

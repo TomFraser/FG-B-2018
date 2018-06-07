@@ -1,37 +1,22 @@
 #ifndef Xbee_h
 #define Xbee_h
 
-#include <Arduino.h>
+#include <Config.h>
 #include <Common.h>
-#include <Timer.h>
-#define XSerial Serial1
 
-class Xbees {
+#define XSerial Serial6
+
+class XbeeController{
 public:
-    Xbees();
-    bool isConnected();
-    void tryConnect();
-    void updateData(xbeeData data);
-
-    /* Recieve Data */
-    xbeeData xData = {{65506, 65506}, {65506, 65506}, false, false};
-    
+    xbeeData update(xbeeData values);
 private:
-    void sendData();
-    void readData();
-    void resetAllData();
+    xbeeData read();
+    void write(xbeeData values);
+    xbeeData ourData, otherData = {{65506, 65506}, {65506, 65506}, false, false};
+    long lastRead = 0;
 
-    /* Send Data */
-    int ballX, ballY, robotX, robotY, seeingBall, knowsPosition;
-
-    /* Timer for disconnected timeout */
-    Timer timeSince = Timer(0);
-    /* Timer for xbee send time */
-    Timer sendTime = Timer(0);
-
-    uint8_t dataBuf[XBEE_PACKAGE - 2];
 };
 
-extern Xbees xbee;
+extern XbeeController xbee;
 
 #endif
