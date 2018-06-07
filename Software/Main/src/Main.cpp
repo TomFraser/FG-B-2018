@@ -67,6 +67,10 @@ void loop(){
     /* Send and recieve Xbee Data */
     xbee.update(xdata);
 
+    // Serial.println(xbee.otherData.robotCoords.x);
+    // Serial.println(xbee.isConnected());
+
+
     // kicker.controlBall(12, 0);
     // kicker.kickBall();
     robotMode.setMode(attacker);
@@ -77,6 +81,4 @@ void loop(){
 
     // Serial.print(ctrl.direction); Serial.print(" "); Serial.print(ctrl.speed); Serial.print(" "); Serial.println(ctrl.rotation);
     // Serial.println(imu.getHeading());
-
-    Serial.println("ur mom gay");
 }
