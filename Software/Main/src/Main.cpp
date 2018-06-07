@@ -67,10 +67,6 @@ void loop(){
     /* Send and recieve Xbee Data */
     xbee.update(xdata);
 
-    // Serial.println(xbee.otherData.robotCoords.x);
-    // Serial.println(xbee.isConnected());
-
-
     // kicker.controlBall(12, 0);
     // kicker.kickBall();
     robotMode.setMode(attacker);

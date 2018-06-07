@@ -17,7 +17,7 @@ private:
     xbeeData read();
     void write(xbeeData values);
     xbeeData ourData = {{65506, 65506}, {65506, 65506}, false, false};
-    long lastRead = 0;
+    long lastWrite = 0;
 
 };
 

@@ -24,8 +24,8 @@ class Finder:
         sensor.reset()
         sensor.set_pixformat(sensor.RGB565)
         sensor.set_framesize(sensor.QVGA) #Resolution, QVGA = 42FPS,QQVGA = 85FPS
-        sensor.set_windowing((70, 0, 180, 179))
-        #sensor.set_windowing((77,8,186,187))
+        #sensor.set_windowing((70, 0, 180, 179))
+        sensor.set_windowing((77,8,186,187))
 
         sensor.skip_frames(time=2000)
 

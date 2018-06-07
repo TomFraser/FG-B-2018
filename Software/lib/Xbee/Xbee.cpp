@@ -8,14 +8,16 @@ XbeeController::XbeeController(){
 }
 
 bool XbeeController::isConnected(){
-    Serial.print(lastRead); Serial.print(" "); Serial.println(millis());
-    return millis() < lastRead + 2000;
+    return millis() < lastWrite + 1000;
 }
 
 xbeeData XbeeController::update(xbeeData values){
     read();
-    if(millis() > lastRead + 20){
+    if(millis() > lastWrite + 10){
         write(values);
+    }
+    if(!isConnected()){
+        resetOtherData();
     }
 }
 
@@ -29,9 +31,8 @@ void XbeeController::resetOtherData(){
 }
 
 xbeeData XbeeController::read(){
-    resetOtherData();
-    Serial.println(XSerial.available());
-    uint8_t buf[XBEE_PACKAGE - 2];
+    // resetOtherData();
+    uint16_t buf[XBEE_PACKAGE - 2] = {65506, 65506, 65506, 65506, false, false};
     while(XSerial.available() >= XBEE_PACKAGE){
         uint8_t firstByte = XSerial.read();
         uint8_t secondByte = XSerial.peek();
@@ -52,8 +53,7 @@ xbeeData XbeeController::read(){
         otherData.robotCoords.y = buf[3];
         otherData.seesBall = bool(buf[4]);
         otherData.knowsPosition = bool(buf[5]);
-
-        lastRead = millis();
+        lastWrite = millis();
     }
 }
 
