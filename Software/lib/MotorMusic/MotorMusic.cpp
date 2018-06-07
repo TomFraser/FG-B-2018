@@ -23,6 +23,12 @@ void motorMusic(String song, int trackNum){
         playSong(Canada, sizeof(Canada)/sizeof(uint16_t), 2);
     }else if(song == "MI"){
         playSong(MI, sizeof(MI)/sizeof(uint16_t), 4);
+    }else if(song == "ANA"){
+        playSong(ANA, sizeof(ANA)/sizeof(uint16_t), 6);
+    }else if(song == "LORD"){
+        playSong(LORD, sizeof(LORD)/sizeof(uint16_t), 2);
+    }else if(song == "MARCH"){
+        playSong(MARCH, sizeof(MARCH)/sizeof(uint16_t), 1);
     }
 }
 

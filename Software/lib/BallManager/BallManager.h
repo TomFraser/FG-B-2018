@@ -11,7 +11,9 @@ public:
     BallManager();
     /* TODO More here */
     bool controlBall(double maxSpeed, double ballAngle);
+    bool controlBall(double speed);
     void kickBall();
+    bool hasBall();
 private:
     ECUDriver backspin = ECUDriver(BACKSPIN_PIN);
     Timer timeSinceKick = Timer(0);
