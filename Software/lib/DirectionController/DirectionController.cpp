@@ -5,8 +5,10 @@ DirectionController dc = DirectionController();
 /* Public Functions */
 
 // takes in all structs and data
-void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightData light_, xbeeData xbee_, double compass_){
+void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightData light_, xbeeData xbee_, double compass_, mode playMode_){
     compass = compass_;
+
+    playMode = playMode_;
 
     /* Adujust all values for compass reading */
 
@@ -45,7 +47,7 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
     lidar = adjustLidar(lidar_);
 
     /* Calculate Coordinates of Ball and Robot */
-    coordCalc.updateData(cam, lidar);
+    coordCalc.updateData(cam, lidar, playMode);
     myBallCoord = coordCalc.ball;
     myRobotCoord = coordCalc.robot;
 
@@ -53,6 +55,7 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
     coordMover.update(myRobotCoord, compass);
 
     // Serial.print(myRobotCoord.x); Serial.print(" "); Serial.println(myRobotCoord.y);
+    // Serial.println();
     // Serial.print(myBallCoord.x); Serial.print(" "); Serial.println(myBallCoord.y);
     // Serial.println();
     // Serial.println(cam.defenceAngle);
@@ -62,11 +65,10 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
     moveAngle = relToAbs(orbit(cam_.ballAngle, cam.ballDist));
 }
 
-moveControl DirectionController::calculate(mode robotMode){
-
-    if(robotMode == mode::attacker){
+moveControl DirectionController::calculate(){
+    if(playMode == mode::attacker){
         return calculateReturn(calculateAttack());
-    }else if(robotMode == mode::defender){
+    }else if(playMode == mode::defender){
         return calculateReturn(calculateGoalie());
     }else{
         return calculateReturn(calculateAttack());
@@ -277,6 +279,8 @@ moveControl DirectionController::calculateGoalie(){
         false,
         0
     };
+
+    // Serial.print(returnControl.direction); Serial.print(" "); Serial.println(returnControl.speed);
     return returnControl;
 }
 
