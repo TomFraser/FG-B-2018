@@ -32,15 +32,16 @@ void setup(){
     /* Init Serial */
     cam.initSerial();
     /* Set robot mode based on default mode */
-    robotMode.setDefault(attacker);
+    robotMode.setDefault(defender);
+    robotMode.setMode(defender);
 
     // pinMode(13, OUTPUT);
     // digitalWrite(13, HIGH);
     // delay(500);
     // digitalWrite(13, LOW);
-    delay(3000);
-    kicker.controlBall(0, 100);
-    delay(2000);
+    // delay(3000);
+    // kicker.controlBall(0, 100);
+    // delay(2000);
 }
 
 void loop(){
@@ -58,19 +59,15 @@ void loop(){
     light.readLight();
     light.updateAngle();
 
-    // PLACEHOLDER DATA THAT NEEDS TO BE DONE
-    xbeeData xdata = {{12, 12}, {12, 12}, true, false};
+    /* Send and recieve Xbee Data */
+    xbee.update(dc.getXbeeData());
 
     /* Update Game Data */
-    dc.updateData(cam.data, spi.lidars, light.data, xdata, imu.getHeading());
+    dc.updateData(cam.data, spi.lidars, light.data, xbee.otherData, imu.getHeading(), robotMode.getMode());
 
-    /* Send and recieve Xbee Data */
-    xbee.update(xdata);
-
-    kicker.controlBall(12);
+    // kicker.controlBall(12);
     // kicker.kickBall();
-    robotMode.setMode(attacker);
-    motors.move(dc.calculate(robotMode.getMode()));
+    motors.move(dc.calculate());
 
     // moveControl ctrl = dc.calculate(attacker);
     // Serial.print(spi.lidars.frontDist); Serial.print(" "); Serial.println(spi.lidars.backDist);

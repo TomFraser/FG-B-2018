@@ -1,7 +1,7 @@
 #define DEBUG false
 
 #define ROBOT 1
-#define ATTACK_YELLOW false
+#define ATTACK_YELLOW true
 #define SUPERTEAM false
 
 #define ALT_SCK 14
@@ -101,7 +101,7 @@
 #define GOALIE_X_RANGE 15
 #define TARGET_X 0
 #define TARGET_Y 0
-#define GOALIE_DISTANCE 50
+#define GOALIE_DISTANCE 60
 
 /* Light */
 #define AUTO_LIGHT true

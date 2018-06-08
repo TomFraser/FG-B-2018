@@ -15,8 +15,8 @@ class DirectionController{
 public:
     /* Functions */
     void attackingYellow(bool attackYellow_);
-    void updateData(cameraData cam_, lidarData lidar_, lightData light_, xbeeData xbee_, double compass_);
-    moveControl calculate(mode robotMode);
+    void updateData(cameraData cam_, lidarData lidar_, lightData light_, xbeeData xbee_, double compass_, mode playMode_);
+    moveControl calculate();
     xbeeData getXbeeData();
 
     /* Variables */
@@ -57,6 +57,7 @@ private:
     double spiralDirection;
 
     // input data
+    mode playMode;
     bool attackYellow;
     absCameraData cam;
     lidarData lidar;

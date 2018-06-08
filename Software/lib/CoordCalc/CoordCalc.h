@@ -11,7 +11,7 @@ public:
     CoordCalc();
 
     /* Functions */
-    void updateData(absCameraData cam, lidarData lidar);
+    void updateData(absCameraData cam, lidarData lidar, mode playMode);
 
     /* Variables */
     coordinate ball;

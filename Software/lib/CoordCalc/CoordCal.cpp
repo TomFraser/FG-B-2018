@@ -5,12 +5,16 @@ CoordCalc::CoordCalc(){
 }
 
 /* Public Functions */
-void CoordCalc::updateData(absCameraData cam, lidarData lidar){
+void CoordCalc::updateData(absCameraData cam, lidarData lidar, mode playMode){
 
     /* Calculate robot position */
     // caculate an estimate of our position with the camera
-    // coordinate camCoords = calculateCamCoords(cam);
-    coordinate camCoords = {65506, 65506};
+    coordinate camCoords;
+    if(playMode == mode::attacker){
+        camCoords = {65506, 65506};
+    } else {
+        camCoords = calculateCamCoords(cam);
+    }
 
     // Serial.print(camCoords.x); Serial.print(" "); Serial.println(camCoords.y);
 
