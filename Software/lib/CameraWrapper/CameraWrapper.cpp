@@ -16,10 +16,9 @@ void Camera::getCamData(bool attackingYellow){
     /* Reset data in tempCamData array to -1 */
     memset(tempCamData, -1, sizeof(tempCamData));
     /* Gets camera data and set its to a number of variables */
-    if(millis() - lastCall >= 20 && cameraSerial.available() >= CAM_TRANSFER_NUM){
+    if(cameraSerial.available() >= CAM_TRANSFER_NUM+1){
         if(cameraSerial.read() == 42){
             for(int i = 0; i < CAM_TRANSFER_NUM; i++){
-                while(!cameraSerial.available());
                 tempCamData[i] = cameraSerial.read();
             }
 
@@ -35,8 +34,6 @@ void Camera::getCamData(bool attackingYellow){
             data.bGoalAngle = bitCombinedData[4];
             data.bGoalStrength = bitCombinedData[5];
             data.attackingYellow = attackingYellow;
-
-            lastCall = millis();
         }else{
             /* Cam Serial Not Ready, Just loop instead of waiting */
         }
