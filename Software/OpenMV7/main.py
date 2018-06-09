@@ -5,8 +5,8 @@ from math import atan2, sqrt, pi
 class Finder:
 
     def __init__(self):
-         self.ROBOT_O = 0
-         self.ROBOT_P2 = 1
+         self.ROBOT_O = 1
+         self.ROBOT_P2 = 0
 
     def init(self, robot_):
         self.robot = robot_
@@ -14,18 +14,19 @@ class Finder:
             self.thresholds = [(46, 79, 33, 78, -8, 72), #Ball
             (65, 100, -40, 127, 36, 127),  #Yellow Goal
             (50, 69, -22, -3, -53, -17)] # Blue Goal
+            self.window = (77, 8, 186, 187)
         elif self.robot == self.ROBOT_P2: #P2_bot
             self.thresholds = [(45, 71, 21, 68, 5, 76), #Ball
             (39, 71, -41, 53, 48, 127), #Yellow Goal
             (27, 44, -30, 7, -45, -6)] # Blue Goal
+            self.window = (70, 0, 180, 179)
 
 
         # sensor setup
         sensor.reset()
         sensor.set_pixformat(sensor.RGB565)
-        sensor.set_framesize(sensor.QVGA) #Resolution, QVGA = 42FPS,QQVGA = 85FPS
-        #sensor.set_windowing((70, 0, 180, 179))
-        sensor.set_windowing((77,8,186,187))
+        sensor.set_framesize(sensor.QVGA) #Resolution
+        sensor.set_windowing(self.window)
 
         sensor.skip_frames(time=2000)
 
@@ -52,7 +53,7 @@ class Finder:
         sensor.skip_frames(time=500)
 
 
-    def takeSnapshot(self, center=True):
+    def takeSnapshot(self, center=False):
         self.img = sensor.snapshot()
         if(center): self.img.draw_cross(int(self.img.width() / 2), int(self.img.height() / 2))
 
@@ -268,7 +269,7 @@ sender.init(initSend=[65506, 65506, 65506, 65506, 65506, 655065])
 clock = time.clock()
 
 finder = Finder()
-finder.init(finder.ROBOT_O)
+finder.init(finder.ROBOT_P2)
 
 ledController.on(ledController.LED_RED)
 sensor.skip_frames(time=500)
@@ -280,7 +281,7 @@ while True:
     #clock.tick()
     # ledController.blink()
     finder.takeSnapshot() # (draw center cross)
-    data = finder.findObjects(True, True, True) # (mark ball, mark yellow, mark blue)
+    data = finder.findObjects() # (mark ball, mark yellow, mark blue)
     sender.sendData(data)
 
     #print(data)

@@ -9,7 +9,6 @@ Camera::Camera(){
 void Camera::initSerial(){
     /* Init serial and set initial timeout */
     cameraSerial.begin(9600);
-    lastCall = millis();
 }
 
 void Camera::getCamData(bool attackingYellow){
@@ -38,6 +37,6 @@ void Camera::getCamData(bool attackingYellow){
             /* Cam Serial Not Ready, Just loop instead of waiting */
         }
     }else{
-      /* Wait for time or for the serial buffer to fill up completly */
+      /* Wait for the serial buffer to fill up completly */
     }
 }

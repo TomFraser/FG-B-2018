@@ -1,6 +1,6 @@
 #define DEBUG false
 
-#define ROBOT 1
+#define ROBOT P2_bot
 #define ATTACK_YELLOW true
 #define SUPERTEAM false
 
@@ -131,3 +131,6 @@
 #define LIGHT_19 A21
 #define LIGHT_20 A22
 #define NUM_COUNTBACK 2
+
+#define P2_bot 0
+#define O_bot 1
