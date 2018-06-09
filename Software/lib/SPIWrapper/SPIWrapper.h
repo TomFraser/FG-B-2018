@@ -15,10 +15,20 @@ public:
 private:
     uint16_t tempIRData[IR_TRANSFER_NUM];
 
-    bool frontBroken = true;
-    bool backBroken = false;
-    bool leftBroken = false;
-    bool rightBroken = false;
+    // BROKEN
+    #if ROBOT
+      //o_bot
+      bool frontBroken = true;
+      bool backBroken = false;
+      bool leftBroken = false;
+      bool rightBroken = false;
+    #else
+      //p2_bot
+      bool frontBroken = true;
+      bool backBroken = false;
+      bool leftBroken = false;
+      bool rightBroken = false;
+    #endif
 };
 
 extern SPIWrapper spi;

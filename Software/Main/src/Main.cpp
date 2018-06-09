@@ -19,8 +19,12 @@
 RotationWrapper rotation = RotationWrapper();
 
 void setup(){
+
     /* Begin Serial */
-    Serial.begin(9600);
+    #if DEBUG
+        Serial.begin(9600);
+    #endif
+
     /* Init SPI */
     spi.initSPI();
     /* Init IMU */
@@ -31,10 +35,17 @@ void setup(){
     light.init();
     /* Init Serial */
     cam.initSerial();
-    /* Set robot mode based on default mode */
-    robotMode.setDefault(defender);
-    robotMode.setMode(defender);
 
+    /* Set robot mode based on default mode */
+    #if ROBOT
+        // O_bot
+        robotMode.setDefault(attacker);
+    #else
+        // P2_bot
+        robotMode.setDefault(defender);
+    #endif
+
+    // Dribbler Stuff - TODO
     // pinMode(13, OUTPUT);
     // digitalWrite(13, HIGH);
     // delay(500);
@@ -61,6 +72,8 @@ void loop(){
 
     /* Send and recieve Xbee Data */
     xbee.update(dc.getXbeeData());
+
+    // Serial.print("isConnected: "); Serial.println(xbee.isConnected());
 
     /* Update Game Data */
     dc.updateData(cam.data, spi.lidars, light.data, xbee.otherData, imu.getHeading(), robotMode.getMode());

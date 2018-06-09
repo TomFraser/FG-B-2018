@@ -1,17 +1,17 @@
-#define DEBUG false
+#define DEBUG true
 
 #define ROBOT P2_bot
 #define ATTACK_YELLOW true
 #define SUPERTEAM false
 
+/* Speeds */
+#define SPEED_VAL 60
+#define FORWARD_SPEED 100
+
 #define ALT_SCK 14
 #define CAM_TRANSFER_NUM 12
 #define LIDAR_SS 49
 #define IR_TRANSFER_NUM 4
-
-/* Speeds */
-#define SPEED_VAL 40
-#define FORWARD_SPEED 60
 
 #define angToRad 0.01745329251
 #define radToAng 57.2957795131

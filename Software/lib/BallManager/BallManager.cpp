@@ -28,7 +28,7 @@ bool BallManager::hasBall(){
 
 void BallManager::kickBall(){
     if(timeSinceKick.hasBeenMS(10000)){
-        if(mode = solenoidMode::canKick){
+        if(mode == solenoidMode::canKick){
             backspin.setSpeed(0);
             delay(5);
             digitalWrite(KICKER_PIN, HIGH);

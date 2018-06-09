@@ -12,6 +12,7 @@ void modeWrapper::setMode(mode option){
 
 void modeWrapper::setDefault(mode option){
     dMode = option;
+    setMode(option);
 }
 
 void modeWrapper::_default(){

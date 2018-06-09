@@ -209,8 +209,8 @@ moveControl DirectionController::calculateReturn(moveControl tempControl){
 // play modes
 moveControl DirectionController::calculateAttack(){
     moveControl tempControl;
-    if(false){
-    // if(moveAngle != 65506){
+    // if(false){
+    if(moveAngle != 65506){
         // if we know where the ball is -> go to it
         tempControl.direction = moveAngle;
         tempControl.speed = SPEED_VAL;
@@ -230,16 +230,16 @@ moveControl DirectionController::calculateAttack(){
 
         // BACKSPIN LOGIC CAN GO HERE
     } else {
+        // dont know where the ball is -> do other strategies
         if(!SUPERTEAM){
             /* Normal Game */
+            // TODO: write some proper strategies in here (add in xbee strats)
             if(coordMover.completed){
-                // coordinate targets[] = {{40, -40}, {40, 0}, {40, 40}, {0, 40}};
                 coordinate targets[] = {{0, -50}, {40, -50}, {40, 0}, {40, 50}, {0, 50}, {0, 70}};
                 int rotationTargets[] = {0, -90, -90, -90, 180, 0};
                 coordMover.setTargetList(targets, sizeof(targets)/sizeof(targets[0]), rotationTargets);
             }
             tempControl = coordMover.calcMove();
-            // Serial.println(tempControl.rotation);
         }else{
             /* Big Boi Field! */
             tempControl = calculateSpiral(ballLocation);
@@ -263,12 +263,17 @@ moveControl DirectionController::calculateGoalie(){
     double horVector;
     if(ballAngle != 65506){
         horVector = goalieAnglePID.update(ballAngle, 0.00, 0.00);
+        // DO LIMITING HERE
     } else {
         // cant see the ball at all -> center with left and right sonars
         double lidarDiff = lidar.rightDist - lidar.leftDist;
         lidarDiff = abs(lidarDiff) < 2 ? 0 : lidarDiff;
         horVector = goalieSonarPID.update(lidarDiff, 0.00, 0.00);
     }
+
+    // test if this still works, and then limit the horVector if the
+    // x is ouside the bounds
+
 
     double vertVector = -goalieVerPID.update(lidar.backDist, GOALIE_DISTANCE, 0.00);
 
