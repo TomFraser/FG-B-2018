@@ -10,6 +10,7 @@
 
 #define ALT_SCK 14
 #define CAM_TRANSFER_NUM 12
+#define CAM_BUFFER_NUM 20
 #define LIDAR_SS 49
 #define IR_TRANSFER_NUM 4
 

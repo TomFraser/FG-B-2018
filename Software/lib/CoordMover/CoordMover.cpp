@@ -36,8 +36,8 @@ moveControl CoordMover::calcMove(){
             targetList[i] = targetList[i+1];
             targetRotationList[i] = targetRotationList[i+1];
         }
-        targetList[TARGET_LIST_LENGTH] = data;
-        targetRotationList[TARGET_LIST_LENGTH] = 0;
+        targetList[TARGET_LIST_LENGTH-1] = data;
+        targetRotationList[TARGET_LIST_LENGTH-1] = 0;
 
         // get the current target from the list
         currTarget = targetList[0];

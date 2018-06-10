@@ -18,6 +18,9 @@ public:
 private:
     uint8_t tempCamData[CAM_TRANSFER_NUM];
     uint16_t bitCombinedData[CAM_TRANSFER_NUM/2];
+
+    int ballAngleBuf[CAM_BUFFER_NUM];
+    int ballDistBuf[CAM_BUFFER_NUM];
 };
 
 extern Camera cam;
