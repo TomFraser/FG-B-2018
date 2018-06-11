@@ -252,13 +252,19 @@ moveControl DirectionController::calculateAttack(){
 
 moveControl DirectionController::calculateGoalie(){
     double ballAngle = 65506;
+    double ballDist = 65506;
     if(cam.ballAngle != 65506) {
+        if(cam.ballAngle > 60 && cam.ballAngle < 300){
+            return {moveAngle, SPEED_VAL, false, 0};
+        }
+
         ballAngle = cam.ballAngle;
     } else if(xbee.seesBall) {
         ballAngle = atan2(xbee.ballCoords.y - myRobotCoord.y, xbee.ballCoords.x - myRobotCoord.x);
     }
 
     ballAngle = ballAngle != 65506 ? doubleMod(ballAngle+180, 360)-180 : 65506;
+
     double horVector = 0;
     if(ballAngle != 65506){
         ballAngle = abs(ballAngle) < 5 ? 0 : ballAngle;

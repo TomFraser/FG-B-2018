@@ -108,7 +108,7 @@
 #define GOALIE_AVOID_SPEED 30
 #define TARGET_X 0
 #define TARGET_Y 0
-#define GOALIE_DISTANCE 41
+#define GOALIE_DISTANCE 50
 
 /* Light */
 #define AUTO_LIGHT true
