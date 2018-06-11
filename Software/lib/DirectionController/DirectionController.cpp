@@ -258,13 +258,16 @@ moveControl DirectionController::calculateGoalie(){
     double ballAngle = 65506;
     double ballDist = 65506;
     if(cam.ballAngle != 65506) {
-        if(cam.ballAngle > 60 && cam.ballAngle < 300){
+        if((cam.ballAngle > 60 && cam.ballAngle < 300)||((abs(fromFront(cam.ballAngle)) < 10) && cam.ballDist < 100 && myRobotCoord.y < 0)){
+            goalieVerPID.update(lidar.backDist, goalieDistance, 0.00);
             return {moveAngle, SPEED_VAL, false, 0};
         }
 
         ballAngle = cam.ballAngle;
+        ballDist = cam.ballDist;
     } else if(xbee.seesBall) {
         ballAngle = atan2(xbee.ballCoords.y - myRobotCoord.y, xbee.ballCoords.x - myRobotCoord.x);
+        ballDist = sqrt(pow(xbee.ballCoords.y-myRobotCoord.y, 2) + pow(xbee.ballCoords.x-myRobotCoord.x, 2));
     }
 
     ballAngle = ballAngle != 65506 ? doubleMod(ballAngle+180, 360)-180 : 65506;
@@ -291,7 +294,7 @@ moveControl DirectionController::calculateGoalie(){
     } else {
         // cant see the ball at all -> center with x coordinate
         if(myRobotCoord.x != 65506){
-            horVector = goalieHorPID.update(abs(myRobotCoord.x) < 2 ? 0 : myRobotCoord.x, 0.00, 0.00);
+            horVector = goalieHorPID.update(abs(myRobotCoord.x) < 5 ? 0 : myRobotCoord.x, 0.00, 0.00);
         }
     }
 
