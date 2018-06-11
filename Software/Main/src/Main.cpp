@@ -53,6 +53,13 @@ void setup(){
     // delay(3000);
     // kicker.controlBall(0, 100);
     // delay(2000);
+
+    // get ir data for goalie back dist
+    spi.getIRData();
+    while(spi.lidars.backDist == 0 || spi.lidars.backDist == 0){
+        spi.getIRData();
+    }
+    dc.setGoalieDistance(spi.lidars.backDist);
 }
 
 void loop(){

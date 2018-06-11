@@ -4,6 +4,10 @@ DirectionController dc = DirectionController();
 
 /* Public Functions */
 
+void DirectionController::setGoalieDistance(int goalieDistance_){
+    goalieDistance = goalieDistance_;
+}
+
 // takes in all structs and data
 void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightData light_, xbeeData xbee_, double compass_, mode playMode_){
     compass = compass_;
@@ -296,7 +300,7 @@ moveControl DirectionController::calculateGoalie(){
 
     double vertVector = 0;
     if(lidar.backDist != 65506){
-        vertVector = -goalieVerPID.update(lidar.backDist, GOALIE_DISTANCE, 0.00);
+        vertVector = -goalieVerPID.update(lidar.backDist, goalieDistance, 0.00);
     }
 
     double direction = atan2(vertVector, horVector)*radToAng;

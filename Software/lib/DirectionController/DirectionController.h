@@ -14,6 +14,7 @@ class DirectionController{
 
 public:
     /* Functions */
+    void setGoalieDistance(int goalieDistance_);
     void attackingYellow(bool attackYellow_);
     void updateData(cameraData cam_, lidarData lidar_, lightData light_, xbeeData xbee_, double compass_, mode playMode_);
     moveControl calculate();
@@ -46,6 +47,7 @@ private:
     PID goalieVerPID = PID(5.00, 0.00, 0.2, 0.00);
 
     /* Variables */
+    int goalieDistance;
 
     /* Spiral */
     bool isSpiral = false;
