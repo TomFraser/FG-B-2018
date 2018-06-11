@@ -259,23 +259,39 @@ moveControl DirectionController::calculateGoalie(){
     }
 
     ballAngle = ballAngle != 65506 ? doubleMod(ballAngle+180, 360)-180 : 65506;
-
-    double horVector;
+    double horVector = 0;
     if(ballAngle != 65506){
+        ballAngle = abs(ballAngle) < 5 ? 0 : ballAngle;
         horVector = goalieAnglePID.update(ballAngle, 0.00, 0.00);
-        // DO LIMITING HERE
+        // Serial.print(horVector); Serial.print(" "); Serial.println(myRobotCoord.x);
+        if(horVector < 0){
+            if(myRobotCoord.x > GOALIE_X_RANGE+10){
+                horVector = GOALIE_AVOID_SPEED;
+            } else if(myRobotCoord.x >= GOALIE_X_RANGE){
+                horVector = 0;
+            }
+        } else if(horVector > 0){
+            if(myRobotCoord.x < -GOALIE_X_RANGE-10){
+                horVector = -GOALIE_AVOID_SPEED;
+            } else if(myRobotCoord.x <= -GOALIE_X_RANGE){
+                horVector = 0;
+            }
+        }
+        // Serial.println(horVector);
     } else {
-        // cant see the ball at all -> center with left and right sonars
-        double lidarDiff = lidar.rightDist - lidar.leftDist;
-        lidarDiff = abs(lidarDiff) < 2 ? 0 : lidarDiff;
-        horVector = goalieSonarPID.update(lidarDiff, 0.00, 0.00);
+        // cant see the ball at all -> center with x coordinate
+        if(myRobotCoord.x != 65506){
+            horVector = goalieHorPID.update(abs(myRobotCoord.x) < 2 ? 0 : myRobotCoord.x, 0.00, 0.00);
+        }
     }
 
     // test if this still works, and then limit the horVector if the
     // x is ouside the bounds
 
-
-    double vertVector = -goalieVerPID.update(lidar.backDist, GOALIE_DISTANCE, 0.00);
+    double vertVector = 0;
+    if(lidar.backDist != 65506){
+        vertVector = -goalieVerPID.update(lidar.backDist, GOALIE_DISTANCE, 0.00);
+    }
 
     double direction = atan2(vertVector, horVector)*radToAng;
     double speed = sqrt(vertVector*vertVector + horVector*horVector);

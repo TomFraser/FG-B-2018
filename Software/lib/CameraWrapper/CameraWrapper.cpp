@@ -87,14 +87,18 @@ void Camera::getCamData(bool attackingYellow){
                     }
                 }
 
-                data.ballAngle = modeAng;
-                data.ballStrength = modeDist;
+                if(maxA >= CAM_MIN_COUNT && maxD >= CAM_MIN_COUNT){
+                    data.ballAngle = modeAng;
+                    data.ballStrength = modeDist;
+                } else {
+                    data.ballAngle = 65506;
+                    data.ballStrength = 65506;
+                }
 
             } else {
                 data.ballAngle = bitCombinedData[0];
                 data.ballStrength = bitCombinedData[1];
             }
-
 
 
         }else{

@@ -73,10 +73,13 @@ void loop(){
     /* Send and recieve Xbee Data */
     xbee.update(dc.getXbeeData());
 
+    // Serial.println(cam.data.ballAngle);
+
     // Serial.print("isConnected: "); Serial.println(xbee.isConnected());
 
     /* Update Game Data */
     dc.updateData(cam.data, spi.lidars, light.data, xbee.otherData, imu.getHeading(), robotMode.getMode());
+
 
     // kicker.controlBall(12);
     // kicker.kickBall();
