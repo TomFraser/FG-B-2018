@@ -241,15 +241,31 @@ moveControl DirectionController::calculateAttack(){
         // dont know where the ball is -> do other strategies
         if(!SUPERTEAM){
             /* Normal Game */
-            // TODO: write some proper strategies in here (add in xbee strats)
-            if(coordMover.completed){
-                // coordinate targets[] = {{0, -50}, {40, -50}, {40, 0}, {40, 50}, {0, 50}, {0, 70}};
-                // int rotationTargets[] = {0, -90, -90, -90, 180, 0};
-                coordinate targets[] = {{0,0}};
-                int rotationTargets[] = {0};
-                coordMover.setTargetList(targets, sizeof(targets)/sizeof(targets[0]), rotationTargets);
+            if(!xbee.seesBall && xbee.knowsPosition){
+                // no one can see the ball -> do a cheeky thing
+                if(myRobotCoord.x >= 0){
+                    // on the right
+                    tempControl = coordMover.goToCoords({10, -50}, 0);
+                    myBallCoord.x = -30;
+                    myBallCoord.y = -30;
+
+                } else {
+                    // on the left
+                    tempControl = coordMover.goToCoords({-10, -50}, 0);
+                    myBallCoord.x = 30;
+                    myBallCoord.y = -30;
+                }
+
+            } else {
+                if(coordMover.completed){
+                    coordinate targets[] = {{0,0}};
+                    int rotationTargets[] = {0};
+                    coordMover.setTargetList(targets, sizeof(targets)/sizeof(targets[0]), rotationTargets);
+                }
+                tempControl = coordMover.calcMove();
             }
-            tempControl = coordMover.calcMove();
+            // TODO: write some proper strategies in here (add in xbee strats)
+
         }else{
             /* Big Boi Field! */
             tempControl = calculateSpiral(ballLocation);
@@ -273,14 +289,14 @@ moveControl DirectionController::calculateGoalie(){
 
         ballAngle = cam.ballAngle;
         ballDist = cam.ballDist;
+        Serial.println("k");
     } else if(xbee.seesBall) {
         ballAngle = mod(atan2(xbee.ballCoords.y - myRobotCoord.y, xbee.ballCoords.x - myRobotCoord.x)*radToAng - 90, 360);
         ballDist = sqrt(pow(xbee.ballCoords.y-myRobotCoord.y, 2) + pow(xbee.ballCoords.x-myRobotCoord.x, 2));
+        Serial.println(ballAngle);
     }
 
     ballAngle = ballAngle != 65506 ? doubleMod(ballAngle+180, 360)-180 : 65506;
-
-    // Serial.println(ballAngle);
 
     // Check if we need to yeet back
     // Serial.print(myRobotCoord.y); Serial.print(" "); Serial.println(TABLE_BACK_Y + goalieDistance);

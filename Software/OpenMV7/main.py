@@ -12,8 +12,8 @@ class Finder:
         self.robot = robot_
         if self.robot == self.ROBOT_O: #O_bot
             self.thresholds = [(38, 79, 33, 78, -8, 72), #Ball
-            (42, 100, -29, 11, 28, 127),  #Yellow Goal
-            (50, 69, -22, -3, -53, -17)] # Blue Goal
+            (42, 100, -29, 11, 45, 127),  #Yellow Goal
+            (41, 56, -23, 1, -50, -9)] # Blue Goal
             self.window = (70, 0, 180, 179)
         elif self.robot == self.ROBOT_P2: #P2_bot
             self.thresholds = [(28, 100, 41, 127, 6, 127), #Ball
@@ -37,7 +37,7 @@ class Finder:
 
         # === GAIN ===
         curr_gain = sensor.get_gain_db()
-        sensor.set_auto_gain(False, gain_db=curr_gain * 0.8)
+        sensor.set_auto_gain(False, gain_db=curr_gain)
 
         # === EXPOSURE ===
         curr_exposure = sensor.get_exposure_us()
@@ -281,7 +281,7 @@ while True:
     #clock.tick()
     # ledController.blink()
     finder.takeSnapshot() # (draw center cross)
-    data = finder.findObjects(True, True, True) # (mark ball, mark yellow, mark blue)
+    data = finder.findObjects(True, False, False) # (mark ball, mark yellow, mark blue)
     sender.sendData(data)
 
     #print(data)
