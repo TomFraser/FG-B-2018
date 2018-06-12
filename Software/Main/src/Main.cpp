@@ -82,7 +82,7 @@ void loop(){
 
     // Serial.println(cam.data.ballAngle);
 
-    // Serial.print("isConnected: "); Serial.println(xbee.isConnected());
+    Serial.print("isConnected: "); Serial.println(xbee.isConnected());
 
     /* Update Game Data */
     dc.updateData(cam.data, spi.lidars, light.data, xbee.otherData, imu.getHeading(), robotMode.getMode());

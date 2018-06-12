@@ -3,6 +3,7 @@
 
 #include <Config.h>
 #include <Common.h>
+#include <Timer.h>
 
 #define XSerial Serial6
 
@@ -18,6 +19,7 @@ private:
     void write(xbeeData values);
     xbeeData ourData = {{65506, 65506}, {65506, 65506}, false, false};
     long lastWrite = 0;
+    Timer xbeeSendTimer = Timer(0);
 
 };
 

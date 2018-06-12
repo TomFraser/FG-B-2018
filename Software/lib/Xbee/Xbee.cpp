@@ -5,6 +5,7 @@ XbeeController xbee = XbeeController();
 XbeeController::XbeeController(){
     XSerial.begin(9600);
     resetOtherData();
+    xbeeSendTimer.reset();
 }
 
 bool XbeeController::isConnected(){
@@ -15,8 +16,9 @@ bool XbeeController::isConnected(){
 
 xbeeData XbeeController::update(xbeeData values){
     read();
-    if(millis() > lastWrite + 10){
+    if(xbeeSendTimer.hasBeenMS(10)){
         write(values);
+        xbeeSendTimer.reset();
     }
     if(!isConnected()){
         resetOtherData();
