@@ -36,7 +36,7 @@ void XbeeController::resetOtherData(){
 
 xbeeData XbeeController::read(){
     // resetOtherData();
-    uint16_t buf[XBEE_PACKAGE - 2] = {65506, 65506, 65506, 65506, false, false};
+    int buf[XBEE_PACKAGE - 2] = {65506, 65506, 65506, 65506, false, false};
     while(XSerial.available() >= XBEE_PACKAGE){
         uint8_t firstByte = XSerial.read();
         uint8_t secondByte = XSerial.peek();

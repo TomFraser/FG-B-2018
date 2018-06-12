@@ -1,6 +1,6 @@
 #define DEBUG false
 
-#define ROBOT O_bot
+#define ROBOT P2_bot
 #define ATTACK_YELLOW false
 #define SUPERTEAM false
 
