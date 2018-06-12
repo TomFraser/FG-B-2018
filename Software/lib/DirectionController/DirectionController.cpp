@@ -266,10 +266,12 @@ moveControl DirectionController::calculateAttack(){
 }
 
 moveControl DirectionController::calculateGoalie(){
+    // Serial.print(lidar.backDist); Serial.print(" "); Serial.println(goalieDistance);
+
     double ballAngle = 65506;
     double ballDist = 65506;
     if(cam.ballAngle != 65506) {
-        if((cam.ballAngle > 60 && cam.ballAngle < 300)||((abs(fromFront(cam.ballAngle)) < 10) && cam.ballDist < 100 && myRobotCoord.y < 0)){
+        if((cam.ballAngle > 60 && cam.ballAngle < 300)||((abs(fromFront(cam.ballAngle)) < 5) && cam.ballDist < 100 && myRobotCoord.y < 0)){
             goalieVerPID.update(lidar.backDist, goalieDistance, 0.00);
             return {moveAngle, SPEED_VAL, false, 0};
         }
@@ -286,8 +288,9 @@ moveControl DirectionController::calculateGoalie(){
     // Serial.println(ballAngle);
 
     // Check if we need to yeet back
-    if(ballAngle == 65506 && myRobotCoord.y > TABLE_BACK_Y + goalieDistance + 10){
-        return coordMover.goToCoords({0, TABLE_BACK_Y + goalieDistance + 10}, 0);
+    // Serial.print(myRobotCoord.y); Serial.print(" "); Serial.println(TABLE_BACK_Y + goalieDistance);
+    if(ballAngle == 65506 && myRobotCoord.y > GOALIE_Y){
+        return coordMover.goToCoords({0, GOALIE_Y}, 0);
     }
 
     double horVector = 0;
@@ -320,6 +323,7 @@ moveControl DirectionController::calculateGoalie(){
     // x is ouside the bounds
 
     double vertVector = 0;
+    // Serial.print(lidar.backDist); Serial.print(" "); Serial.println(goalieDistance);
     if(lidar.backDist != 65506){
         vertVector = -goalieVerPID.update(lidar.backDist, goalieDistance, 0.00);
     }

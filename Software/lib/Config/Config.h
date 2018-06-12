@@ -104,7 +104,7 @@
 #define SPIRAL_CONST 1000
 #define SPIRAL_COORD_DIST 10
 #define ENABLE_TARGET_SPIRAL true
-#define GOALIE_Y -60
+#define GOALIE_Y -40
 #define GOALIE_X_RANGE 20
 #define GOALIE_AVOID_SPEED 30
 #define TARGET_X 0
