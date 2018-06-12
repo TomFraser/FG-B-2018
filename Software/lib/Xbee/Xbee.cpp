@@ -11,7 +11,7 @@ XbeeController::XbeeController(){
 bool XbeeController::isConnected(){
     // Serial.println(lastWrite);
     // Serial.println(XSerial.available());
-    return millis() < lastWrite + 1000;
+    return millis() < lastWrite + 2000;
 }
 
 xbeeData XbeeController::update(xbeeData values){
