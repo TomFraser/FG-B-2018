@@ -53,6 +53,13 @@ void setup(){
     // delay(3000);
     // kicker.controlBall(0, 100);
     // delay(2000);
+
+    // get ir data for goalie back dist
+    spi.getIRData();
+    while(spi.lidars.backDist == 0 || spi.lidars.backDist == 0){
+        spi.getIRData();
+    }
+    dc.setGoalieDistance(spi.lidars.backDist);
 }
 
 void loop(){
@@ -73,10 +80,13 @@ void loop(){
     /* Send and recieve Xbee Data */
     xbee.update(dc.getXbeeData());
 
+    // Serial.println(cam.data.ballAngle);
+
     // Serial.print("isConnected: "); Serial.println(xbee.isConnected());
 
     /* Update Game Data */
     dc.updateData(cam.data, spi.lidars, light.data, xbee.otherData, imu.getHeading(), robotMode.getMode());
+
 
     // kicker.controlBall(12);
     // kicker.kickBall();

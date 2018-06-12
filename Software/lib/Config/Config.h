@@ -1,4 +1,4 @@
-#define DEBUG true
+#define DEBUG false
 
 #define ROBOT O_bot
 #define ATTACK_YELLOW false
@@ -11,6 +11,11 @@
 #define ALT_SCK 14
 #define CAM_TRANSFER_NUM 12
 #define CAM_BUFFER_NUM 20
+#if ROBOT
+    #define CAM_MIN_COUNT 3
+#else
+    #define CAM_MIN_COUNT 19
+#endif
 #define LIDAR_SS 49
 #define IR_TRANSFER_NUM 4
 
@@ -99,11 +104,11 @@
 #define SPIRAL_CONST 1000
 #define SPIRAL_COORD_DIST 10
 #define ENABLE_TARGET_SPIRAL true
-#define GOALIE_Y -65
-#define GOALIE_X_RANGE 15
+#define GOALIE_Y -60
+#define GOALIE_X_RANGE 20
+#define GOALIE_AVOID_SPEED 30
 #define TARGET_X 0
 #define TARGET_Y 0
-#define GOALIE_DISTANCE 60
 
 /* Light */
 #define AUTO_LIGHT true

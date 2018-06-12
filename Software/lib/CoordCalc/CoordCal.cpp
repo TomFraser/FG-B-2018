@@ -13,9 +13,14 @@ void CoordCalc::updateData(absCameraData cam, lidarData lidar, mode playMode){
     if(playMode == mode::attacker){
         camCoords = {65506, 65506};
     } else {
-        camCoords = calculateCamCoords(cam);
-    }
+        // Serial.println(cam.defenceAngle);
 
+        if(abs(cam.defenceAngle) < 360){
+            camCoords = calculateCamCoords(cam);
+        } else {
+            camCoords = {65506, 65506};
+        }
+    }
     // Serial.print(camCoords.x); Serial.print(" "); Serial.println(camCoords.y);
 
     // Serial.print(lidar.leftDist); Serial.print(" "); Serial.print(lidar.rightDist); Serial.print(" "); Serial.print(lidar.frontDist); Serial.print(" "); Serial.println(lidar.backDist);

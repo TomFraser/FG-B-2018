@@ -11,6 +11,10 @@ DirectionController::DirectionController(){
     // timeSinceLastKick.reset();
 }
 
+void DirectionController::setGoalieDistance(int goalieDistance_){
+    goalieDistance = goalieDistance_;
+}
+
 // takes in all structs and data
 void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightData light_, xbeeData xbee_, double compass_, mode playMode_){
     compass = compass_;
@@ -263,30 +267,55 @@ moveControl DirectionController::calculateAttack(){
 
 moveControl DirectionController::calculateGoalie(){
     double ballAngle = 65506;
+    double ballDist = 65506;
     if(cam.ballAngle != 65506) {
+        if((cam.ballAngle > 60 && cam.ballAngle < 300)||((abs(fromFront(cam.ballAngle)) < 10) && cam.ballDist < 100 && myRobotCoord.y < 0)){
+            goalieVerPID.update(lidar.backDist, goalieDistance, 0.00);
+            return {moveAngle, SPEED_VAL, false, 0};
+        }
+
         ballAngle = cam.ballAngle;
+        ballDist = cam.ballDist;
     } else if(xbee.seesBall) {
         ballAngle = atan2(xbee.ballCoords.y - myRobotCoord.y, xbee.ballCoords.x - myRobotCoord.x);
+        ballDist = sqrt(pow(xbee.ballCoords.y-myRobotCoord.y, 2) + pow(xbee.ballCoords.x-myRobotCoord.x, 2));
     }
 
     ballAngle = ballAngle != 65506 ? doubleMod(ballAngle+180, 360)-180 : 65506;
 
-    double horVector;
+    double horVector = 0;
     if(ballAngle != 65506){
+        ballAngle = abs(ballAngle) < 5 ? 0 : ballAngle;
         horVector = goalieAnglePID.update(ballAngle, 0.00, 0.00);
-        // DO LIMITING HERE
+        // Serial.print(horVector); Serial.print(" "); Serial.println(myRobotCoord.x);
+        if(horVector < 0){
+            if(myRobotCoord.x > GOALIE_X_RANGE+10){
+                horVector = GOALIE_AVOID_SPEED;
+            } else if(myRobotCoord.x >= GOALIE_X_RANGE){
+                horVector = 0;
+            }
+        } else if(horVector > 0){
+            if(myRobotCoord.x < -GOALIE_X_RANGE-10){
+                horVector = -GOALIE_AVOID_SPEED;
+            } else if(myRobotCoord.x <= -GOALIE_X_RANGE){
+                horVector = 0;
+            }
+        }
+        // Serial.println(horVector);
     } else {
-        // cant see the ball at all -> center with left and right sonars
-        double lidarDiff = lidar.rightDist - lidar.leftDist;
-        lidarDiff = abs(lidarDiff) < 2 ? 0 : lidarDiff;
-        horVector = goalieSonarPID.update(lidarDiff, 0.00, 0.00);
+        // cant see the ball at all -> center with x coordinate
+        if(myRobotCoord.x != 65506){
+            horVector = goalieHorPID.update(abs(myRobotCoord.x) < 5 ? 0 : myRobotCoord.x, 0.00, 0.00);
+        }
     }
 
     // test if this still works, and then limit the horVector if the
     // x is ouside the bounds
 
-
-    double vertVector = -goalieVerPID.update(lidar.backDist, GOALIE_DISTANCE, 0.00);
+    double vertVector = 0;
+    if(lidar.backDist != 65506){
+        vertVector = -goalieVerPID.update(lidar.backDist, goalieDistance, 0.00);
+    }
 
     double direction = atan2(vertVector, horVector)*radToAng;
     double speed = sqrt(vertVector*vertVector + horVector*horVector);
