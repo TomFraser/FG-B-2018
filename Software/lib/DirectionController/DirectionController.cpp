@@ -4,6 +4,13 @@ DirectionController dc = DirectionController();
 
 /* Public Functions */
 
+DirectionController::DirectionController(){
+    // pinMode(KICKER_PIN, OUTPUT);
+    // digitalWrite(KICKER_PIN, LOW);
+    // timeSinceKick.reset();
+    // timeSinceLastKick.reset();
+}
+
 // takes in all structs and data
 void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightData light_, xbeeData xbee_, double compass_, mode playMode_){
     compass = compass_;
@@ -66,6 +73,7 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
 }
 
 moveControl DirectionController::calculate(){
+    controlBall(playMode);
     if(playMode == mode::attacker){
         return calculateReturn(calculateAttack());
     }else if(playMode == mode::defender){
@@ -222,7 +230,8 @@ moveControl DirectionController::calculateAttack(){
             double deltaY = ATTACK_GOAL_Y - myRobotCoord.y;
             double deltaX = ATTACK_GOAL_X - myRobotCoord.x;
             double angle = atan2(deltaY, deltaX);
-            tempControl.rotation = fromFront(mod(angle * radToAng - 90, 360));
+            // tempControl.rotation = fromFront(mod(angle * radToAng - 90, 360));
+            tempControl.rotation = 0;
         }
 
         isSpiral = false;
@@ -235,8 +244,10 @@ moveControl DirectionController::calculateAttack(){
             /* Normal Game */
             // TODO: write some proper strategies in here (add in xbee strats)
             if(coordMover.completed){
-                coordinate targets[] = {{0, -50}, {40, -50}, {40, 0}, {40, 50}, {0, 50}, {0, 70}};
-                int rotationTargets[] = {0, -90, -90, -90, 180, 0};
+                // coordinate targets[] = {{0, -50}, {40, -50}, {40, 0}, {40, 50}, {0, 50}, {0, 70}};
+                // int rotationTargets[] = {0, -90, -90, -90, 180, 0};
+                coordinate targets[] = {{0,0}};
+                int rotationTargets[] = {0};
                 coordMover.setTargetList(targets, sizeof(targets)/sizeof(targets[0]), rotationTargets);
             }
             tempControl = coordMover.calcMove();
@@ -323,4 +334,19 @@ moveControl DirectionController::calculateSpiral(double target){
 
     spiralDirection = doubleMod(spiralDirection + spiralAdd, 360.0);
     return {spiralDirection, SPIRAL_SPEED ,false, 0};
+}
+
+void DirectionController::controlBall(mode playMode_){
+    if(playMode_ == mode::attacker){
+        /* Attacking */
+        if(abs(fromFront(cam.attackAngle)) < SOLENOID_THRESHOLD && myRobotCoord.y > 15 && abs(fromFront(cam.ballAngle)) <= 10){
+            /* We are roughly facing the goal and are in their half of the field */
+            kicker.kickBall();
+        }
+    // }else if(playMode_ == mode::defender){
+    //     /* Defending */
+    //     if(myRobotCoord.y > -45){
+    //         kicker.kickBall();
+    //     }
+    }
 }

@@ -33,7 +33,7 @@ private:
     int currRotation;
 
     // PIDs
-    PID goToCoordsPID = PID(-0.50, 0.0, 0.0, 0.0);
+    PID goToCoordsPID = PID(-2, 0.0, -0.1, 0.0);
 
 
 };

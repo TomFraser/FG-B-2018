@@ -9,11 +9,13 @@
 #include <PID.h>
 #include <Orbit.h>
 #include <CoordMover.h>
+#include <BallManager.h>
 
 class DirectionController{
 
 public:
     /* Functions */
+    DirectionController();
     void attackingYellow(bool attackYellow_);
     void updateData(cameraData cam_, lidarData lidar_, lightData light_, xbeeData xbee_, double compass_, mode playMode_);
     moveControl calculate();
@@ -31,7 +33,11 @@ private:
     moveControl calculateGoalie();
     lidarData adjustLidar(lidarData lidar);
     moveControl calculateSpiral(double target);
+    void controlBall(mode playMode_);
 
+    /* Timers for kicker */
+    // Timer timeSinceKick = Timer(0);
+    // Timer timeSinceLastKick = Timer(0);
 
     /* Objects */
     LightTracker lightTracker = LightTracker();

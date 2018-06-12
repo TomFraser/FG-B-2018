@@ -12,14 +12,14 @@ class Finder:
         self.robot = robot_
         if self.robot == self.ROBOT_O: #O_bot
             self.thresholds = [(46, 79, 33, 78, -8, 72), #Ball
-            (65, 100, -40, 127, 36, 127),  #Yellow Goal
+            (40, 82, -26, 88, 33, 79),  #Yellow Goal
             (50, 69, -22, -3, -53, -17)] # Blue Goal
-            self.window = (77, 8, 186, 187)
-        elif self.robot == self.ROBOT_P2: #P2_bot
-            self.thresholds = [(45, 71, 21, 68, 5, 76), #Ball
-            (39, 71, -41, 53, 48, 127), #Yellow Goal
-            (27, 44, -30, 7, -45, -6)] # Blue Goal
             self.window = (70, 0, 180, 179)
+        elif self.robot == self.ROBOT_P2: #P2_bot
+            self.thresholds = [(36, 85, -26, 75, 46, 71), #Ball
+            (39, 71, -41, 53, 48, 127), #Yellow Goal
+            (53, 67, -45, -5, -55, 0)] # Blue Goal
+            self.window = (77, 8, 186, 187)
 
 
         # sensor setup
@@ -281,7 +281,7 @@ while True:
     #clock.tick()
     # ledController.blink()
     finder.takeSnapshot() # (draw center cross)
-    data = finder.findObjects() # (mark ball, mark yellow, mark blue)
+    data = finder.findObjects(True, True, True) # (mark ball, mark yellow, mark blue)
     sender.sendData(data)
 
     #print(data)

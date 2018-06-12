@@ -8,5 +8,6 @@
         "string_view": "cpp",
         "vector": "cpp",
         "istream": "cpp"
-    }
+    },
+    "C_Cpp.dimInactiveRegions": false
 }
