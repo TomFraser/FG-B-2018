@@ -11,15 +11,15 @@ class Finder:
     def init(self, robot_):
         self.robot = robot_
         if self.robot == self.ROBOT_O: #O_bot
-            self.thresholds = [(46, 79, 33, 78, -8, 72), #Ball
-            (40, 82, -26, 88, 33, 79),  #Yellow Goal
+            self.thresholds = [(38, 79, 33, 78, -8, 72), #Ball
+            (42, 100, -29, 11, 28, 127),  #Yellow Goal
             (50, 69, -22, -3, -53, -17)] # Blue Goal
             self.window = (70, 0, 180, 179)
         elif self.robot == self.ROBOT_P2: #P2_bot
-            self.thresholds = [(36, 85, -26, 75, 46, 71), #Ball
-            (39, 71, -41, 53, 48, 127), #Yellow Goal
+            self.thresholds = [(28, 100, 41, 127, 6, 127), #Ball
+            (36, 100, -30, 19, 37, 127), #Yellow Goal
             (53, 67, -45, -5, -55, 0)] # Blue Goal
-            self.window = (77, 8, 186, 187)
+            self.window = (77, 0, 186, 179)
 
 
         # sensor setup
@@ -37,11 +37,11 @@ class Finder:
 
         # === GAIN ===
         curr_gain = sensor.get_gain_db()
-        sensor.set_auto_gain(False, gain_db=curr_gain)
+        sensor.set_auto_gain(False, gain_db=curr_gain * 0.8)
 
         # === EXPOSURE ===
         curr_exposure = sensor.get_exposure_us()
-        sensor.set_auto_exposure(False, exposure_us = int(curr_exposure))
+        sensor.set_auto_exposure(False, exposure_us = int(curr_exposure*0.8))
 
         # === WHITE BAL ===
         sensor.set_auto_whitebal(False, rgb_gain_db=(-6.02073, -4.99849, 1.260288)) #Must remain false for blob tracking
@@ -281,7 +281,7 @@ while True:
     #clock.tick()
     # ledController.blink()
     finder.takeSnapshot() # (draw center cross)
-    data = finder.findObjects(True, True, True) # (mark ball, mark yellow, mark blue)
+    data = finder.findObjects() # (mark ball, mark yellow, mark blue)
     sender.sendData(data)
 
     #print(data)

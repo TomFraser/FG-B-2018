@@ -231,9 +231,9 @@ moveControl DirectionController::calculateAttack(){
             tempControl.rotation = -cam.attackAngle;
         } else {
             // 'goal track' based on our coordinates
-            double deltaY = ATTACK_GOAL_Y - myRobotCoord.y;
-            double deltaX = ATTACK_GOAL_X - myRobotCoord.x;
-            double angle = atan2(deltaY, deltaX);
+            // double deltaY = ATTACK_GOAL_Y - myRobotCoord.y;
+            // double deltaX = ATTACK_GOAL_X - myRobotCoord.x;
+            // double angle = atan2(deltaY, deltaX);
             // tempControl.rotation = fromFront(mod(angle * radToAng - 90, 360));
             tempControl.rotation = 0;
         }
@@ -282,6 +282,11 @@ moveControl DirectionController::calculateGoalie(){
     }
 
     ballAngle = ballAngle != 65506 ? doubleMod(ballAngle+180, 360)-180 : 65506;
+
+    // Check if we need to yeet back
+    if(ballAngle == 65506 && myRobotCoord.y > TABLE_BACK_Y + goalieDistance + 10){
+        return coordMover.goToCoords({0, TABLE_BACK_Y + goalieDistance + 10}, 0);
+    }
 
     double horVector = 0;
     if(ballAngle != 65506){

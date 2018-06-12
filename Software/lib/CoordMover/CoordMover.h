@@ -22,9 +22,9 @@ public:
 
     bool completed = true;
 
+    moveControl goToCoords(coordinate target, int targetRot);
 
 private:
-    moveControl goToCoords(coordinate target, int targetRot);
     coordinate current;
     double currentHeading;
     coordinate targetList[TARGET_LIST_LENGTH];
