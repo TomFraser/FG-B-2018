@@ -230,11 +230,6 @@ moveControl DirectionController::calculateAttack(){
         if(cam.attackAngle != 65506){
             tempControl.rotation = -cam.attackAngle;
         } else {
-            // 'goal track' based on our coordinates
-            // double deltaY = ATTACK_GOAL_Y - myRobotCoord.y;
-            // double deltaX = ATTACK_GOAL_X - myRobotCoord.x;
-            // double angle = atan2(deltaY, deltaX);
-            // tempControl.rotation = fromFront(mod(angle * radToAng - 90, 360));
             tempControl.rotation = 0;
         }
 
