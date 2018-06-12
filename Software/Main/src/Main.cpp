@@ -37,12 +37,10 @@ void setup(){
     cam.initSerial();
 
     /* Set robot mode based on default mode */
+    robotMode.setDefault(defender);
     #if ROBOT
         // O_bot
-        robotMode.setDefault(attacker);
-    #else
-        // P2_bot
-        robotMode.setDefault(defender);
+        robotMode.setMode(attacker);
     #endif
 
     // Dribbler Stuff - TODO
@@ -54,13 +52,16 @@ void setup(){
     // kicker.controlBall(0, 100);
     // delay(2000);
 
-    // get ir data for goalie back dist
-    spi.getIRData();
-    while(spi.lidars.backDist == 0 || spi.lidars.backDist == 0){
+    if(robotMode.getMode() == defender){
+        // get ir data for goalie back dist
         spi.getIRData();
+        while(spi.lidars.backDist == 0 || spi.lidars.backDist == 0){
+            spi.getIRData();
+        }
+        dc.setGoalieDistance(spi.lidars.backDist+LIDAR_CORRECT_BACK+8);
+    } else {
+        dc.setGoalieDistance(GOALIE_DEFAULT_DIST);
     }
-
-    dc.setGoalieDistance(spi.lidars.backDist+LIDAR_CORRECT_BACK+8);
 }
 
 void loop(){
@@ -80,6 +81,14 @@ void loop(){
 
     /* Send and recieve Xbee Data */
     xbee.update(dc.getXbeeData());
+
+    if(xbee.isConnected()){
+        #if ROBOT
+            robotMode.setMode(attacker);
+        #endif
+    } else {
+        robotMode._default();
+    }
 
     /* Update Game Data */
     dc.updateData(cam.data, spi.lidars, light.data, xbee.otherData, imu.getHeading(), robotMode.getMode());

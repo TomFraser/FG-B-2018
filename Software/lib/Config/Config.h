@@ -105,10 +105,13 @@
 #define SPIRAL_COORD_DIST 10
 #define ENABLE_TARGET_SPIRAL true
 #define GOALIE_Y -40
+#define GOALIE_DEFAULT_DIST 55
 #define GOALIE_X_RANGE 20
 #define GOALIE_AVOID_SPEED 30
 #define TARGET_X 0
 #define TARGET_Y 0
+
+
 
 /* Light */
 #define AUTO_LIGHT true
