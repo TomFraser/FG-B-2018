@@ -61,14 +61,6 @@ void setup(){
     }
 
     dc.setGoalieDistance(spi.lidars.backDist+LIDAR_CORRECT_BACK+8);
-    // delay(100);
-    // int backVal = 0;
-    // for(int i=0;i<100;i++){
-    //     spi.getIRData();
-    //     backVal += spi.lidars.backDist+LIDAR_CORRECT_BACK;
-    // }
-    // backVal = (int)backVal/100;
-    // dc.setGoalieDistance(backVal);
 }
 
 void loop(){

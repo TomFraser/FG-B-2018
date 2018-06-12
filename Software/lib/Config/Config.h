@@ -1,6 +1,6 @@
 #define DEBUG false
 
-#define ROBOT P2_bot
+#define ROBOT O_bot
 #define ATTACK_YELLOW false
 #define SUPERTEAM false
 
@@ -113,7 +113,7 @@
 /* Light */
 #define AUTO_LIGHT true
 #define LIGHT_CALB_LOOPS 1000
-#define THRESHOLD_OFFSET 10
+#define THRESHOLD_OFFSET 50
 
 #define LIGHTSENSOR_NUM 20
 #define maxNumClusters 20

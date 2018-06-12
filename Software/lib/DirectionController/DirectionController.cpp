@@ -206,16 +206,16 @@ moveControl DirectionController::calculateReturn(moveControl tempControl){
     lightTracker.update(light.angle, tempControl.direction, tempControl.speed, cam.ballAngle, light.numSensors);
 
     // set up the return data struct (WITH LIGHT)
-    // return {absToRel(lightTracker.getDirection()),
-    //         lightTracker.getSpeed(),
-    //         tempControl.doBoost && lightTracker.getNormalGameplay(),
-    //         rotationPID.update(doubleMod(doubleMod(compass-tempControl.rotation, 360)+180, 360)-180, 0.00, 0.00)};
+    return {absToRel(lightTracker.getDirection()),
+            lightTracker.getSpeed(),
+            tempControl.doBoost && lightTracker.getNormalGameplay(),
+            rotationPID.update(doubleMod(doubleMod(compass-tempControl.rotation, 360)+180, 360)-180, 0.00, 0.00)};
 
     // set up the return data struct (NO LIGHT)
-    return {absToRel(tempControl.direction),
-            tempControl.speed,
-            tempControl.doBoost,
-            rotationPID.update(doubleMod(doubleMod(compass-tempControl.rotation, 360)+180, 360)-180, 0.00, 0.00)};
+    // return {absToRel(tempControl.direction),
+    //         tempControl.speed,
+    //         tempControl.doBoost,
+    //         rotationPID.update(doubleMod(doubleMod(compass-tempControl.rotation, 360)+180, 360)-180, 0.00, 0.00)};
 }
 
 // play modes
