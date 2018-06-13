@@ -264,8 +264,6 @@ moveControl DirectionController::calculateAttack(){
                 }
                 tempControl = coordMover.calcMove();
             }
-            // TODO: write some proper strategies in here (add in xbee strats)
-
         }else{
             /* Big Boi Field! */
             tempControl = calculateSpiral(ballLocation);

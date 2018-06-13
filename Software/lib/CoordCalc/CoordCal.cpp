@@ -8,19 +8,24 @@ CoordCalc::CoordCalc(){
 void CoordCalc::updateData(absCameraData cam, lidarData lidar, mode playMode){
 
     /* Calculate robot position */
-    // caculate an estimate of our position with the camera
-    coordinate camCoords;
-    if(playMode == mode::attacker){
-        camCoords = {65506, 65506};
-    } else {
-        // Serial.println(cam.defenceAngle);
-
-        if(abs(cam.defenceAngle) < 360){
-            camCoords = calculateCamCoords(cam);
-        } else {
+    #if !SUPERTEAM
+        // caculate an estimate of our position with the camera
+        coordinate camCoords;
+        if(playMode == mode::attacker){
             camCoords = {65506, 65506};
+        } else {
+            // Serial.println(cam.defenceAngle);
+
+            if(abs(cam.defenceAngle) < 360){
+                camCoords = calculateCamCoords(cam);
+            } else {
+                camCoords = {65506, 65506};
+            }
         }
-    }
+    #else
+        camCoords = {65506, 65506};
+    #endif
+
     // Serial.print(camCoords.x); Serial.print(" "); Serial.println(camCoords.y);
 
     // Serial.print(lidar.leftDist); Serial.print(" "); Serial.print(lidar.rightDist); Serial.print(" "); Serial.print(lidar.frontDist); Serial.print(" "); Serial.println(lidar.backDist);

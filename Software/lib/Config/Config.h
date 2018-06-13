@@ -57,15 +57,27 @@
 #define SHORT_DISTANCE 0.00
 
 /* Coord Calc */
-#define ATTACK_GOAL_Y 90
-#define ATTACK_GOAL_X 0
-#define DEFENSE_GOAL_Y -90
-#define DEFENSE_GOAL_X 0
+#if SUPERTEAM
+    #define ATTACK_GOAL_Y 270
+    #define ATTACK_GOAL_X 0
+    #define DEFENSE_GOAL_Y -270
+    #define DEFENSE_GOAL_X 0
 
-#define TABLE_LEFT_X -91
-#define TABLE_RIGHT_X 91
-#define TABLE_FRONT_Y 121
-#define TABLE_BACK_Y -121
+    #define TABLE_LEFT_X -200
+    #define TABLE_RIGHT_X 200
+    #define TABLE_FRONT_Y 300
+    #define TABLE_BACK_Y -300
+#else
+    #define ATTACK_GOAL_Y 90
+    #define ATTACK_GOAL_X 0
+    #define DEFENSE_GOAL_Y -90
+    #define DEFENSE_GOAL_X 0
+
+    #define TABLE_LEFT_X -91
+    #define TABLE_RIGHT_X 91
+    #define TABLE_FRONT_Y 121
+    #define TABLE_BACK_Y -121
+#endif
 
 #define LIDAR_MAX_SUM_HOR 100
 #define LIDAR_MIN_SUM_HOR 80
@@ -104,7 +116,13 @@
 #define SPIRAL_CONST 1000
 #define SPIRAL_COORD_DIST 10
 #define ENABLE_TARGET_SPIRAL true
-#define GOALIE_Y -40
+
+#if SUPERTEAM
+    #define GOALIE_Y -250
+#else
+    #define GOALIE_Y -40
+#endif
+
 #define GOALIE_DEFAULT_DIST 55
 #define GOALIE_X_RANGE 20
 #define GOALIE_AVOID_SPEED 30
