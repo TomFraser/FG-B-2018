@@ -289,11 +289,9 @@ moveControl DirectionController::calculateGoalie(){
 
         ballAngle = cam.ballAngle;
         ballDist = cam.ballDist;
-        Serial.println("k");
     } else if(xbee.seesBall) {
         ballAngle = mod(atan2(xbee.ballCoords.y - myRobotCoord.y, xbee.ballCoords.x - myRobotCoord.x)*radToAng - 90, 360);
         ballDist = sqrt(pow(xbee.ballCoords.y-myRobotCoord.y, 2) + pow(xbee.ballCoords.x-myRobotCoord.x, 2));
-        Serial.println(ballAngle);
     }
 
     ballAngle = ballAngle != 65506 ? doubleMod(ballAngle+180, 360)-180 : 65506;
