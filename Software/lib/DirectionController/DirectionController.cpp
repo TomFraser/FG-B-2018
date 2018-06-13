@@ -221,7 +221,6 @@ moveControl DirectionController::calculateReturn(moveControl tempControl){
 // play modes
 moveControl DirectionController::calculateAttack(){
     moveControl tempControl;
-    // if(false){
     if(moveAngle != 65506){
         // if we know where the ball is -> go to it
         tempControl.direction = moveAngle;
@@ -235,13 +234,20 @@ moveControl DirectionController::calculateAttack(){
 
         isSpiral = false;
         ballLocation = cam.ballAngle;
-
-        // BACKSPIN LOGIC CAN GO HERE
     } else {
         // dont know where the ball is -> do other strategies
         if(!SUPERTEAM){
             /* Normal Game */
-            if(!xbee.seesBall && xbee.knowsPosition){
+            if(xbee.seesBall && xbee.knowsPosition){
+                double otherAngle = mod(atan2(xbee.ballCoords.y - xbee.robotCoords.y, xbee.ballCoords.x - xbee.robotCoords.x)*radToAng - 90, 360);
+                double otherDist = sqrt(pow(xbee.ballCoords.y-xbee.robotCoords.y, 2) + pow(xbee.ballCoords.x-xbee.robotCoords.x, 2));
+
+
+                if(abs(fromFront(otherAngle)) < 5 && otherDist < 100){
+                    tempControl = coordMover.goToCoords({0, 0}, 0);
+                }
+
+            } else if(!xbee.seesBall && xbee.knowsPosition){
                 // no one can see the ball -> do a cheeky thing
                 if(myRobotCoord.x >= 0){
                     // on the right
@@ -280,7 +286,7 @@ moveControl DirectionController::calculateGoalie(){
     double ballAngle = 65506;
     double ballDist = 65506;
     if(cam.ballAngle != 65506) {
-        if((cam.ballAngle > 60 && cam.ballAngle < 300)||((abs(fromFront(cam.ballAngle)) < 5) && cam.ballDist < 100 && myRobotCoord.y < 0)){
+        if((cam.ballAngle > 60 && cam.ballAngle < 300)||((abs(fromFront(cam.ballAngle)) < 15) && cam.ballDist < 100 && myRobotCoord.y < 0)){
             goalieVerPID.update(lidar.backDist, goalieDistance, 0.00);
             return {moveAngle, SPEED_VAL, false, 0};
         }

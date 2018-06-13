@@ -1,6 +1,6 @@
 #define DEBUG false
 
-#define ROBOT O_bot
+#define ROBOT P2_bot
 #define ATTACK_YELLOW true
 #define SUPERTEAM false
 
@@ -124,7 +124,7 @@
 #endif
 
 #define GOALIE_DEFAULT_DIST 55
-#define GOALIE_X_RANGE 20
+#define GOALIE_X_RANGE 23
 #define GOALIE_AVOID_SPEED 30
 #define TARGET_X 0
 #define TARGET_Y 0
