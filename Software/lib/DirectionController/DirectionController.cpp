@@ -245,13 +245,13 @@ moveControl DirectionController::calculateAttack(){
                 // no one can see the ball -> do a cheeky thing
                 if(myRobotCoord.x >= 0){
                     // on the right
-                    tempControl = coordMover.goToCoords({10, -50}, 0);
+                    tempControl = coordMover.goToCoords({20, -50}, 0);
                     myBallCoord.x = -30;
                     myBallCoord.y = -30;
 
                 } else {
                     // on the left
-                    tempControl = coordMover.goToCoords({-10, -50}, 0);
+                    tempControl = coordMover.goToCoords({-20, -50}, 0);
                     myBallCoord.x = 30;
                     myBallCoord.y = -30;
                 }

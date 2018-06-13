@@ -58,7 +58,7 @@ void setup(){
         while(spi.lidars.backDist == 0 || spi.lidars.backDist == 0){
             spi.getIRData();
         }
-        dc.setGoalieDistance(spi.lidars.backDist+LIDAR_CORRECT_BACK+8);
+        dc.setGoalieDistance(spi.lidars.backDist+LIDAR_CORRECT_BACK + 2);
     } else {
         dc.setGoalieDistance(GOALIE_DEFAULT_DIST);
     }
