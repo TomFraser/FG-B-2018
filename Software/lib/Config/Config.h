@@ -1,7 +1,7 @@
 #define DEBUG false
 
 #define ROBOT O_bot
-#define ATTACK_YELLOW false
+#define ATTACK_YELLOW true
 #define SUPERTEAM false
 
 /* Speeds */
@@ -33,7 +33,7 @@
 #define ROTATION_CUTOFF 150
 
 #define BACKSPIN_PIN 6
-#define SOLENOID_THRESHOLD 15
+#define SOLENOID_THRESHOLD 20
 
 #define MAX_STRENGTH 80 /* REVIEW */
 #define LIGHTGATE_PIN 49

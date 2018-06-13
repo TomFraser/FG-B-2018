@@ -48,9 +48,9 @@ void setup(){
     // digitalWrite(13, HIGH);
     // delay(500);
     // digitalWrite(13, LOW);
-    // delay(3000);
+    // delay(300);
     // kicker.controlBall(0, 100);
-    // delay(2000);
+    // delay(200);
 
     if(robotMode.getMode() == defender){
         // get ir data for goalie back dist
@@ -82,18 +82,18 @@ void loop(){
     /* Send and recieve Xbee Data */
     xbee.update(dc.getXbeeData());
 
-    if(xbee.isConnected()){
-        #if ROBOT
-            robotMode.setMode(attacker);
-        #endif
-    } else {
-        robotMode._default();
-    }
+    // if(xbee.isConnected()){
+    //     #if ROBOT
+    //         robotMode.setMode(attacker);
+    //     #endif
+    // } else {
+    //     robotMode._default();
+    // }
 
     /* Update Game Data */
     dc.updateData(cam.data, spi.lidars, light.data, xbee.otherData, imu.getHeading(), robotMode.getMode());
 
-    // kicker.controlBall(12);
+    // kicker.controlBall(10);
     // kicker.kickBall();
     motors.move(dc.calculate());
 
