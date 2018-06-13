@@ -392,7 +392,7 @@ moveControl DirectionController::calculateSpiral(double target){
 void DirectionController::controlBall(mode playMode_){
     if(playMode_ == mode::attacker){
         /* Attacking */
-        if(abs(fromFront(cam.attackAngle)) < SOLENOID_THRESHOLD && myRobotCoord.y > 15 && abs(fromFront(cam.ballAngle)) <= 10){
+        if(abs(fromFront(cam.attackAngle)) < SOLENOID_THRESHOLD && abs(fromFront(cam.ballAngle)) <= 10 && cam.ballDist < 50){
             /* We are roughly facing the goal and are in their half of the field */
             kicker.kickBall();
         }
