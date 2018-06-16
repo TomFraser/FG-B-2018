@@ -81,14 +81,15 @@ void loop(){
 
     /* Send and recieve Xbee Data */
     xbee.update(dc.getXbeeData());
-
-    // if(xbee.isConnected()){
-    //     #if ROBOT
-    //         robotMode.setMode(attacker);
-    //     #endif
-    // } else {
-    //     robotMode._default();
-    // }
+    #if !SUPERTEAM
+        if(xbee.isConnected()){
+            #if ROBOT
+                robotMode.setMode(attacker);
+            #endif
+        } else {
+            robotMode._default();
+        }
+    #endif
 
     /* Update Game Data */
     dc.updateData(cam.data, spi.lidars, light.data, xbee.otherData, imu.getHeading(), robotMode.getMode());

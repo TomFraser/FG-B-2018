@@ -5,10 +5,6 @@ DirectionController dc = DirectionController();
 /* Public Functions */
 
 DirectionController::DirectionController(){
-    // pinMode(KICKER_PIN, OUTPUT);
-    // digitalWrite(KICKER_PIN, LOW);
-    // timeSinceKick.reset();
-    // timeSinceLastKick.reset();
 }
 
 void DirectionController::setGoalieDistance(int goalieDistance_){
@@ -394,12 +390,7 @@ void DirectionController::controlBall(mode playMode_){
         /* Attacking */
         if(abs(fromFront(cam.attackAngle)) < SOLENOID_THRESHOLD && abs(fromFront(cam.ballAngle)) <= 10 && cam.ballDist < 50){
             /* We are roughly facing the goal and are in their half of the field */
-            kicker.kickBall();
+            // kicker.kickBall();
         }
-    // }else if(playMode_ == mode::defender){
-    //     /* Defending */
-    //     if(myRobotCoord.y > -45){
-    //         kicker.kickBall();
-    //     }
     }
 }
