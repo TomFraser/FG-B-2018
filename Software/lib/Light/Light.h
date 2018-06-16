@@ -46,7 +46,7 @@ private:
     void findClusters(cluster *);
 
 
-    // cluster shit
+    // cluster stuff
     double getClusterAngle(int clusterBegin, int clusterEnd);
 
     // Other Stuff
