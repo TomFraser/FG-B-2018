@@ -241,6 +241,8 @@ moveControl DirectionController::calculateAttack(){
 
                 if(abs(fromFront(otherAngle)) < 5 && otherDist < 100){
                     tempControl = coordMover.goToCoords({0, 0}, 0);
+                }else{
+                    tempControl = coordMover.goToCoords({0,0}, 0);
                 }
 
             } else if(!xbee.seesBall && xbee.knowsPosition){
@@ -282,10 +284,10 @@ moveControl DirectionController::calculateGoalie(){
     double ballAngle = 65506;
     double ballDist = 65506;
     if(cam.ballAngle != 65506) {
-        if((cam.ballAngle > 60 && cam.ballAngle < 300)||((abs(fromFront(cam.ballAngle)) < 15) && cam.ballDist < 100 && myRobotCoord.y < 0)){
-            goalieVerPID.update(lidar.backDist, goalieDistance, 0.00);
-            return {moveAngle, SPEED_VAL, false, 0};
-        }
+        // if((cam.ballAngle > 60 && cam.ballAngle < 300)||((abs(fromFront(cam.ballAngle)) < 15) && cam.ballDist < 100 && myRobotCoord.y < -25)){
+        //     goalieVerPID.update(lidar.backDist, goalieDistance, 0.00);
+        //     return {moveAngle, SPEED_VAL, false, 0};
+        // }
 
         ballAngle = cam.ballAngle;
         ballDist = cam.ballDist;
@@ -388,9 +390,9 @@ moveControl DirectionController::calculateSpiral(double target){
 void DirectionController::controlBall(mode playMode_){
     if(playMode_ == mode::attacker){
         /* Attacking */
-        if(abs(fromFront(cam.attackAngle)) < SOLENOID_THRESHOLD && abs(fromFront(cam.ballAngle)) <= 10 && cam.ballDist < 50){
+        if(abs(fromFront(cam.attackAngle)) < SOLENOID_THRESHOLD && abs(fromFront(cam.ballAngle)) <= 10 && cam.ballDist < 30){
             /* We are roughly facing the goal and are in their half of the field */
-            // kicker.kickBall();
+            kicker.kickBall();
         }
     }
 }

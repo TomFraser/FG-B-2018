@@ -79,6 +79,7 @@ void Light::getVals(int *vals){
   for(int i = 0; i < LIGHTSENSOR_NUM; i++){
       vals[i] = analogRead(lightSensors[i]);
   }
+  vals[9] = vals[8];
 }
 
 void Light::getOnWhite(bool *vals){
