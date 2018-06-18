@@ -5,7 +5,7 @@
 #define SUPERTEAM false
 
 /* Speeds */
-#define SPEED_VAL 70
+#define SPEED_VAL 80
 #define FORWARD_SPEED 100
 
 #define ALT_SCK 14
@@ -123,7 +123,7 @@
     #define GOALIE_Y -40
 #endif
 
-#define GOALIE_DEFAULT_DIST 55
+#define GOALIE_DEFAULT_DIST 60
 #define GOALIE_X_RANGE 17
 #define GOALIE_AVOID_SPEED 30
 #define TARGET_X 0
@@ -134,7 +134,7 @@
 /* Light */
 #define AUTO_LIGHT true
 #define LIGHT_CALB_LOOPS 1000
-#define THRESHOLD_OFFSET 30
+#define THRESHOLD_OFFSET 55
 
 #define LIGHTSENSOR_NUM 20
 #define maxNumClusters 20

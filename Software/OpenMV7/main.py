@@ -11,14 +11,14 @@ class Finder:
     def init(self, robot_):
         self.robot = robot_
         if self.robot == self.ROBOT_O: #O_bot
-            self.thresholds = [(45, 76, 15, 77, 26, 75), #Ball
-            (58, 100, -27, 127, 28, 127), #Yellow Goal
-            (0, 100, -128, 127, -128, -37)] # Blue Goal
+            self.thresholds = [(57, 71, 15, 127, 20, 75), #Ball
+            (68, 100, -19, 27, 41, 81), #Yellow Goal
+            (27, 51, -3, 31, -87, -30)] # Blue Goal
             self.window = (70, 0, 180, 179)
         elif self.robot == self.ROBOT_P2: #P2_bot
-            self.thresholds = [(45, 76, 15, 77, 26, 75), #Ball
-            (58, 100, -27, 127, 28, 127), #Yellow Goal
-            (0, 100, -128, 127, -128, -37)] # Blue Goal
+            self.thresholds = [(50, 71, 15, 127, 20, 75), #Ball
+            (68, 100, -19, 27, 41, 81), #Yellow Goal
+            (27, 51, -3, 31, -87, -30)] # Blue Goal
             self.window = (77, 0, 186, 179)
 
 
@@ -28,12 +28,12 @@ class Finder:
         sensor.set_framesize(sensor.QVGA) #Resolution
         sensor.set_windowing(self.window)
 
-        sensor.skip_frames(time=2000)
+        sensor.skip_frames(time=1000)
 
         sensor.set_auto_exposure(False)
         sensor.set_auto_whitebal(False)
         # Need to let the above settings get in...
-        sensor.skip_frames(time = 500)
+        sensor.skip_frames(time = 250)
 
         # === GAIN ===
         curr_gain = sensor.get_gain_db()
@@ -269,7 +269,7 @@ sender.init(initSend=[65506, 65506, 65506, 65506, 65506, 655065])
 clock = time.clock()
 
 finder = Finder()
-finder.init(finder.ROBOT_P2)
+finder.init(finder.ROBOT_O)
 
 ledController.on(ledController.LED_RED)
 sensor.skip_frames(time=500)
@@ -281,7 +281,7 @@ while True:
     #clock.tick()
     # ledController.blink()
     finder.takeSnapshot() # (draw center cross)
-    data = finder.findObjects(True, False, True) # (mark ball, mark yellow, mark blue)
+    data = finder.findObjects(True, True, True) # (mark ball, mark yellow, mark blue)
     sender.sendData(data)
 
     #print(data)

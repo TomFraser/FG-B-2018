@@ -52,6 +52,7 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
 
     // lidar data
     lidar = adjustLidar(lidar_);
+    // Serial.println(lidar.rightDist);
 
     /* Calculate Coordinates of Ball and Robot */
     coordCalc.updateData(cam, lidar, playMode);
@@ -200,7 +201,7 @@ lidarData DirectionController::adjustLidar(lidarData lidar){
 moveControl DirectionController::calculateReturn(moveControl tempControl){
     // make sure we dont go over the line
     lightTracker.update(light.angle, tempControl.direction, tempControl.speed, cam.ballAngle, light.numSensors);
-
+    // Serial.println(lightTracker.getDirection());
     // set up the return data struct (WITH LIGHT)
     return {absToRel(lightTracker.getDirection()),
             lightTracker.getSpeed(),
@@ -249,13 +250,13 @@ moveControl DirectionController::calculateAttack(){
                 // no one can see the ball -> do a cheeky thing
                 if(myRobotCoord.x >= 0){
                     // on the right
-                    tempControl = coordMover.goToCoords({20, -50}, 0);
+                    tempControl = coordMover.goToCoords({15, -55}, 0);
                     myBallCoord.x = -30;
                     myBallCoord.y = -30;
 
                 } else {
                     // on the left
-                    tempControl = coordMover.goToCoords({-20, -50}, 0);
+                    tempControl = coordMover.goToCoords({-15, -55}, 0);
                     myBallCoord.x = 30;
                     myBallCoord.y = -30;
                 }
@@ -284,9 +285,9 @@ moveControl DirectionController::calculateGoalie(){
     double ballAngle = 65506;
     double ballDist = 65506;
     if(cam.ballAngle != 65506) {
-        // if((cam.ballAngle > 60 && cam.ballAngle < 300)||((abs(fromFront(cam.ballAngle)) < 15) && cam.ballDist < 100 && myRobotCoord.y < -25)){
+        // if((cam.ballAngle > 60 && cam.ballAngle < 300)||((abs(fromFront(cam.ballAngle)) < 20) && cam.ballDist < 50 && myRobotCoord.y < -25)){
         //     goalieVerPID.update(lidar.backDist, goalieDistance, 0.00);
-        //     return {moveAngle, SPEED_VAL, false, 0};
+        //     return {0.00, SPEED_VAL, false, 0};
         // }
 
         ballAngle = cam.ballAngle;
@@ -336,7 +337,8 @@ moveControl DirectionController::calculateGoalie(){
     double vertVector = 0;
     // Serial.print(lidar.backDist); Serial.print(" "); Serial.println(goalieDistance);
     if(lidar.backDist != 65506){
-        vertVector = -goalieVerPID.update(lidar.backDist, goalieDistance, 0.00);
+        // vertVector = -goalieVerPID.update(lidar.backDist, goalieDistance, 0.00);
+        vertVector =  lidar.backDist - goalieDistance;
     }
 
     double direction = atan2(vertVector, horVector)*radToAng;

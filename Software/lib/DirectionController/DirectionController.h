@@ -49,8 +49,8 @@ private:
     PID goalTrackingPID = PID(-2, -0.1, -0.2, 0.00);
     // Goalie pids
     PID goalieAnglePID = PID(-4, 0, -0.5, 0.00);
-    PID goalieHorPID = PID(-2.50, 0.00, -0.2, 0.00);
-    PID goalieVerPID = PID(2.00, 0.00, 0.2, 0.00);
+    PID goalieHorPID = PID(-1.25, 0.00, -0.2, 0.00);
+    PID goalieVerPID = PID(1, 0.00, 0.2, 0.00);
 
     /* Variables */
     int goalieDistance;
