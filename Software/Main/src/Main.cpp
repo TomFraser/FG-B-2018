@@ -81,15 +81,16 @@ void loop(){
 
     /* Send and recieve Xbee Data */
     xbee.update(dc.getXbeeData());
-    #if !SUPERTEAM
-        if(xbee.isConnected()){
-            #if ROBOT
-                robotMode.setMode(attacker);
-            #endif
-        } else {
-            robotMode._default();
-        }
-    #endif
+    // #if !SUPERTEAM
+    //     if(xbee.isConnected()){
+    //         #if ROBOT
+    //             robotMode.setMode(attacker);
+    //         #endif
+    //     } else {
+    //         robotMode._default();
+    //     }
+    // #endif
+    robotMode.setMode(attacker);
 
     /* Update Game Data */
     dc.updateData(cam.data, spi.lidars, light.data, xbee.otherData, imu.getHeading(), robotMode.getMode());
@@ -97,6 +98,9 @@ void loop(){
     // kicker.controlBall(10);
     // kicker.kickBall();
     motors.move(dc.calculate());
+    /* Test Kicker */
+    // motors.speed(0);
+    // kicker.kickBall();
 
     // moveControl ctrl = dc.calculate(attacker);
     // Serial.print(spi.lidars.frontDist); Serial.print(" "); Serial.println(spi.lidars.backDist);

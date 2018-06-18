@@ -46,7 +46,7 @@ private:
     CoordMover coordMover = CoordMover();
     // PIDs
     PID rotationPID = PID(-5, -0.1, -0.2, 0.00);
-    PID goalTrackingPID = PID(-2, -0.1, -0.2, 0.00);
+    PID goalTrackingPID = PID(-0.5, -0.1, -0.2, 0.00);
     // Goalie pids
     PID goalieAnglePID = PID(-4, 0, -0.5, 0.00);
     PID goalieHorPID = PID(-1.25, 0.00, -0.2, 0.00);

@@ -30,7 +30,9 @@ moveControl CoordMover::calcMove(){
     // Serial.print(currentHeading); Serial.print(" "); Serial.println(currRotation);
 
     // update until theres an instruction that we haven't completed yet
-    while(abs(currTarget.x-current.x) < COMPLETED_THRESHOLD && abs(currTarget.y-current.y) < COMPLETED_THRESHOLD && abs(currentHeading - currRotation) < COMPLETED_THRESHOLD){
+    if(SUPERTEAM){
+        Serial.println(currTarget.x);
+        while(abs(currTarget.x-current.x) < SUPERTEAM_COMPLETED_THRESHOLD && abs(currTarget.y-current.y) < SUPERTEAM_COMPLETED_THRESHOLD && abs(currentHeading - currRotation) < SUPERTEAM_COMPLETED_THRESHOLD){
         // if we're here we've completed the current target - pop that one and shift all the others up
         for(int i=0; i < TARGET_LIST_LENGTH - 1; i++){
             targetList[i] = targetList[i+1];
@@ -48,6 +50,28 @@ moveControl CoordMover::calcMove(){
             completed = true;
             return {65506, 0, false, 0};
         }
+        Serial.println("Com");
+    }
+    }else{
+            while(abs(currTarget.x-current.x) < COMPLETED_THRESHOLD && abs(currTarget.y-current.y) < COMPLETED_THRESHOLD && abs(currentHeading - currRotation) < COMPLETED_THRESHOLD){
+        // if we're here we've completed the current target - pop that one and shift all the others up
+        for(int i=0; i < TARGET_LIST_LENGTH - 1; i++){
+            targetList[i] = targetList[i+1];
+            targetRotationList[i] = targetRotationList[i+1];
+        }
+        targetList[TARGET_LIST_LENGTH-1] = data;
+        targetRotationList[TARGET_LIST_LENGTH-1] = 0;
+
+        // get the current target from the list
+        currTarget = targetList[0];
+        currRotation = targetRotationList[0];
+
+        if(currTarget.x == 65506 && currTarget.y == 65506){
+            // there are no more instructions currently -> we've completed them all
+            completed = true;
+            return {65506, 0, false, 0};
+        }
+    }
     }
     // Serial.println(currRotation);
     return goToCoords(currTarget, currRotation);

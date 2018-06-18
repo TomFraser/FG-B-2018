@@ -23,6 +23,7 @@ void CoordCalc::updateData(absCameraData cam, lidarData lidar, mode playMode){
             }
         }
     #else
+        coordinate camCoords;
         camCoords = {65506, 65506};
     #endif
 

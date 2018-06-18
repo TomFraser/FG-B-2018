@@ -59,6 +59,8 @@ void DirectionController::updateData(cameraData cam_, lidarData lidar_, lightDat
     myBallCoord = coordCalc.ball;
     myRobotCoord = coordCalc.robot;
 
+    // Serial.println(myRobotCoord.y);
+
     // update our coord mover object so it knows where we are
     coordMover.update(myRobotCoord, compass);
 
@@ -223,8 +225,11 @@ moveControl DirectionController::calculateAttack(){
         tempControl.direction = moveAngle;
         tempControl.speed = SPEED_VAL;
         tempControl.doBoost = true;
-        if(cam.attackAngle != 65506){
-            tempControl.rotation = -cam.attackAngle;
+        if(cam.attackAngle != 65506 && abs(fromFront(cam.ballAngle)) < 15){
+            // tempControl.rotation = relToAbs(-cam.attackAngle * 1.2);
+            tempControl.rotation = 0;
+            tempControl.direction = tempControl.direction + min(25, fromFront(cam.attackAngle)*30);
+            // Serial.println(cam.attackAngle);
         } else {
             tempControl.rotation = 0;
         }
@@ -250,20 +255,20 @@ moveControl DirectionController::calculateAttack(){
                 // no one can see the ball -> do a cheeky thing
                 if(myRobotCoord.x >= 0){
                     // on the right
-                    tempControl = coordMover.goToCoords({15, -55}, 0);
+                    tempControl = coordMover.goToCoords({15, -50}, 0);
                     myBallCoord.x = -30;
                     myBallCoord.y = -30;
 
                 } else {
                     // on the left
-                    tempControl = coordMover.goToCoords({-15, -55}, 0);
+                    tempControl = coordMover.goToCoords({-15, -50}, 0);
                     myBallCoord.x = 30;
                     myBallCoord.y = -30;
                 }
 
             } else {
                 if(coordMover.completed){
-                    coordinate targets[] = {{0,0}};
+                    coordinate targets[] = {{0,-25}};
                     int rotationTargets[] = {0};
                     coordMover.setTargetList(targets, sizeof(targets)/sizeof(targets[0]), rotationTargets);
                 }
@@ -271,7 +276,11 @@ moveControl DirectionController::calculateAttack(){
             }
         }else{
             /* Big Boi Field! */
-            tempControl = calculateSpiral(ballLocation);
+            // tempControl = calculateSpiral(ballLocation);
+            coordinate targets[] = {{-150,0}, {100, -150}, {-100, -150}, {100, -150}, {-100, 150}};
+            int rotationTargets[] = {0,0,0,0,0};
+            coordMover.setTargetList(targets, sizeof(targets)/sizeof(targets[0]), rotationTargets);
+            tempControl = coordMover.calcMove();
         }
     }
     // Serial.print(tempControl.direction); Serial.print(" "); Serial.print(tempControl.speed); Serial.print(" "); Serial.println(tempControl.rotation);
@@ -392,7 +401,7 @@ moveControl DirectionController::calculateSpiral(double target){
 void DirectionController::controlBall(mode playMode_){
     if(playMode_ == mode::attacker){
         /* Attacking */
-        if(abs(fromFront(cam.attackAngle)) < SOLENOID_THRESHOLD && abs(fromFront(cam.ballAngle)) <= 10 && cam.ballDist < 30){
+        if(abs(fromFront(cam.attackAngle)) < SOLENOID_THRESHOLD && abs(fromFront(cam.ballAngle)) <= 15 && cam.ballDist < 30){
             /* We are roughly facing the goal and are in their half of the field */
             kicker.kickBall();
         }

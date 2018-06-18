@@ -17,6 +17,7 @@ public:
 private:
     ECUDriver backspin = ECUDriver(BACKSPIN_PIN);
     Timer timeSinceKick = Timer(0);
+    Timer kickerDischarge = Timer(0);
 
     solenoidMode mode = canKick;
 };

@@ -8,7 +8,9 @@
         "string_view": "cpp",
         "vector": "cpp",
         "istream": "cpp",
-        "ios": "cpp"
+        "ios": "cpp",
+        "__functional_03": "cpp",
+        "functional": "cpp"
     },
     "C_Cpp.dimInactiveRegions": false
 }

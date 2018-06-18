@@ -6,6 +6,7 @@ BallManager::BallManager(){
     pinMode(KICKER_PIN, OUTPUT);
     digitalWrite(KICKER_PIN, LOW);
     timeSinceKick.reset();
+    kickerDischarge.reset();
 }
 
 bool BallManager::controlBall(double maxSpeed, double ballAngle){
@@ -29,12 +30,18 @@ bool BallManager::hasBall(){
 void BallManager::kickBall(){
     if(timeSinceKick.hasBeenMS(2000)){
         if(mode == solenoidMode::canKick){
-            // backspin.setSpeed(0);
-            // delay(5);
-            digitalWrite(KICKER_PIN, HIGH);
-            delay(5);
+            if(!kickerDischarge.hasBeenMS(50)){
+                digitalWrite(KICKER_PIN, HIGH);
+            }else{
+                digitalWrite(KICKER_PIN, LOW);
+                kickerDischarge.reset();
+                timeSinceKick.reset();
+            }
+        }
+    }else{
+        if(kickerDischarge.hasBeenMS(50)){
             digitalWrite(KICKER_PIN, LOW);
-            timeSinceKick.reset();
+            kickerDischarge.reset();
         }
     }
 }
