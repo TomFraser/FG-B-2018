@@ -95,7 +95,6 @@ void loop(){
     /* Update Game Data */
     dc.updateData(cam.data, spi.lidars, light.data, xbee.otherData, imu.getHeading(), robotMode.getMode());
 
-    // kicker.controlBall(10);
     // kicker.kickBall();
     motors.move(dc.calculate());
     /* Test Kicker */

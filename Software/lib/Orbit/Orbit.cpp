@@ -11,7 +11,7 @@ double orbitSimple(int angle, double ratio){
     if(angle == -1){
         return -1.00;
     }else if(isFrontalLarge(angle)){
-        return angle < 180 ? (angle + (angle * 1.5 * ratio)) : (angle - ((360 - angle) * 1.5 * ratio));
+        return angle < 180 ? (angle + (angle * 1.1 * ratio)) : (angle - ((360 - angle) * 1.1 * ratio));
     }else{
         return angle < 180 ? (angle + (90 * ratio)) : (angle - (90 * ratio));
     }

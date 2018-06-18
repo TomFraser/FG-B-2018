@@ -225,19 +225,31 @@ moveControl DirectionController::calculateAttack(){
         tempControl.direction = moveAngle;
         tempControl.speed = SPEED_VAL;
         tempControl.doBoost = true;
-        if(cam.attackAngle != 65506 && abs(fromFront(cam.ballAngle)) < 15){
+        // Serial.println(cam.ballDist);
+        if(cam.attackAngle != 65506 && abs(fromFront(cam.ballAngle)) < 20 && cam.ballDist < 20){
             // tempControl.rotation = relToAbs(-cam.attackAngle * 1.2);
             tempControl.rotation = 0;
-            tempControl.direction = tempControl.direction + min(25, fromFront(cam.attackAngle)*30);
+            double relativeDir = doubleMod(cam.attackAngle + 180, 360) - 180;
+            double directionAddition = relativeDir < 0 ? -min(75, abs(relativeDir*5)) : min(75, abs(relativeDir*5));
+            // Serial.println(relativeDir);
+            // Serial.println(directionAddition);
+            // Serial.println();
+            tempControl.direction = doubleMod(tempControl.direction + directionAddition, 360);
             // Serial.println(cam.attackAngle);
         } else {
             tempControl.rotation = 0;
+        }
+        if(cam.ballDist < 60 && fromFront(cam.ballAngle) < 60){
+            kicker.controlBall(0);
+        }else{
+            kicker.controlBall(0);
         }
 
         isSpiral = false;
         ballLocation = cam.ballAngle;
     } else {
         // dont know where the ball is -> do other strategies
+        kicker.controlBall(0);
         if(!SUPERTEAM){
             /* Normal Game */
             if(xbee.seesBall && xbee.knowsPosition){
@@ -403,7 +415,7 @@ void DirectionController::controlBall(mode playMode_){
         /* Attacking */
         if(abs(fromFront(cam.attackAngle)) < SOLENOID_THRESHOLD && abs(fromFront(cam.ballAngle)) <= 15 && cam.ballDist < 30){
             /* We are roughly facing the goal and are in their half of the field */
-            kicker.kickBall();
+            // kicker.kickBall();
         }
     }
 }

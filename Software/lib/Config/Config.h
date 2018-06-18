@@ -5,7 +5,7 @@
 #define SUPERTEAM false
 
 /* Speeds */
-#define SPEED_VAL 70
+#define SPEED_VAL 100
 #define FORWARD_SPEED 100
 
 #define ALT_SCK 14
@@ -100,8 +100,8 @@
 #define SPEED_ON_LINE 0
 #define SPEED_SLIDE 60
 #define SPEED_OVER_LINE 60
-#define SLIDE_ANGLE 80
-#define ANGLE_CUTOFF 75
+#define SLIDE_ANGLE 60
+#define ANGLE_CUTOFF 60
 #define STOP_BOUND 150
 
 /* Direction Controller */
@@ -135,7 +135,7 @@
 /* Light */
 #define AUTO_LIGHT true
 #define LIGHT_CALB_LOOPS 1000
-#define THRESHOLD_OFFSET 85
+#define THRESHOLD_OFFSET 80
 
 #define LIGHTSENSOR_NUM 20
 #define maxNumClusters 20
