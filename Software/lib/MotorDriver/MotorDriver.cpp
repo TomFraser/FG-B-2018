@@ -9,7 +9,7 @@ MotorDriver::MotorDriver(int pwm, int dir, int brk, int rev){
     r_pwm = pwm;
     r_dir = dir;
     r_brk = brk;
-    analogWriteFrequency(pwm, 19000);
+    analogWriteFrequency(pwm, 800);
 }
 
 void MotorDriver::set(int pwm){

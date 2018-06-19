@@ -81,15 +81,15 @@ void loop(){
 
     /* Send and recieve Xbee Data */
     xbee.update(dc.getXbeeData());
-    // #if !SUPERTEAM
-    //     if(xbee.isConnected()){
-    //         #if ROBOT
-    //             robotMode.setMode(attacker);
-    //         #endif
-    //     } else {
-    //         robotMode._default();
-    //     }
-    // #endif
+    #if !SUPERTEAM
+        if(xbee.isConnected()){
+            #if ROBOT
+                robotMode.setMode(attacker);
+            #endif
+        } else {
+            robotMode._default();
+        }
+    #endif
     robotMode.setMode(attacker);
 
     /* Update Game Data */
@@ -98,7 +98,13 @@ void loop(){
     // kicker.kickBall();
     motors.move(dc.calculate());
     /* Test Kicker */
-    // motors.speed(0);
+    // motors.speed(100);
+    // Serial.println(millis()/100);
+    // analogWriteFrequency(2, millis()/100);
+    // analogWriteFrequency(3, millis()/100);
+    // analogWriteFrequency(4, millis()/100);
+    // analogWriteFrequency(5, millis()/100);
+
     // kicker.kickBall();
 
     // moveControl ctrl = dc.calculate(attacker);

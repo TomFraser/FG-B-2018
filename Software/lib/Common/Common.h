@@ -20,6 +20,8 @@ bool isFrontal(int angle);
 
 bool isFrontalLarge(int angle);
 
+bool isFrontalOrbit(int angle);
+
 double doubleMod(double value, double maxVal);
 
 void blink();

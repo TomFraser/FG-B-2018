@@ -40,6 +40,13 @@ bool isFrontalLarge(int angle){
     return false;
 }
 
+bool isFrontalOrbit(int angle){
+    if(angle <= 30 || angle >= 330){
+        return true;
+    }
+    return false;
+}
+
 double doubleMod(double value, double maxVal){
     /* Modulus for doubles */
     return fmod((value + maxVal), maxVal);

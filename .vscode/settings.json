@@ -10,7 +10,9 @@
         "istream": "cpp",
         "ios": "cpp",
         "__functional_03": "cpp",
-        "functional": "cpp"
+        "functional": "cpp",
+        "chrono": "cpp",
+        "algorithm": "cpp"
     },
     "C_Cpp.dimInactiveRegions": false
 }

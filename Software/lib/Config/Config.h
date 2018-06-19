@@ -1,7 +1,7 @@
 #define DEBUG false
 
 #define ROBOT O_bot
-#define ATTACK_YELLOW false
+#define ATTACK_YELLOW true
 #define SUPERTEAM false
 
 /* Speeds */
@@ -12,9 +12,9 @@
 #define CAM_TRANSFER_NUM 12
 #define CAM_BUFFER_NUM 20
 #if ROBOT
-    #define CAM_MIN_COUNT 3
+    #define CAM_MIN_COUNT 2
 #else
-    #define CAM_MIN_COUNT 19
+    #define CAM_MIN_COUNT 2
 #endif
 #define LIDAR_SS 49
 #define IR_TRANSFER_NUM 4
@@ -98,7 +98,7 @@
 
 /* Light Tracker */
 #define SPEED_ON_LINE 0
-#define SPEED_SLIDE 60
+#define SPEED_SLIDE 40
 #define SPEED_OVER_LINE 60
 #define SLIDE_ANGLE 60
 #define ANGLE_CUTOFF 60
@@ -135,7 +135,7 @@
 /* Light */
 #define AUTO_LIGHT true
 #define LIGHT_CALB_LOOPS 1000
-#define THRESHOLD_OFFSET 80
+#define THRESHOLD_OFFSET 120
 
 #define LIGHTSENSOR_NUM 20
 #define maxNumClusters 20

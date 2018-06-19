@@ -11,14 +11,14 @@ class Finder:
     def init(self, robot_):
         self.robot = robot_
         if self.robot == self.ROBOT_O: #O_bot
-            self.thresholds = [(57, 71, 15, 127, 20, 75), #Ball
+            self.thresholds = [(30, 65, 41, 81, 33, 80), #Ball
             (68, 100, -19, 27, 41, 81), #Yellow Goal
-            (32, 51, -3, 31, -87, -30)] # Blue Goal
+           (15, 37, -11, 26, -79, -15)] # Blue Goal
             self.window = (70, 0, 180, 179)
         elif self.robot == self.ROBOT_P2: #P2_bot
-            self.thresholds = [(57, 71, 15, 127, 20, 75), #Ball
+            self.thresholds = [(30, 65, 41, 81, 33, 80), #Ball
             (68, 100, -19, 27, 41, 81), #Yellow Goal
-            (27, 51, -3, 31, -87, -30)] # Blue Goal
+           (15, 37, -11, 26, -70, -10)] # Blue Goal
             self.window = (77, 0, 186, 179)
 
 
@@ -41,13 +41,13 @@ class Finder:
 
         # === EXPOSURE ===
         curr_exposure = sensor.get_exposure_us()
-        sensor.set_auto_exposure(False, exposure_us = int(curr_exposure*0.8))
+        sensor.set_auto_exposure(False, exposure_us = int(curr_exposure*0.5))
 
         # === WHITE BAL ===
         sensor.set_auto_whitebal(False, rgb_gain_db=(-6.02073, -3.762909, 3.33901)) #Must remain false for blob tracking
 
-        sensor.set_brightness(1)
-        sensor.set_contrast(0)
+        sensor.set_brightness(0)
+        sensor.set_contrast(2)
         sensor.set_saturation(2)
 
         sensor.skip_frames(time=500)
@@ -74,7 +74,7 @@ class Finder:
         # bGoals = self.img.find_blobs([self.thresholds[2]], x_stride=10, y_stride=10, area_threshold=1, pixel_threshold=1, merge=False)
 
         # ---- Goal Blobs method below ---- (i dont know if its faster than two seaparate calls like above)
-        goalBlobs = self.img.find_blobs(self.thresholds[1:], x_stride=10, y_stride=10, area_threshold=1, pixel_threshold=10, merge=False)
+        goalBlobs = self.img.find_blobs(self.thresholds[1:], x_stride=10, y_stride=10, area_threshold=1, pixel_threshold=20, merge=False)
 
 
         # codes:
@@ -96,7 +96,7 @@ class Finder:
         if len(balls) > 0:
             for obj in sorted(balls, key= lambda x: x.pixels(), reverse=True):
                 ballAngle, ballDist = self.calcAngDist(obj)
-                if(ballDist > minDist and ballDist < maxDist):
+                if(ballDist > minDist -20 and ballDist < maxDist):
                     ball = obj
                     break
 
@@ -269,7 +269,7 @@ sender.init(initSend=[65506, 65506, 65506, 65506, 65506, 655065])
 clock = time.clock()
 
 finder = Finder()
-finder.init(finder.ROBOT_O)
+finder.init(finder.ROBOT_P2)
 
 ledController.on(ledController.LED_RED)
 sensor.skip_frames(time=500)

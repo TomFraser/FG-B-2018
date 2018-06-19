@@ -66,11 +66,11 @@ void Camera::getCamData(bool attackingYellow){
                         cntD = 0;
 
                         for(int j=i; j<CAM_BUFFER_NUM; j++){
-                            if(ballAngleBuf[j] == ballAngleBuf[i]){
+                            if(ballAngleBuf[j] >= ballAngleBuf[i] + 20 || ballAngleBuf[j] <= ballAngleBuf[i] - 20){
                                 cntA++;
                             }
 
-                            if(ballDistBuf[j] == ballDistBuf[i]){
+                            if(ballDistBuf[j] >= ballDistBuf[i] + 20 || ballDistBuf[j] <= ballDistBuf[i] - 20){
                                 cntD++;
                             }
                         }
@@ -86,8 +86,10 @@ void Camera::getCamData(bool attackingYellow){
                         }
                     }
                 }
+                Serial.println(cntA);
 
                 if(maxA >= CAM_MIN_COUNT && maxD >= CAM_MIN_COUNT){
+                    // Serial.println(modeAng);
                     data.ballAngle = modeAng;
                     data.ballStrength = modeDist;
                 } else {
