@@ -296,9 +296,11 @@ moveControl DirectionController::calculateAttack(){
         }else{
             /* Big Boi Field! */
             // tempControl = calculateSpiral(ballLocation);
-            coordinate targets[] = {{-150,0}, {100, -150}, {-100, -150}, {100, -150}, {-100, 150}};
-            int rotationTargets[] = {0,0,0,0,0};
-            coordMover.setTargetList(targets, sizeof(targets)/sizeof(targets[0]), rotationTargets);
+            if(coordMover.completed){
+                coordinate sTargets[] = {{90, -150}, {0, -20}, {90, 150}, {0,-20}};
+                int sRotationTargets[] = {0, 0, 0, 0};
+                coordMover.setTargetList(sTargets, sizeof(sTargets)/sizeof(sTargets[0]), sRotationTargets);
+            }
             tempControl = coordMover.calcMove();
         }
     }
@@ -313,10 +315,14 @@ moveControl DirectionController::calculateGoalie(){
     double ballAngle = 65506;
     double ballDist = 65506;
     if(cam.ballAngle != 65506) {
-        // if((cam.ballAngle > 60 && cam.ballAngle < 300)||((abs(fromFront(cam.ballAngle)) < 20) && cam.ballDist < 50 && myRobotCoord.y < -25)){
-        //     goalieVerPID.update(lidar.backDist, goalieDistance, 0.00);
-        //     return {0.00, SPEED_VAL, false, 0};
-        // }
+        if(abs(fromFront(cam.ballAngle) < 15) && cam.ballDist < 30 && myRobotCoord.y < -30){
+            Serial.println(cam.ballAngle);
+            goalieVerPID.update(lidar.backDist, goalieDistance, 0.00);
+            return {0.00, SPEED_VAL, false, 0};
+        }
+        if(myRobotCoord.y <= -20 && myRobotCoord.y >= -30){
+            kicker.kickBall();
+        }
 
         ballAngle = cam.ballAngle;
         ballDist = cam.ballDist;

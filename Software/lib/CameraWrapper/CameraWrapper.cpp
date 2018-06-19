@@ -86,7 +86,6 @@ void Camera::getCamData(bool attackingYellow){
                         }
                     }
                 }
-                Serial.println(cntA);
 
                 if(maxA >= CAM_MIN_COUNT && maxD >= CAM_MIN_COUNT){
                     // Serial.println(modeAng);

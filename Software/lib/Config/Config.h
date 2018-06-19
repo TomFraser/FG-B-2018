@@ -1,6 +1,6 @@
 #define DEBUG false
 
-#define ROBOT O_bot
+#define ROBOT P2_bot
 #define ATTACK_YELLOW true
 #define SUPERTEAM false
 
@@ -10,11 +10,18 @@
 
 #define ALT_SCK 14
 #define CAM_TRANSFER_NUM 12
-#define CAM_BUFFER_NUM 20
+// #define CAM_BUFFER_NUM 20
 #if ROBOT
-    #define CAM_MIN_COUNT 2
+    #if SUPERTEAM
+        #define CAM_MIN_COUNT 1
+        #define CAM_BUFFER_NUM 150
+    #else
+        #define CAM_MIN_COUNT 2
+        #define CAM_BUFFER_NUM 20
+    #endif
 #else
-    #define CAM_MIN_COUNT 2
+    #define CAM_MIN_COUNT 19
+    #define CAM_BUFFER_NUM 20
 #endif
 #define LIDAR_SS 49
 #define IR_TRANSFER_NUM 4
@@ -41,7 +48,7 @@
 #define LIGHTGATE_THRESHOLD 0
 #define MIN_BALL_CONFIDENCE 0.5
 #define BALL_CONFIDENCE 0.85
-#define SUPERTEAM_COMPLETED_THRESHOLD 20
+#define SUPERTEAM_COMPLETED_THRESHOLD 30
 
 /* Dribbler & Kicker */
 #define KICK_DIST 90
@@ -135,7 +142,8 @@
 /* Light */
 #define AUTO_LIGHT true
 #define LIGHT_CALB_LOOPS 1000
-#define THRESHOLD_OFFSET 120
+// #define THRESHOLD_OFFSET 120
+#define THRESHOLD_OFFSET 100
 
 #define LIGHTSENSOR_NUM 20
 #define maxNumClusters 20

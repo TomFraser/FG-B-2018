@@ -90,7 +90,7 @@ void loop(){
             robotMode._default();
         }
     #endif
-    robotMode.setMode(attacker);
+    // robotMode.setMode(attacker);
 
     /* Update Game Data */
     dc.updateData(cam.data, spi.lidars, light.data, xbee.otherData, imu.getHeading(), robotMode.getMode());

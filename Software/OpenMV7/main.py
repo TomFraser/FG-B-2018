@@ -13,12 +13,12 @@ class Finder:
         if self.robot == self.ROBOT_O: #O_bot
             self.thresholds = [(30, 65, 41, 81, 33, 80), #Ball
             (68, 100, -19, 27, 41, 81), #Yellow Goal
-           (15, 37, -11, 26, -79, -15)] # Blue Goal
+           (20, 37, -11, 26, -79, -15)] # Blue Goal
             self.window = (70, 0, 180, 179)
         elif self.robot == self.ROBOT_P2: #P2_bot
             self.thresholds = [(30, 65, 41, 81, 33, 80), #Ball
             (68, 100, -19, 27, 41, 81), #Yellow Goal
-           (15, 37, -11, 26, -70, -10)] # Blue Goal
+           (26, 48, -18, 27, -104, -2)] # Blue Goal
             self.window = (77, 0, 186, 179)
 
 
@@ -46,7 +46,7 @@ class Finder:
         # === WHITE BAL ===
         sensor.set_auto_whitebal(False, rgb_gain_db=(-6.02073, -3.762909, 3.33901)) #Must remain false for blob tracking
 
-        sensor.set_brightness(0)
+        sensor.set_brightness(2)
         sensor.set_contrast(2)
         sensor.set_saturation(2)
 
@@ -269,7 +269,7 @@ sender.init(initSend=[65506, 65506, 65506, 65506, 65506, 655065])
 clock = time.clock()
 
 finder = Finder()
-finder.init(finder.ROBOT_P2)
+finder.init(finder.ROBOT_O)
 
 ledController.on(ledController.LED_RED)
 sensor.skip_frames(time=500)

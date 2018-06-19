@@ -28,9 +28,6 @@ bool BallManager::hasBall(){
 }
 
 void BallManager::kickBall(){
-    Serial.print("Discharge: "); Serial.println(kickerDischarge.getTime());
-    Serial.print("Time Since: "); Serial.println(timeSinceKick.getTime());
-
     if(kickerDischarge.hasBeenMS(65)){
         if(timeSinceKick.hasBeenMS(1500)){
             digitalWrite(KICKER_PIN, HIGH);
