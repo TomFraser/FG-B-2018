@@ -98,7 +98,6 @@ void loop(){
     // kicker.kickBall();
     motors.move(dc.calculate());
     /* Test Kicker */
-    // motors.speed(0);
     // Serial.println(millis()/100);
     // analogWriteFrequency(2, millis()/100);
     // analogWriteFrequency(3, millis()/100);
@@ -108,7 +107,7 @@ void loop(){
     // kicker.kickBall();
 
     // moveControl ctrl = dc.calculate(attacker);
-    // Serial.print(spi.lidars.frontDist); Serial.print(" "); Serial.println(spi.lidars.backDist);
+    // Serial.println(spi.lidars.backDist);
 
     // Serial.print(ctrl.direction); Serial.print(" "); Serial.print(ctrl.speed); Serial.print(" "); Serial.println(ctrl.rotation);
     // Serial.println(imu.getHeading());

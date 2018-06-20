@@ -253,12 +253,6 @@ moveControl DirectionController::calculateAttack(){
 
         isSpiral = false;
         ballLocation = cam.ballAngle;
-        Serial.println(xbee.ballCoords.x);
-        bool fuckoff = abs(xbee.robotCoords.x) - abs(xbee.ballCoords.x) <= 15 && abs(xbee.robotCoords.y) - abs(xbee.ballCoords.y) <= 30;
-        if(fuckoff){
-                /* The defender has the ball infront, move to neutral point. */
-                tempControl = coordMover.goToCoords({40, 40}, 0);
-            }
     } else {
         // dont know where the ball is -> do other strategies
         kicker.controlBall(0);
@@ -292,7 +286,7 @@ moveControl DirectionController::calculateAttack(){
 
             } else {
                 if(coordMover.completed){
-                    coordinate targets[] = {{0,0}};
+                    coordinate targets[] = {{0,-40}};
                     int rotationTargets[] = {0};
                     coordMover.setTargetList(targets, sizeof(targets)/sizeof(targets[0]), rotationTargets);
                 }
@@ -307,8 +301,8 @@ moveControl DirectionController::calculateAttack(){
             /* Big Boi Field! */
             // tempControl = calculateSpiral(ballLocation);
             if(coordMover.completed){
-                coordinate sTargets[] = {{0, -150}, {0, -20}, {0, 100}, {0,-20}};
-                int sRotationTargets[] = {0, 0, 0, 0};
+                coordinate sTargets[] = {{0,0}, {-70, -120}, {-70, 120}, {70, 120}, {70,-120}};
+                int sRotationTargets[] = {0, 0, 0, 0, 0};
                 coordMover.setTargetList(sTargets, sizeof(sTargets)/sizeof(sTargets[0]), sRotationTargets);
             }
             tempControl = coordMover.calcMove();
