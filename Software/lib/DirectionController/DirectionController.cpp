@@ -253,6 +253,12 @@ moveControl DirectionController::calculateAttack(){
 
         isSpiral = false;
         ballLocation = cam.ballAngle;
+        Serial.println(xbee.ballCoords.x);
+        bool fuckoff = abs(xbee.robotCoords.x) - abs(xbee.ballCoords.x) <= 15 && abs(xbee.robotCoords.y) - abs(xbee.ballCoords.y) <= 30;
+        if(fuckoff){
+                /* The defender has the ball infront, move to neutral point. */
+                tempControl = coordMover.goToCoords({40, 40}, 0);
+            }
     } else {
         // dont know where the ball is -> do other strategies
         kicker.controlBall(0);
@@ -293,6 +299,10 @@ moveControl DirectionController::calculateAttack(){
                 tempControl = coordMover.calcMove();
                 // tempControl = {0, 0, false, 0};
             }
+            // if(xbee.robotCoords.x >= xbee.ballCoords.x -100 && xbee.robotCoords.x <= xbee.ballCoords.x + 100){
+            //     /* The defender has the ball infront, move to neutral point. */
+            //     tempControl = coordMover.goToCoords({40, 40}, 0);
+            // }
         }else{
             /* Big Boi Field! */
             // tempControl = calculateSpiral(ballLocation);
@@ -315,7 +325,7 @@ moveControl DirectionController::calculateGoalie(){
     double ballAngle = 65506;
     double ballDist = 65506;
     if(cam.ballAngle != 65506) {
-        if(abs(fromFront(cam.ballAngle) < 15) && cam.ballDist < 30 && myRobotCoord.y < -30){
+        if(abs(fromFront(cam.ballAngle) < 30) && cam.ballDist < 60 && myRobotCoord.y < -30){
             Serial.println(cam.ballAngle);
             goalieVerPID.update(lidar.backDist, goalieDistance, 0.00);
             return {0.00, SPEED_VAL, false, 0};

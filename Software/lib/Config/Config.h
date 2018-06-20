@@ -1,7 +1,7 @@
 #define DEBUG false
 
 #define ROBOT O_bot
-#define ATTACK_YELLOW true
+#define ATTACK_YELLOW false
 #define SUPERTEAM false
 
 /* Speeds */
