@@ -273,14 +273,14 @@ moveControl DirectionController::calculateAttack(){
                 // no one can see the ball -> do a cheeky thing
                 if(myRobotCoord.x >= 0){
                     // on the right
-                    tempControl = coordMover.goToCoords({15, -30}, 0);
-                    myBallCoord.x = -30;
+                    tempControl = coordMover.goToCoords({20, -50}, 0);
+                    myBallCoord.x = 0;
                     myBallCoord.y = -30;
 
                 } else {
                     // on the left
-                    tempControl = coordMover.goToCoords({-15, -30}, 0);
-                    myBallCoord.x = 30;
+                    tempControl = coordMover.goToCoords({-20, -40}, 0);
+                    myBallCoord.x = 0;
                     myBallCoord.y = -30;
                 }
 
@@ -297,7 +297,7 @@ moveControl DirectionController::calculateAttack(){
             /* Big Boi Field! */
             // tempControl = calculateSpiral(ballLocation);
             if(coordMover.completed){
-                coordinate sTargets[] = {{90, -150}, {0, -20}, {90, 150}, {0,-20}};
+                coordinate sTargets[] = {{0, -150}, {0, -20}, {0, 100}, {0,-20}};
                 int sRotationTargets[] = {0, 0, 0, 0};
                 coordMover.setTargetList(sTargets, sizeof(sTargets)/sizeof(sTargets[0]), sRotationTargets);
             }

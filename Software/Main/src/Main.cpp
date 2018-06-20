@@ -98,7 +98,7 @@ void loop(){
     // kicker.kickBall();
     motors.move(dc.calculate());
     /* Test Kicker */
-    // motors.speed(100);
+    // motors.speed(0);
     // Serial.println(millis()/100);
     // analogWriteFrequency(2, millis()/100);
     // analogWriteFrequency(3, millis()/100);

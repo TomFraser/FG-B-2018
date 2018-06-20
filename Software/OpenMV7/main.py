@@ -11,14 +11,14 @@ class Finder:
     def init(self, robot_):
         self.robot = robot_
         if self.robot == self.ROBOT_O: #O_bot
-            self.thresholds = [(30, 65, 41, 81, 33, 80), #Ball
+            self.thresholds = [(39, 100, 26, 78, 22, 72), #Ball
             (68, 100, -19, 27, 41, 81), #Yellow Goal
-           (20, 37, -11, 26, -79, -15)] # Blue Goal
+            (20, 41, -6, 15, -55, -15)] # Blue Goal
             self.window = (70, 0, 180, 179)
         elif self.robot == self.ROBOT_P2: #P2_bot
-            self.thresholds = [(30, 65, 41, 81, 33, 80), #Ball
+            self.thresholds = [(42, 100, 0, 73, 39, 62), #Ball
             (68, 100, -19, 27, 41, 81), #Yellow Goal
-           (26, 48, -18, 27, -104, -2)] # Blue Goal
+            (20, 41, -6, 25, -55, -15)] # Blue Goal
             self.window = (77, 0, 186, 179)
 
 
@@ -74,7 +74,7 @@ class Finder:
         # bGoals = self.img.find_blobs([self.thresholds[2]], x_stride=10, y_stride=10, area_threshold=1, pixel_threshold=1, merge=False)
 
         # ---- Goal Blobs method below ---- (i dont know if its faster than two seaparate calls like above)
-        goalBlobs = self.img.find_blobs(self.thresholds[1:], x_stride=10, y_stride=10, area_threshold=1, pixel_threshold=20, merge=False)
+        goalBlobs = self.img.find_blobs(self.thresholds[1:], x_stride=10, y_stride=10, area_threshold=10, pixel_threshold=20, merge=False)
 
 
         # codes:
