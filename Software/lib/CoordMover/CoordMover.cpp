@@ -117,7 +117,7 @@ moveControl CoordMover::goToCoords(coordinate target, int targetRot){
         // for some godforsaken reason we only know vertical
         int diff = target.y - current.y;
         moveReturn.direction = diff > 0 ? 0 : 180;
-        moveReturn.speed = 30;
+        moveReturn.speed = goToCoordsPID.update(abs(diff), 0.00, 0.00);
     }
 
     return moveReturn;

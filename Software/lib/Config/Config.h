@@ -1,11 +1,11 @@
 #define DEBUG false
 
 #define ROBOT O_bot
-#define ATTACK_YELLOW false
-#define SUPERTEAM true
+#define ATTACK_YELLOW true
+#define SUPERTEAM false
 
 /* Speeds */
-#define SPEED_VAL 80
+#define SPEED_VAL 100
 #define FORWARD_SPEED 100
 
 #define ALT_SCK 14
@@ -48,7 +48,7 @@
 #define LIGHTGATE_THRESHOLD 0
 #define MIN_BALL_CONFIDENCE 0.5
 #define BALL_CONFIDENCE 0.85
-#define SUPERTEAM_COMPLETED_THRESHOLD 45
+#define SUPERTEAM_COMPLETED_THRESHOLD 35
 
 /* Dribbler & Kicker */
 #define KICK_DIST 90

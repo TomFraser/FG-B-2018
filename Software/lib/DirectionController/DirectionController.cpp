@@ -253,6 +253,7 @@ moveControl DirectionController::calculateAttack(){
 
         isSpiral = false;
         ballLocation = cam.ballAngle;
+        // Serial.println(myRobotCoord.x);
     } else {
         // dont know where the ball is -> do other strategies
         kicker.controlBall(0);
@@ -301,7 +302,8 @@ moveControl DirectionController::calculateAttack(){
             /* Big Boi Field! */
             // tempControl = calculateSpiral(ballLocation);
             if(coordMover.completed){
-                coordinate sTargets[] = {{0,0}, {-70, -120}, {-70, 120}, {70, 120}, {70,-120}};
+                // coordinate sTargets[] = {{0,0}, {-100, -120}, {-100, 120}, {100, -120}, {100,-120}};
+                coordinate sTargets[] = {{0,0}, {100, 120}, {-100, 120}, {100, -120}, {-100, -120}};
                 int sRotationTargets[] = {0, 0, 0, 0, 0};
                 coordMover.setTargetList(sTargets, sizeof(sTargets)/sizeof(sTargets[0]), sRotationTargets);
             }

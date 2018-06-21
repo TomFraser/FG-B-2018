@@ -96,6 +96,7 @@ void loop(){
     dc.updateData(cam.data, spi.lidars, light.data, xbee.otherData, imu.getHeading(), robotMode.getMode());
 
     // kicker.kickBall();
+    // motors.speed(0);
     motors.move(dc.calculate());
     /* Test Kicker */
     // Serial.println(millis()/100);
