@@ -12,7 +12,7 @@ If you have any questions or concerns relating to these docs, feel free to email
 
 ​	Thomas Fraser \<tr.fraser@bigpond.com>
 
-​	Alistair English \<Alistair@email.com>
+​	Alistair English \<alistair.english@connect.qut.edu.au>
 
 
 
