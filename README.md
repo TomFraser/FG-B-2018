@@ -26,6 +26,10 @@ For enquiries relating to this repo please contact: tr.fraser@bigpond.com
     - [ ] **Play multi track music by manipulating PWM frequencies (1 track per motor)**
 
 #### At Internationals
-- [ ] Win
+- [x] Win
+
+## International Results
+- **Individual:** 3rd
+- **Superteam:** 1st (With China, Russia, Slovenia & Japan)
 
 ![](./Docs/Images/BBC.png)
