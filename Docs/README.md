@@ -6,13 +6,15 @@
 
 Welcome to the Docs for FG&B's 2018 code base. These documents will go over the basic operation and implementation of the code used by FG&B in 2018.
 
+Please note, these Docs were not completed before competition and therefore will remain uncompleted.
+
 
 
 If you have any questions or concerns relating to these docs, feel free to email either of us:
 
 ​	Thomas Fraser \<tr.fraser@bigpond.com>
 
-​	Alistair English \<alistair.english@connect.qut.edu.au>
+​	Alistair English \<alistairsenglish@gmail.com>
 
 
 
