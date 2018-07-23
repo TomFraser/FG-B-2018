@@ -9,7 +9,7 @@
 For enquiries relating to BBC Robotics please visit:
 [Brisbane Boys' College Website](http://www.bbc.qld.edu.au)
 
-For enquiries relating to this repo please contact: tr.fraser@bigpond.com
+For enquiries relating to this repo please contact: tr.fraser@bigpond.com or alistairsenglish@gmail.com
 
 ## 2018 Roadmap
 #### Before Internationals
